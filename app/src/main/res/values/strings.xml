@@ -1,5 +1,11 @@
 <resources>
 
     <!-- App related strings. -->
-    <string name="app_name">Fireblood</string>
+    <string name="app_name" translatable="false">Fireblood</string>
+    <string name="app_slogan">Blood Donations Made Simple</string>
+
+    <!-- Authentications related strings. -->
+    <string name="authentication_sign_up">Sign up</string>
+    <string name="authentication_already_a_user">Already a user?</string>
+    <string name="authentication_sign_in">Sign in</string>
 </resources>

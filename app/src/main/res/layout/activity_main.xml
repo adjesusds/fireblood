@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:padding="@dimen/margin_double"
+    android:padding="@dimen/margin_standard"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -14,38 +14,30 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="cursive"
-            android:text="@string/app_name"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_display" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_half"
-            android:fontFamily="monospace"
-            android:text="@string/app_slogan"
-            android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/text_size_subheading" />
-
         <ImageView
             android:layout_width="@dimen/app_icon_size"
             android:layout_height="@dimen/app_icon_size"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_half"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_half"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/app_slogan"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/text_size_subheading" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_standard"
+        android:layout_marginRight="@dimen/margin_standard"
         android:orientation="vertical">
 
         <Button

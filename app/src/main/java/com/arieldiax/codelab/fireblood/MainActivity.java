@@ -1,6 +1,5 @@
 package com.arieldiax.codelab.fireblood;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,12 +8,12 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * @var mSignUpButton Button field for sign up.
+     * Button field for sign up.
      */
     private Button mSignUpButton;
 
     /**
-     * @var mSignInButton Button field for sign in.
+     * Button field for sign in.
      */
     private Button mSignInButton;
 
@@ -42,16 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent signUpIntent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(signUpIntent);
+                ViewUtils.startCustomActivity(MainActivity.this, SignUpActivity.class, false);
             }
         });
         mSignInButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent signInIntent = new Intent(MainActivity.this, SignInActivity.class);
-                startActivity(signInIntent);
+                ViewUtils.startCustomActivity(MainActivity.this, SignInActivity.class, false);
             }
         });
     }

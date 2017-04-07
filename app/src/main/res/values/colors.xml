@@ -2,9 +2,9 @@
 <resources>
 
     <!-- App related colors. -->
-    <color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#4CAF50</color>
+    <color name="colorPrimary">#E52D27</color>
+    <color name="colorPrimaryDark">#B31217</color>
+    <color name="colorAccent">#25D366</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
 </resources>

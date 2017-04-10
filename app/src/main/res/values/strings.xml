@@ -8,4 +8,53 @@
     <string name="authentication_sign_up">Sign up</string>
     <string name="authentication_already_a_user">Already a user?</string>
     <string name="authentication_sign_in">Sign in</string>
+
+    <!-- Accounts related strings. -->
+    <string name="account_title">Account</string>
+    <string name="account_label_email">Email</string>
+    <string name="account_label_password">Password</string>
+
+    <!-- Profiles related strings. -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_label_first_name">First Name</string>
+    <string name="profile_label_last_name">Last Name</string>
+    <string name="profile_label_birthday">Birthday</string>
+    <string name="profile_label_gender">Gender</string>
+    <string name="profile_label_reference_point">Reference Point</string>
+    <string name="profile_label_phone">Phone</string>
+    <string name="profile_label_phone_mask" translatable="false">+1 (###) ###-####</string>
+    <string name="profile_label_blood_type">Blood Type</string>
+    <string name="profile_label_is_donor">Is Donor?</string>
+
+    <!-- Arrays (Genders) related strings. -->
+    <string name="array_value_gender_male">Male</string>
+    <string name="array_value_gender_female">Female</string>
+
+    <!-- Arrays (Blood Types) related strings. -->
+    <string name="array_value_blood_type_a_minus" translatable="false">A-</string>
+    <string name="array_value_blood_type_a_plus" translatable="false">A+</string>
+    <string name="array_value_blood_type_ab_minus" translatable="false">AB-</string>
+    <string name="array_value_blood_type_ab_plus" translatable="false">AB+</string>
+    <string name="array_value_blood_type_b_minus" translatable="false">B-</string>
+    <string name="array_value_blood_type_b_plus" translatable="false">B+</string>
+    <string name="array_value_blood_type_o_minus" translatable="false">O-</string>
+    <string name="array_value_blood_type_o_plus" translatable="false">O+</string>
+
+    <!-- Arrays related strings. -->
+    <string-array name="array_genders">
+
+        <item name="male">@string/array_value_gender_male</item>
+        <item name="female">@string/array_value_gender_female</item>
+    </string-array>
+    <string-array name="array_blood_types">
+
+        <item name="a_minus">@string/array_value_blood_type_a_minus</item>
+        <item name="a_plus">@string/array_value_blood_type_a_plus</item>
+        <item name="ab_minus">@string/array_value_blood_type_ab_minus</item>
+        <item name="ab_plus">@string/array_value_blood_type_ab_plus</item>
+        <item name="b_minus">@string/array_value_blood_type_b_minus</item>
+        <item name="b_plus">@string/array_value_blood_type_b_plus</item>
+        <item name="o_minus">@string/array_value_blood_type_o_minus</item>
+        <item name="o_plus">@string/array_value_blood_type_o_plus</item>
+    </string-array>
 </resources>

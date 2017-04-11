@@ -37,12 +37,24 @@
         <activity
             android:name=".SignInActivity"
             android:label="@string/authentication_sign_in"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/authentication_forgot_password"
+            android:parentActivityName=".SignInActivity"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignInActivity" />
         </activity>
     </application>
 </manifest>

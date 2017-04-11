@@ -18,7 +18,7 @@
     <!-- Custom application styles. -->
     <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
 
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColor">@android:color/tertiary_text_light</item>
     </style>
 

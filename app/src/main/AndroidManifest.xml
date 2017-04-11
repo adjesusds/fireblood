@@ -12,7 +12,6 @@
 
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait">
 
             <intent-filter>

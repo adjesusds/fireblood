@@ -25,6 +25,11 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner mGenderSpinner;
 
     /**
+     * Spinner field for province.
+     */
+    private Spinner mProvinceSpinner;
+
+    /**
      * Spinner field for blood type.
      */
     private Spinner mBloodTypeSpinner;
@@ -38,6 +43,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Array adapter for gender.
      */
     private ArrayAdapter<CharSequence> mGenderArrayAdapter;
+
+    /**
+     * Array adapter for province.
+     */
+    private ArrayAdapter<CharSequence> mProvinceArrayAdapter;
 
     /**
      * Array adapter for blood type.
@@ -59,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void initUi() {
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mGenderSpinner = (Spinner) findViewById(R.id.gender_spinner);
+        mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
     }
 
@@ -80,6 +91,9 @@ public class SignUpActivity extends AppCompatActivity {
         mGenderArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_genders, android.R.layout.simple_spinner_item);
         mGenderArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mGenderSpinner.setAdapter(mGenderArrayAdapter);
+        mProvinceArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_provinces, android.R.layout.simple_spinner_item);
+        mProvinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mProvinceSpinner.setAdapter(mProvinceArrayAdapter);
         mBloodTypeArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
         mBloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(mBloodTypeArrayAdapter);

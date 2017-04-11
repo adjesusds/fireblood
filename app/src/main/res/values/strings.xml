@@ -20,7 +20,8 @@
     <string name="profile_label_last_name">Last Name</string>
     <string name="profile_label_birthday">Birthday</string>
     <string name="profile_label_gender">Gender</string>
-    <string name="profile_label_reference_point">Reference Point</string>
+    <string name="profile_label_province">Province</string>
+    <string name="profile_label_hospital">Hospital</string>
     <string name="profile_label_phone">Phone</string>
     <string name="profile_label_phone_mask" translatable="false">+1 (###) ###-####</string>
     <string name="profile_label_blood_type">Blood Type</string>
@@ -29,6 +30,40 @@
     <!-- Arrays (Genders) related strings. -->
     <string name="array_value_gender_male">Male</string>
     <string name="array_value_gender_female">Female</string>
+
+    <!-- Arrays (Provinces) related strings. -->
+    <string name="array_value_province_azua" translatable="false">Azua</string>
+    <string name="array_value_province_bahoruco" translatable="false">Bahoruco</string>
+    <string name="array_value_province_barahona" translatable="false">Barahona</string>
+    <string name="array_value_province_dajabon" translatable="false">Dajabón</string>
+    <string name="array_value_province_distrito_nacional" translatable="false">Distrito Nacional</string>
+    <string name="array_value_province_duarte" translatable="false">Duarte</string>
+    <string name="array_value_province_elias_pina" translatable="false">Elías Piña</string>
+    <string name="array_value_province_el_seibo" translatable="false">El Seibo</string>
+    <string name="array_value_province_espaillat" translatable="false">Espaillat</string>
+    <string name="array_value_province_hato_mayor" translatable="false">Hato Mayor</string>
+    <string name="array_value_province_hermanas_mirabal" translatable="false">Hermanas Mirabal</string>
+    <string name="array_value_province_independencia" translatable="false">Independencia</string>
+    <string name="array_value_province_la_altagracia" translatable="false">La Altagracia</string>
+    <string name="array_value_province_la_romana" translatable="false">La Romana</string>
+    <string name="array_value_province_la_vega" translatable="false">La Vega</string>
+    <string name="array_value_province_maria_trinidad_sanchez" translatable="false">María Trinidad Sánchez</string>
+    <string name="array_value_province_monsenor_nouel" translatable="false">Monseñor Nouel</string>
+    <string name="array_value_province_monte_cristi" translatable="false">Monte Cristi</string>
+    <string name="array_value_province_monte_plata" translatable="false">Monte Plata</string>
+    <string name="array_value_province_pedernales" translatable="false">Pedernales</string>
+    <string name="array_value_province_peravia" translatable="false">Peravia</string>
+    <string name="array_value_province_puerto_plata" translatable="false">Puerto Plata</string>
+    <string name="array_value_province_samana" translatable="false">Samaná</string>
+    <string name="array_value_province_san_cristobal" translatable="false">San Cristóbal</string>
+    <string name="array_value_province_san_jose_de_ocoa" translatable="false">San José de Ocoa</string>
+    <string name="array_value_province_san_juan" translatable="false">San Juan</string>
+    <string name="array_value_province_san_pedro_de_macoris" translatable="false">San Pedro de Macorís</string>
+    <string name="array_value_province_sanchez_ramirez" translatable="false">Sánchez Ramírez</string>
+    <string name="array_value_province_santiago" translatable="false">Santiago</string>
+    <string name="array_value_province_santiago_rodriguez" translatable="false">Santiago Rodríguez</string>
+    <string name="array_value_province_santo_domingo" translatable="false">Santo Domingo</string>
+    <string name="array_value_province_valverde" translatable="false">Valverde</string>
 
     <!-- Arrays (Blood Types) related strings. -->
     <string name="array_value_blood_type_a_minus" translatable="false">A-</string>
@@ -45,6 +80,41 @@
 
         <item name="male">@string/array_value_gender_male</item>
         <item name="female">@string/array_value_gender_female</item>
+    </string-array>
+    <string-array name="array_provinces">
+
+        <item name="azua">@string/array_value_province_azua</item>
+        <item name="bahoruco">@string/array_value_province_bahoruco</item>
+        <item name="barahona">@string/array_value_province_barahona</item>
+        <item name="dajabon">@string/array_value_province_dajabon</item>
+        <item name="distrito_nacional">@string/array_value_province_distrito_nacional</item>
+        <item name="duarte">@string/array_value_province_duarte</item>
+        <item name="elias_pina">@string/array_value_province_elias_pina</item>
+        <item name="el_seibo">@string/array_value_province_el_seibo</item>
+        <item name="espaillat">@string/array_value_province_espaillat</item>
+        <item name="hato_mayor">@string/array_value_province_hato_mayor</item>
+        <item name="hermanas_mirabal">@string/array_value_province_hermanas_mirabal</item>
+        <item name="independencia">@string/array_value_province_independencia</item>
+        <item name="la_altagracia">@string/array_value_province_la_altagracia</item>
+        <item name="la_romana">@string/array_value_province_la_romana</item>
+        <item name="la_vega">@string/array_value_province_la_vega</item>
+        <item name="maria_trinidad_sanchez">@string/array_value_province_maria_trinidad_sanchez</item>
+        <item name="monsenor_nouel">@string/array_value_province_monsenor_nouel</item>
+        <item name="monte_cristi">@string/array_value_province_monte_cristi</item>
+        <item name="monte_plata">@string/array_value_province_monte_plata</item>
+        <item name="pedernales">@string/array_value_province_pedernales</item>
+        <item name="peravia">@string/array_value_province_peravia</item>
+        <item name="puerto_plata">@string/array_value_province_puerto_plata</item>
+        <item name="samana">@string/array_value_province_samana</item>
+        <item name="san_cristobal">@string/array_value_province_san_cristobal</item>
+        <item name="san_jose_de_ocoa">@string/array_value_province_san_jose_de_ocoa</item>
+        <item name="san_juan">@string/array_value_province_san_juan</item>
+        <item name="san_pedro_de_macoris">@string/array_value_province_san_pedro_de_macoris</item>
+        <item name="sanchez_ramirez">@string/array_value_province_sanchez_ramirez</item>
+        <item name="santiago">@string/array_value_province_santiago</item>
+        <item name="santiago_rodriguez">@string/array_value_province_santiago_rodriguez</item>
+        <item name="santo_domingo">@string/array_value_province_santo_domingo</item>
+        <item name="valverde">@string/array_value_province_valverde</item>
     </string-array>
     <string-array name="array_blood_types">
 

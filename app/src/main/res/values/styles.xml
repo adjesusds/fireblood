@@ -7,17 +7,141 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorSecondaryText</item>
+        <item name="colorControlActivated">@color/colorPrimaryText</item>
+        <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
+        <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColorHint">@color/colorSecondaryText</item>
+    </style>
+
+    <!-- Custom application styles. -->
+    <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+    </style>
+
+    <style name="AppSpinnerDropDownItemStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
+
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+        <item name="android:textSize">@dimen/text_size_form_field</item>
+    </style>
+
+    <style name="AppSpinnerItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
+
+        <item name="android:textSize">@dimen/text_size_form_field</item>
+    </style>
+
+    <style name="AppTitleTextView">
+
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+    </style>
+
+    <style name="AppDisplayTextView">
+
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/text_size_display</item>
     </style>
 
     <style name="AppButton">
 
         <item name="android:backgroundTint">@color/colorPrimary</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppInverseButton">
 
-        <item name="android:backgroundTint">@android:color/white</item>
+        <item name="android:backgroundTint">@color/colorPrimaryText</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppBorderlessButtonWrapper">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppBorderlessButton">
+
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppInverseBorderlessButtonWrapper">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppInverseBorderlessButton">
+
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppVerticalFormFieldWrapper">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AppEditTextWrapper">
+
+        <item name="android:layout_width">@dimen/margin_none</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="AppEditText">
+
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppFormFieldText">
+
+        <item name="android:layout_width">@dimen/margin_none</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
+        <item name="android:textSize">@dimen/text_size_form_field</item>
+    </style>
+
+    <style name="AppRadioGroup">
+
+        <item name="android:layout_width">@dimen/margin_none</item>
+        <item name="android:layout_height">@dimen/margin_double_quarter</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AppRadioButton">
+
+        <item name="android:layout_width">@dimen/margin_none</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/text_size_form_field</item>
+    </style>
+
+    <style name="AppSpinner">
+
+        <item name="android:layout_width">@dimen/margin_none</item>
+        <item name="android:layout_height">@dimen/margin_double_quarter</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="AppSwitch">
+
+        <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>
 </resources>

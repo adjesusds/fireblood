@@ -1,6 +1,8 @@
 <resources>
 
     <!-- Custom screen margins. -->
+    <dimen name="margin_none">0dp</dimen>
+    <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_double">32dp</dimen>
@@ -10,9 +12,11 @@
     <!-- Custom screen text sizes. -->
     <dimen name="text_size_body">14sp</dimen>
     <dimen name="text_size_subheading">16sp</dimen>
+    <dimen name="text_size_form_field">18sp</dimen>
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_display">34sp</dimen>
 
     <!-- Custom app icon sizes. -->
-    <dimen name="app_icon_size">200dp</dimen>
+    <dimen name="icon_size_small">100dp</dimen>
+    <dimen name="icon_size_large">200dp</dimen>
 </resources>

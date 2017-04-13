@@ -8,7 +8,10 @@
     <string name="authentication_sign_up">Sign up</string>
     <string name="authentication_already_a_user">Already a user?</string>
     <string name="authentication_sign_in">Sign in</string>
+    <string name="authentication_sign_in_underlined"><u>Sign in!</u></string>
+    <string name="authentication_forgot_password">Forgot Password</string>
     <string name="authentication_forgot_your_password_underlined"><u>Forgot your password?</u></string>
+    <string name="authentication_send_email">Send Email</string>
 
     <!-- Accounts related strings. -->
     <string name="account_title">Account</string>

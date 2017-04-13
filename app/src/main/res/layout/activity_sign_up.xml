@@ -120,18 +120,29 @@
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
                 <TextView
-                    style="@style/AppSpinnerText"
+                    style="@style/AppFormFieldText"
                     android:text="@string/profile_label_gender" />
 
-                <Spinner
-                    android:id="@+id/gender_spinner"
-                    style="@style/AppSpinner" />
+                <RadioGroup
+                    android:id="@+id/gender_radio_group"
+                    style="@style/AppRadioGroup">
+
+                    <RadioButton
+                        android:id="@+id/gender_radio_button_female"
+                        style="@style/AppRadioButton"
+                        android:text="@string/profile_label_gender_female" />
+
+                    <RadioButton
+                        android:id="@+id/gender_radio_button_male"
+                        style="@style/AppRadioButton"
+                        android:text="@string/profile_label_gender_male" />
+                </RadioGroup>
             </LinearLayout>
 
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
                 <TextView
-                    style="@style/AppSpinnerText"
+                    style="@style/AppFormFieldText"
                     android:text="@string/profile_label_province" />
 
                 <Spinner
@@ -175,7 +186,7 @@
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
                 <TextView
-                    style="@style/AppSpinnerText"
+                    style="@style/AppFormFieldText"
                     android:text="@string/profile_label_blood_type" />
 
                 <Spinner

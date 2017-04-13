@@ -103,13 +103,30 @@
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
-    <style name="AppSpinnerText">
+    <style name="AppFormFieldText">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
+        <item name="android:textSize">@dimen/text_size_form_field</item>
+    </style>
+
+    <style name="AppRadioGroup">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/margin_double_quarter</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AppRadioButton">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>
 

@@ -20,11 +20,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText mBirthdayEditText;
 
     /**
-     * Spinner field for gender.
-     */
-    private Spinner mGenderSpinner;
-
-    /**
      * Spinner field for province.
      */
     private Spinner mProvinceSpinner;
@@ -38,11 +33,6 @@ public class SignUpActivity extends AppCompatActivity {
      * Date picker dialog for birthday.
      */
     private DatePickerDialog mBirthdayDatePickerDialog;
-
-    /**
-     * Array adapter for gender.
-     */
-    private ArrayAdapter<CharSequence> mGenderArrayAdapter;
 
     /**
      * Array adapter for province.
@@ -68,7 +58,6 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void initUi() {
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
-        mGenderSpinner = (Spinner) findViewById(R.id.gender_spinner);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
     }
@@ -88,9 +77,6 @@ public class SignUpActivity extends AppCompatActivity {
                 mBirthdayEditText.setText(year + "-" + String.format(Locale.getDefault(), "%02d", ++month) + "-" + String.format(Locale.getDefault(), "%02d", dayOfMonth));
             }
         }, year, month, dayOfMonth);
-        mGenderArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_genders, android.R.layout.simple_spinner_item);
-        mGenderArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mGenderSpinner.setAdapter(mGenderArrayAdapter);
         mProvinceArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_provinces, android.R.layout.simple_spinner_item);
         mProvinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mProvinceSpinner.setAdapter(mProvinceArrayAdapter);

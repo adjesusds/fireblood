@@ -93,7 +93,7 @@
 
     <style name="AppEditTextWrapper">
 
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
@@ -105,7 +105,7 @@
 
     <style name="AppFormFieldText">
 
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -115,7 +115,7 @@
 
     <style name="AppRadioGroup">
 
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">@dimen/margin_double_quarter</item>
         <item name="android:layout_weight">2</item>
         <item name="android:orientation">horizontal</item>
@@ -123,7 +123,7 @@
 
     <style name="AppRadioButton">
 
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -133,7 +133,7 @@
 
     <style name="AppSpinner">
 
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">@dimen/margin_double_quarter</item>
         <item name="android:layout_weight">2</item>
     </style>

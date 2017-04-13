@@ -1,6 +1,7 @@
 <resources>
 
     <!-- Custom screen margins. -->
+    <dimen name="margin_none">0dp</dimen>
     <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_standard">16dp</dimen>

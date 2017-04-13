@@ -70,17 +70,17 @@ public class SignUpActivity extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR) - 18;
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        mBirthdayDatePickerDialog = new DatePickerDialog(SignUpActivity.this, R.style.AppAlertDialogTheme, new DatePickerDialog.OnDateSetListener() {
+        mBirthdayDatePickerDialog = new DatePickerDialog(this, R.style.AppAlertDialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mBirthdayEditText.setText(year + "-" + String.format(Locale.getDefault(), "%02d", ++month) + "-" + String.format(Locale.getDefault(), "%02d", dayOfMonth));
+                mBirthdayEditText.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, ++month, dayOfMonth));
             }
         }, year, month, dayOfMonth);
-        mProvinceArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_provinces, android.R.layout.simple_spinner_item);
+        mProvinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
         mProvinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mProvinceSpinner.setAdapter(mProvinceArrayAdapter);
-        mBloodTypeArrayAdapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
+        mBloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
         mBloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(mBloodTypeArrayAdapter);
     }

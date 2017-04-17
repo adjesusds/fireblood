@@ -24,7 +24,7 @@
         <item name="android:windowBackground">@drawable/window_background_splash</item>
     </style>
 
-    <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AppDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
 
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColor">@android:color/tertiary_text_light</item>
@@ -117,9 +117,9 @@
 
         <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>
 
@@ -135,8 +135,8 @@
 
         <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>

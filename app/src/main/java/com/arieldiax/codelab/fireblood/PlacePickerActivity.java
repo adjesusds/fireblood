@@ -117,7 +117,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(DOMINICAN_REPUBLIC_GEOGRAPHICAL_BOUNDARIES, mDisplayWidth, mDisplayHeight, 0));
         mGoogleMap.getUiSettings().setIndoorLevelPickerEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
-        mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
         mLoaderManager.initLoader(0, null, this);
     }
 
@@ -145,6 +144,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onLoadFinished(Loader<List<Place>> loader, final List<Place> places) {
+        mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
         LatLngBounds.Builder latLngBoundsBuilder = new LatLngBounds.Builder();
         for (Place place : places) {
             latLngBoundsBuilder.include(place.getLocation());
@@ -177,7 +177,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
             @Override
             public void onCancel() {
-                mGoogleMap.stopAnimation();
             }
         });
     }

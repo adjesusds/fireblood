@@ -69,6 +69,11 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      */
     private int mDisplayHeight;
 
+    /**
+     * Whether or not the markers have been added.
+     */
+    private boolean mMarkersHaveBeenAdded;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +121,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mProvinceName = getIntent().getExtras().getString("province_name");
         mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
+        mMarkersHaveBeenAdded = false;
     }
 
     @Override
@@ -170,21 +176,24 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
             public void onFinish() {
                 Handler handler = new Handler();
                 int delay = 0;
-                for (final Place place : places) {
-                    handler.postDelayed(new Runnable() {
+                if (!mMarkersHaveBeenAdded) {
+                    for (final Place place : places) {
+                        handler.postDelayed(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            mGoogleMap.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()));
-                        }
-                    }, delay);
-                    delay += 100;
+                            @Override
+                            public void run() {
+                                mGoogleMap.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()));
+                            }
+                        }, delay);
+                        delay += 100;
+                    }
+                    mGoogleMap.setOnMarkerClickListener(PlacePickerActivity.this);
+                    mMarkersHaveBeenAdded = true;
                 }
                 handler.postDelayed(new Runnable() {
 
                     @Override
                     public void run() {
-                        mGoogleMap.setOnMarkerClickListener(PlacePickerActivity.this);
                         setGoogleMapGestures();
                     }
                 }, delay);

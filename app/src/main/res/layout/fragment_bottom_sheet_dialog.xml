@@ -19,8 +19,8 @@
             android:id="@+id/title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_title"
             tools:text="Title" />
 
         <TextView
@@ -28,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_half"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_subheading"
             tools:text="Message" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/positive_linear_layout"
+        android:id="@+id/positive_button_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -48,18 +48,19 @@
             android:tint="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/positive_text_view"
+            android:id="@+id/positive_label_text_view"
             android:layout_width="@dimen/margin_none"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_half"
             android:layout_weight="1"
+            android:textAppearance="@android:style/TextAppearance.Material.Button"
             android:textColor="@color/colorPrimary"
-            tools:text="Label" />
+            tools:text="Positive Label" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/negative_linear_layout"
+        android:id="@+id/negative_button_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -73,13 +74,14 @@
             android:tint="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/negative_text_view"
+            android:id="@+id/negative_label_text_view"
             android:layout_width="@dimen/margin_none"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_half"
             android:layout_weight="1"
+            android:textAppearance="@android:style/TextAppearance.Material.Button"
             android:textColor="@color/colorPrimary"
-            tools:text="Label" />
+            tools:text="Negative Label" />
     </LinearLayout>
 </LinearLayout>

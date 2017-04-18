@@ -31,11 +31,12 @@
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
-                style="@style/AppDisplayTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_half"
-                android:text="@string/account_title" />
+                android:fontFamily="sans-serif-light"
+                android:text="@string/account_title"
+                android:textAppearance="@android:style/TextAppearance.Material.Display1" />
 
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
@@ -69,11 +70,12 @@
             </LinearLayout>
 
             <TextView
-                style="@style/AppDisplayTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_half"
-                android:text="@string/profile_title" />
+                android:fontFamily="sans-serif-light"
+                android:text="@string/profile_title"
+                android:textAppearance="@android:style/TextAppearance.Material.Display1" />
 
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
@@ -200,8 +202,6 @@
                 <Switch
                     android:id="@+id/is_donor_switch"
                     style="@style/AppSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_double_quarter"
                     android:text="@string/profile_label_is_donor" />
             </LinearLayout>
         </LinearLayout>

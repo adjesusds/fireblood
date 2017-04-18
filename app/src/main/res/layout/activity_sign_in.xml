@@ -63,12 +63,13 @@
 
             <TextView
                 android:id="@+id/forgot_your_password_text_view"
-                style="@style/AppTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
-                android:text="@string/authentication_forgot_your_password_underlined" />
+                android:fontFamily="sans-serif-light"
+                android:text="@string/authentication_forgot_your_password_underlined"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
         </LinearLayout>
 
         <FrameLayout style="@style/AppInverseBorderlessButtonWrapper">

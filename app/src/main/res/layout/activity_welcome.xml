@@ -28,12 +28,13 @@
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
-                style="@style/AppTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
-                android:text="@string/app_slogan" />
+                android:fontFamily="sans-serif-light"
+                android:text="@string/app_slogan"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +58,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
                 android:text="@string/authentication_already_a_user"
-                android:textSize="@dimen/text_size_body" />
+                android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
             <Button
                 android:id="@+id/sign_in_button"

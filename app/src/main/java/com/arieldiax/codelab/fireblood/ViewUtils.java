@@ -80,20 +80,20 @@ public final class ViewUtils {
         titleTextView.setText(titleResourceId);
         TextView messageTextView = (TextView) contentView.findViewById(R.id.message_text_view);
         messageTextView.setText(messageResourceId);
-        LinearLayout positiveLinearLayout = (LinearLayout) contentView.findViewById(R.id.positive_linear_layout);
-        positiveLinearLayout.setOnClickListener(positiveButtonOnClickListener);
-        TextView positiveTextView = (TextView) positiveLinearLayout.findViewById(R.id.positive_text_view);
-        positiveTextView.setText(android.R.string.ok);
-        LinearLayout negativeLinearLayout = (LinearLayout) contentView.findViewById(R.id.negative_linear_layout);
-        negativeLinearLayout.setOnClickListener(new View.OnClickListener() {
+        LinearLayout positiveButtonLinearLayout = (LinearLayout) contentView.findViewById(R.id.positive_button_linear_layout);
+        positiveButtonLinearLayout.setOnClickListener(positiveButtonOnClickListener);
+        TextView positiveLabelTextView = (TextView) positiveButtonLinearLayout.findViewById(R.id.positive_label_text_view);
+        positiveLabelTextView.setText(android.R.string.ok);
+        LinearLayout negativeButtonLinearLayout = (LinearLayout) contentView.findViewById(R.id.negative_button_linear_layout);
+        negativeButtonLinearLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.dismiss();
             }
         });
-        TextView negativeTextView = (TextView) negativeLinearLayout.findViewById(R.id.negative_text_view);
-        negativeTextView.setText(android.R.string.cancel);
+        TextView negativeLabelTextView = (TextView) negativeButtonLinearLayout.findViewById(R.id.negative_label_text_view);
+        negativeLabelTextView.setText(android.R.string.cancel);
         if (negativeButtonOnClickListener != null) {
             bottomSheetDialog.setOnDismissListener(negativeButtonOnClickListener);
         }

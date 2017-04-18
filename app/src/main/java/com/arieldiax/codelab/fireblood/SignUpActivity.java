@@ -18,6 +18,11 @@ import java.util.Locale;
 public class SignUpActivity extends AppCompatActivity {
 
     /**
+     * Consent age of the Dominican Republic.
+     */
+    private static final int DOMINICAN_REPUBLIC_CONSENT_AGE = 18;
+
+    /**
      * Edit text field for birthday.
      */
     private EditText mBirthdayEditText;
@@ -81,9 +86,12 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void init() {
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR) - 18;
+        int year = calendar.get(Calendar.YEAR) - DOMINICAN_REPUBLIC_CONSENT_AGE;
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        int hourOfDay = 23;
+        int minute = 59;
+        int second = 59;
         mBirthdayDatePickerDialog = new DatePickerDialog(this, R.style.AppDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -91,6 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
                 mBirthdayEditText.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, ++month, dayOfMonth));
             }
         }, year, month, dayOfMonth);
+        calendar.set(year, month, dayOfMonth, hourOfDay, minute, second);
+        mBirthdayDatePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
         ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_values_provinces, android.R.layout.simple_spinner_item);
         provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mProvinceSpinner.setAdapter(provinceArrayAdapter);

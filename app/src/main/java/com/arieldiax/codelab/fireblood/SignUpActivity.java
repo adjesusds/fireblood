@@ -116,12 +116,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!FormUtils.hasEmptyValue(mProvinceSpinner)) {
-                    mHospitalEditText.setEnabled(true);
-                } else {
-                    mHospitalEditText.setEnabled(false);
-                }
                 mHospitalEditText.setText("");
+                mHospitalEditText.setEnabled(!FormUtils.hasEmptyValue(mProvinceSpinner));
                 mHospitalLatitude = 0.00;
                 mHospitalLongitude = 0.00;
             }
@@ -134,6 +130,10 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                if (!ConnectionUtils.hasInternetConnection(SignUpActivity.this)) {
+                    mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
+                    return;
+                }
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
                 pickPlaceIntent.putExtra("province_name", FormUtils.getSpinnerValue(mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
@@ -144,11 +144,16 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            mHospitalEditText.setText(extras.getString("hospital_name"));
-            mHospitalLatitude = extras.getDouble("hospital_latitude");
-            mHospitalLongitude = extras.getDouble("hospital_longitude");
+        Bundle extras = data.getExtras();
+        switch (resultCode) {
+            case RESULT_OK:
+                mHospitalEditText.setText(extras.getString("hospital_name"));
+                mHospitalLatitude = extras.getDouble("hospital_latitude");
+                mHospitalLongitude = extras.getDouble("hospital_longitude");
+                break;
+            case RESULT_CANCELED:
+                mSnackbar.setText(extras.getInt("message_resource_id")).show();
+                break;
         }
     }
 }

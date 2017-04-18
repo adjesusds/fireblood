@@ -41,7 +41,9 @@
     <string name="title_select_hospital">Select Hospital</string>
 
     <!-- Messages related strings. -->
+    <string name="message_please_check_your_internet_connection">Please check your Internet connection.</string>
     <string name="message_are_you_sure">Are you sure?</string>
+    <string name="message_action_canceled">Action canceled.</string>
 
     <!-- Arrays (Provinces) related strings. -->
     <string name="array_value_province_azua" translatable="false">Azua</string>

@@ -35,21 +35,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     private static final int GOOGLE_MAPS_BOUNDARIES_PADDING = 200;
 
     /**
-     * Name of the province.
-     */
-    private String mProvinceName;
-
-    /**
-     * Width of the display.
-     */
-    private int mDisplayWidth;
-
-    /**
-     * Height of the display.
-     */
-    private int mDisplayHeight;
-
-    /**
      * Instance of the GoogleMap class.
      */
     private GoogleMap mGoogleMap;
@@ -69,6 +54,21 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      */
     private BottomSheetDialog mBottomSheetDialog;
 
+    /**
+     * Name of the province.
+     */
+    private String mProvinceName;
+
+    /**
+     * Width of the display.
+     */
+    private int mDisplayWidth;
+
+    /**
+     * Height of the display.
+     */
+    private int mDisplayHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,13 +76,18 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         init();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("message_resource_id", R.string.message_action_canceled);
+        setResult(RESULT_CANCELED, resultIntent);
+        finish();
+    }
+
     /**
      * Initializes the back end logic bindings.
      */
     private void init() {
-        mProvinceName = getIntent().getExtras().getString("province_name");
-        mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
-        mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_place_picker);
         supportMapFragment.getMapAsync(this);
         mLoaderManager = getLoaderManager();
@@ -108,6 +113,9 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
             }
         };
         mBottomSheetDialog = ViewUtils.buildBottomSheetDialog(this, R.string.title_select_hospital, R.string.message_are_you_sure, positiveButtonOnClickListener, negativeButtonOnClickListener);
+        mProvinceName = getIntent().getExtras().getString("province_name");
+        mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
+        mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
     }
 
     @Override
@@ -144,6 +152,13 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onLoadFinished(Loader<List<Place>> loader, final List<Place> places) {
+        if (places == null) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("message_resource_id", R.string.message_please_check_your_internet_connection);
+            setResult(RESULT_CANCELED, resultIntent);
+            finish();
+            return;
+        }
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
         LatLngBounds.Builder latLngBoundsBuilder = new LatLngBounds.Builder();
         for (Place place : places) {

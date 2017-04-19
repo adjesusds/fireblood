@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +37,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Edit text field for hospital.
      */
     private EditText mHospitalEditText;
+
+    /**
+     * Edit text field for phone.
+     */
+    private EditText mPhoneEditText;
 
     /**
      * Spinner field for blood type.
@@ -78,6 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mHospitalEditText = (EditText) findViewById(R.id.hospital_edit_text);
+        mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
     }
 
@@ -149,6 +156,19 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivityForResult(pickPlaceIntent, 0);
             }
         });
+        mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mPhoneEditText.setHint(R.string.profile_label_phone_hint);
+                    ViewUtils.showKeyboard(SignUpActivity.this);
+                } else {
+                    mPhoneEditText.setHint("");
+                }
+            }
+        });
+        mPhoneEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
     @Override

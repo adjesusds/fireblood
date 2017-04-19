@@ -30,7 +30,7 @@
     <string name="profile_label_province">Province</string>
     <string name="profile_label_hospital">Hospital</string>
     <string name="profile_label_phone">Phone</string>
-    <string name="profile_label_phone_mask" translatable="false">+1 (###) ###-####</string>
+    <string name="profile_label_phone_hint" translatable="false">+1 ###-###-####</string>
     <string name="profile_label_blood_type">Blood Type</string>
     <string name="profile_label_is_donor">Is Donor?</string>
 

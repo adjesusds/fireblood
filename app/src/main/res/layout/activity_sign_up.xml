@@ -171,18 +171,18 @@
 
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
-                <android.support.design.widget.TextInputLayout style="@style/AppEditTextWrapper">
+                <android.support.design.widget.TextInputLayout
+                    style="@style/AppEditTextWrapper"
+                    android:hint="@string/profile_label_phone">
 
                     <EditText
                         android:id="@+id/phone_edit_text"
                         style="@style/AppEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="0123456789()-+ "
-                        android:hint="@string/profile_label_phone"
+                        android:digits=" -0123456789+"
                         android:inputType="phone"
-                        android:maxLength="17"
-                        android:text="@string/profile_label_phone_mask" />
+                        android:maxLength="15" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 

@@ -147,6 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                ViewUtils.hideKeyboard(SignUpActivity.this);
                 if (!ConnectionUtils.hasInternetConnection(SignUpActivity.this)) {
                     mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
                     return;
@@ -162,7 +163,6 @@ public class SignUpActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus) {
                     mPhoneEditText.setHint(R.string.profile_label_phone_hint);
-                    ViewUtils.showKeyboard(SignUpActivity.this);
                 } else {
                     mPhoneEditText.setHint("");
                 }

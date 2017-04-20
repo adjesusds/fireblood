@@ -29,6 +29,11 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText mBirthdayEditText;
 
     /**
+     * Edit text field for phone.
+     */
+    private EditText mPhoneEditText;
+
+    /**
      * Spinner field for province.
      */
     private Spinner mProvinceSpinner;
@@ -37,11 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
      * Edit text field for hospital.
      */
     private EditText mHospitalEditText;
-
-    /**
-     * Edit text field for phone.
-     */
-    private EditText mPhoneEditText;
 
     /**
      * Spinner field for blood type.
@@ -82,9 +82,9 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void initUi() {
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
+        mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mHospitalEditText = (EditText) findViewById(R.id.hospital_edit_text);
-        mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
     }
 
@@ -129,6 +129,18 @@ public class SignUpActivity extends AppCompatActivity {
                 mBirthdayDatePickerDialog.show();
             }
         });
+        mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    mPhoneEditText.setHint(R.string.profile_label_phone_hint);
+                } else {
+                    mPhoneEditText.setHint("");
+                }
+            }
+        });
+        mPhoneEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         mProvinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -160,18 +172,6 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivityForResult(pickPlaceIntent, 0);
             }
         });
-        mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    mPhoneEditText.setHint(R.string.profile_label_phone_hint);
-                } else {
-                    mPhoneEditText.setHint("");
-                }
-            }
-        });
-        mPhoneEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
     @Override

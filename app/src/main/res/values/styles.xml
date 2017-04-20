@@ -149,4 +149,16 @@
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
+
+    <style name="AppBottomSheetDialogOption">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:drawablePadding">@dimen/margin_half</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/margin_standard</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

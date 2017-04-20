@@ -75,28 +75,26 @@ public final class ViewUtils {
     public static BottomSheetDialog buildBottomSheetDialog(Activity activity, int titleResourceId, int messageResourceId, View.OnClickListener positiveButtonOnClickListener, DialogInterface.OnDismissListener negativeButtonOnClickListener) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
         View contentView = activity.getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog, null);
-        bottomSheetDialog.setContentView(contentView);
         TextView titleTextView = (TextView) contentView.findViewById(R.id.title_text_view);
         titleTextView.setText(titleResourceId);
         TextView messageTextView = (TextView) contentView.findViewById(R.id.message_text_view);
         messageTextView.setText(messageResourceId);
-        LinearLayout positiveButtonLinearLayout = (LinearLayout) contentView.findViewById(R.id.positive_button_linear_layout);
-        positiveButtonLinearLayout.setOnClickListener(positiveButtonOnClickListener);
-        TextView positiveLabelTextView = (TextView) positiveButtonLinearLayout.findViewById(R.id.positive_label_text_view);
-        positiveLabelTextView.setText(android.R.string.ok);
-        LinearLayout negativeButtonLinearLayout = (LinearLayout) contentView.findViewById(R.id.negative_button_linear_layout);
-        negativeButtonLinearLayout.setOnClickListener(new View.OnClickListener() {
+        TextView mPositiveButtonTextView = (TextView) contentView.findViewById(R.id.positive_button_text_view);
+        mPositiveButtonTextView.setText(android.R.string.ok);
+        mPositiveButtonTextView.setOnClickListener(positiveButtonOnClickListener);
+        TextView mNegativeButtonTextView = (TextView) contentView.findViewById(R.id.negative_button_text_view);
+        mNegativeButtonTextView.setText(android.R.string.cancel);
+        mNegativeButtonTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.dismiss();
             }
         });
-        TextView negativeLabelTextView = (TextView) negativeButtonLinearLayout.findViewById(R.id.negative_label_text_view);
-        negativeLabelTextView.setText(android.R.string.cancel);
         if (negativeButtonOnClickListener != null) {
             bottomSheetDialog.setOnDismissListener(negativeButtonOnClickListener);
         }
+        bottomSheetDialog.setContentView(contentView);
         bottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         return bottomSheetDialog;
     }

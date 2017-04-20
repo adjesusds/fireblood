@@ -2,7 +2,6 @@ package com.arieldiax.codelab.fireblood;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 public class SignInActivity extends AppCompatActivity {
@@ -31,12 +30,6 @@ public class SignInActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     private void initListeners() {
-        mForgotYourPasswordTextView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                ViewUtils.startCustomActivity(SignInActivity.this, ForgotPasswordActivity.class, false);
-            }
-        });
+        mForgotYourPasswordTextView.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, ForgotPasswordActivity.class, false));
     }
 }

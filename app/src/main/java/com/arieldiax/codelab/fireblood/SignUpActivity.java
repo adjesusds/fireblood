@@ -134,7 +134,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mHospitalEditText.setText("");
-                mHospitalEditText.setEnabled(!FormUtils.hasEmptyValue(mProvinceSpinner));
                 mHospitalLatitude = 0.00;
                 mHospitalLongitude = 0.00;
             }
@@ -148,6 +147,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ViewUtils.hideKeyboard(SignUpActivity.this);
+                if (FormUtils.hasEmptyValue(mProvinceSpinner)) {
+                    mSnackbar.setText(R.string.message_please_select_a_province_first).show();
+                    return;
+                }
                 if (!ConnectionUtils.hasInternetConnection(SignUpActivity.this)) {
                     mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
                     return;

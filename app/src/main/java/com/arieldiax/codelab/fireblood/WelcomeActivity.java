@@ -2,7 +2,6 @@ package com.arieldiax.codelab.fireblood;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -37,19 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     private void initListeners() {
-        mSignUpButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                ViewUtils.startCustomActivity(WelcomeActivity.this, SignUpActivity.class, false);
-            }
-        });
-        mSignInButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                ViewUtils.startCustomActivity(WelcomeActivity.this, SignInActivity.class, false);
-            }
-        });
+        mSignUpButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignUpActivity.class, false));
+        mSignInButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignInActivity.class, false));
     }
 }

@@ -9,19 +9,28 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorSecondaryText</item>
         <item name="colorControlActivated">@color/colorPrimaryText</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
         <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textColorHint">@color/colorSecondaryText</item>
     </style>
 
-    <!-- Custom application styles. -->
+    <!-- Custom application themes. -->
+    <style name="AppSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@drawable/window_background_splash</item>
+    </style>
+
     <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
 
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColor">@android:color/tertiary_text_light</item>
     </style>
 
+    <!-- Custom application styles. -->
     <style name="AppSpinnerDropDownItemStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
 
         <item name="android:textColor">@android:color/tertiary_text_light</item>
@@ -33,6 +42,7 @@
         <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>
 
+    <!-- Custom application components. -->
     <style name="AppTitleTextView">
 
         <item name="android:fontFamily">sans-serif-light</item>

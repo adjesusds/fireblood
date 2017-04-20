@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     /**
      * Button field for sign up.
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome);
         initUi();
         initListeners();
     }
@@ -41,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                ViewUtils.startCustomActivity(MainActivity.this, SignUpActivity.class, false);
+                ViewUtils.startCustomActivity(WelcomeActivity.this, SignUpActivity.class, false);
             }
         });
         mSignInButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                ViewUtils.startCustomActivity(MainActivity.this, SignInActivity.class, false);
+                ViewUtils.startCustomActivity(WelcomeActivity.this, SignInActivity.class, false);
             }
         });
     }

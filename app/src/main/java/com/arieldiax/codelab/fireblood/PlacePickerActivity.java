@@ -81,14 +81,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         init();
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("message_resource_id", R.string.message_action_canceled);
-        setResult(RESULT_CANCELED, resultIntent);
-        finish();
-    }
-
     /**
      * Initializes the back end logic bindings.
      */
@@ -122,6 +114,14 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
         mMarkersHaveBeenAdded = false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("message_resource_id", R.string.message_action_canceled);
+        setResult(RESULT_CANCELED, resultIntent);
+        finish();
     }
 
     @Override

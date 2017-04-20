@@ -8,6 +8,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+    }
+
+    /**
+     * Initializes the back end logic bindings.
+     */
+    private void init() {
         ViewUtils.startCustomActivity(this, WelcomeActivity.class, true);
     }
 }

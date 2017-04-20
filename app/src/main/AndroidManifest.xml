@@ -43,12 +43,7 @@
             android:name=".SignUpActivity"
             android:label="@string/authentication_sign_up"
             android:parentActivityName=".WelcomeActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WelcomeActivity" />
-        </activity>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".PlacePickerActivity"
@@ -60,22 +55,12 @@
             android:label="@string/authentication_sign_in"
             android:launchMode="singleTop"
             android:parentActivityName=".WelcomeActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WelcomeActivity" />
-        </activity>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="@string/authentication_forgot_password"
             android:parentActivityName=".SignInActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SignInActivity" />
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

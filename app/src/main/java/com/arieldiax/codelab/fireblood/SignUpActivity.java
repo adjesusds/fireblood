@@ -3,9 +3,11 @@ package com.arieldiax.codelab.fireblood;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,6 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Instance of the Snackbar class.
      */
     private Snackbar mSnackbar;
+
+    /**
+     * Instance of the BottomSheetDialog class.
+     */
+    private BottomSheetDialog mBottomSheetDialog;
 
     /**
      * Latitude of the hospital.
@@ -115,6 +122,14 @@ public class SignUpActivity extends AppCompatActivity {
         bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
         mSnackbar = Snackbar.make(findViewById(R.id.activity_sign_up), "", Snackbar.LENGTH_LONG);
+        View.OnClickListener positiveButtonOnClickListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        };
+        mBottomSheetDialog = ViewUtils.buildBottomSheetDialog(this, R.string.title_cancel_registration, R.string.message_are_you_sure, positiveButtonOnClickListener, null);
     }
 
     /**
@@ -172,6 +187,21 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivityForResult(pickPlaceIntent, 0);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                mBottomSheetDialog.show();
+                return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mBottomSheetDialog.show();
     }
 
     @Override

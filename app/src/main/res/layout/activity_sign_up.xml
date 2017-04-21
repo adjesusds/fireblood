@@ -183,6 +183,7 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:hint="@string/profile_label_hospital"
+                        android:inputType="textNoSuggestions"
                         android:longClickable="false" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>

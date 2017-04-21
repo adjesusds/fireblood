@@ -131,6 +131,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(DOMINICAN_REPUBLIC_GEOGRAPHICAL_BOUNDARIES, mDisplayWidth, mDisplayHeight, 0));
         mGoogleMap.getUiSettings().setIndoorLevelPickerEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
+        mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
         mLoaderManager.initLoader(0, null, this);
     }
 

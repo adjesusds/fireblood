@@ -48,7 +48,8 @@
         <activity
             android:name=".PlacePickerActivity"
             android:label="@string/authentication_place_picker"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppPlacePickerTheme" />
 
         <activity
             android:name=".SignInActivity"

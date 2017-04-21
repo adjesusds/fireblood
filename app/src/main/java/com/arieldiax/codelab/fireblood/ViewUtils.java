@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.util.Pair;
 import android.view.View;
@@ -49,15 +50,27 @@ public final class ViewUtils {
      * @param shouldActivityFinish Whether or not the activity should be finished.
      */
     public static void startCustomActivity(Context context, Class activityClass, Pair<View, String> activityPair, boolean shouldActivityFinish) {
+        final Activity activity = (Activity) context;
         Intent activityIntent = new Intent(context, activityClass);
         if (activityPair != null) {
-            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation((Activity) context, activityPair);
+            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, activityPair);
             context.startActivity(activityIntent, activityOptions.toBundle());
+            if (shouldActivityFinish) {
+                Handler handler = new Handler();
+                int delay = 1000;
+                handler.postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        activity.finish();
+                    }
+                }, delay);
+            }
         } else {
             context.startActivity(activityIntent);
-        }
-        if (shouldActivityFinish) {
-            ((Activity) context).finish();
+            if (shouldActivityFinish) {
+                activity.finish();
+            }
         }
     }
 

@@ -192,4 +192,7 @@
     <!-- Configurations related strings. -->
     <string name="configuration_google_maps_api_key" translatable="false">AIzaSyBgTz9fXGjbCxsDjVWfG9qdCxgmEPuj8Gk</string>
     <string name="configuration_google_places_search_query" translatable="false">hospitals in <xliff:g id="province_name">%s</xliff:g>, Dominican Republic</string>
+
+    <!-- Transitions related strings. -->
+    <string name="transition_app_logo_image_view" translatable="false">app_logo_image_view</string>
 </resources>

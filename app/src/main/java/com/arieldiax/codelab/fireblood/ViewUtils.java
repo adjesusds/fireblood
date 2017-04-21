@@ -1,14 +1,15 @@
 package com.arieldiax.codelab.fireblood;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.BottomSheetDialog;
+import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public final class ViewUtils {
@@ -25,15 +26,16 @@ public final class ViewUtils {
      *
      * @param context              Instance of the Context class.
      * @param activityClass        Class of the activity.
+     * @param activityPair         Pair of the activity.
      * @param shouldActivityFinish Whether or not the activity should be finished.
      * @return The start custom activity on click listener
      */
-    public static View.OnClickListener getStartCustomActivityOnClickListener(final Context context, final Class activityClass, final boolean shouldActivityFinish) {
+    public static View.OnClickListener getStartCustomActivityOnClickListener(final Context context, final Class activityClass, final Pair<View, String> activityPair, final boolean shouldActivityFinish) {
         return new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                startCustomActivity(context, activityClass, shouldActivityFinish);
+                startCustomActivity(context, activityClass, activityPair, shouldActivityFinish);
             }
         };
     }
@@ -43,11 +45,17 @@ public final class ViewUtils {
      *
      * @param context              Instance of the Context class.
      * @param activityClass        Class of the activity.
+     * @param activityPair         Pair of the activity.
      * @param shouldActivityFinish Whether or not the activity should be finished.
      */
-    public static void startCustomActivity(Context context, Class activityClass, boolean shouldActivityFinish) {
+    public static void startCustomActivity(Context context, Class activityClass, Pair<View, String> activityPair, boolean shouldActivityFinish) {
         Intent activityIntent = new Intent(context, activityClass);
-        context.startActivity(activityIntent);
+        if (activityPair != null) {
+            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation((Activity) context, activityPair);
+            context.startActivity(activityIntent, activityOptions.toBundle());
+        } else {
+            context.startActivity(activityIntent);
+        }
         if (shouldActivityFinish) {
             ((Activity) context).finish();
         }

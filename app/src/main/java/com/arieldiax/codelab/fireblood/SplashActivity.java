@@ -15,6 +15,6 @@ public class SplashActivity extends AppCompatActivity {
      * Initializes the back end logic bindings.
      */
     private void init() {
-        ViewUtils.startCustomActivity(this, WelcomeActivity.class, true);
+        ViewUtils.startCustomActivity(this, WelcomeActivity.class, null, true);
     }
 }

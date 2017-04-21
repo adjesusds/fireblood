@@ -126,7 +126,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                finish();
+                mBottomSheetDialog.dismiss();
+                finishAfterTransition();
             }
         };
         mBottomSheetDialog = ViewUtils.buildBottomSheetDialog(this, R.string.title_cancel_registration, R.string.message_are_you_sure, positiveButtonOnClickListener, null);

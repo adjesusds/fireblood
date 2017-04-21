@@ -2,9 +2,18 @@ package com.arieldiax.codelab.fireblood;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SignInActivity extends AppCompatActivity {
+
+    /**
+     * Image view field for app logo.
+     */
+    private ImageView mAppLogoImageView;
 
     /**
      * Text view field for forgot your password.
@@ -23,6 +32,7 @@ public class SignInActivity extends AppCompatActivity {
      * Initializes the user interface view bindings.
      */
     private void initUi() {
+        mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mForgotYourPasswordTextView = (TextView) findViewById(R.id.forgot_your_password_text_view);
     }
 
@@ -30,6 +40,17 @@ public class SignInActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     private void initListeners() {
-        mForgotYourPasswordTextView.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, ForgotPasswordActivity.class, false));
+        Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
+        mForgotYourPasswordTextView.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, ForgotPasswordActivity.class, activityPair, false));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                finishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 }

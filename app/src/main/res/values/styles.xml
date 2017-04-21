@@ -14,11 +14,13 @@
         <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textColorHint">@color/colorSecondaryText</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <!-- Custom application themes. -->
     <style name="AppSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@drawable/window_background_splash</item>

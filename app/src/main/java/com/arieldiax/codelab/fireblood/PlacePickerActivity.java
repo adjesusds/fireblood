@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +34,11 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Boundaries padding for Google Maps.
      */
     private static final int GOOGLE_MAPS_BOUNDARIES_PADDING = 200;
+
+    /**
+     * Progress bar field for place picker.
+     */
+    private ProgressBar mPlacePickerProgressBar;
 
     /**
      * Instance of the GoogleMap class.
@@ -77,15 +83,23 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_place_picker);
+        setContentView(R.layout.activity_place_picker);
+        initUi();
         init();
+    }
+
+    /**
+     * Initializes the user interface view bindings.
+     */
+    private void initUi() {
+        mPlacePickerProgressBar = (ProgressBar) findViewById(R.id.place_picker_progress_bar);
     }
 
     /**
      * Initializes the back end logic bindings.
      */
     private void init() {
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_place_picker);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
         supportMapFragment.getMapAsync(this);
         mLoaderManager = getLoaderManager();
         View.OnClickListener positiveButtonOnClickListener = new View.OnClickListener() {
@@ -166,11 +180,12 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
             finish();
             return;
         }
-        mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
         LatLngBounds.Builder latLngBoundsBuilder = new LatLngBounds.Builder();
         for (Place place : places) {
             latLngBoundsBuilder.include(place.getLocation());
         }
+        mPlacePickerProgressBar.setVisibility(View.GONE);
+        mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(), mDisplayWidth, mDisplayHeight, GOOGLE_MAPS_BOUNDARIES_PADDING), new GoogleMap.CancelableCallback() {
 
             @Override

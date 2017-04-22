@@ -95,7 +95,7 @@ public final class ViewUtils {
      */
     public static BottomSheetDialog buildBottomSheetDialog(Activity activity, int titleResourceId, int messageResourceId, View.OnClickListener positiveButtonOnClickListener, DialogInterface.OnDismissListener negativeButtonOnClickListener) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
-        View contentView = activity.getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog, null);
+        View contentView = activity.getLayoutInflater().inflate(R.layout.bottom_sheet_dialog_confirm, null);
         TextView titleTextView = (TextView) contentView.findViewById(R.id.title_text_view);
         titleTextView.setText(titleResourceId);
         TextView messageTextView = (TextView) contentView.findViewById(R.id.message_text_view);

@@ -143,7 +143,11 @@ public final class QueryUtils {
                 JSONObject location = result.getJSONObject("geometry").getJSONObject("location");
                 double placeLatitude = location.getDouble("lat");
                 double placeLongitude = location.getDouble("lng");
-                places.add(new Place(placeName, placeLatitude, placeLongitude));
+                places.add(new Place()
+                        .setName(placeName)
+                        .setLatitude(placeLatitude)
+                        .setLongitude(placeLongitude)
+                );
             }
         } catch (JSONException exception) {
             exception.printStackTrace();

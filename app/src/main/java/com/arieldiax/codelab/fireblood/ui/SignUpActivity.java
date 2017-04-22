@@ -3,7 +3,6 @@ package com.arieldiax.codelab.fireblood.ui;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.models.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
@@ -66,9 +66,9 @@ public class SignUpActivity extends AppCompatActivity {
     private Snackbar mSnackbar;
 
     /**
-     * Instance of the BottomSheetDialog class.
+     * Instance of the ConfirmBottomSheetDialog class.
      */
-    private BottomSheetDialog mBottomSheetDialog;
+    private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
 
     /**
      * Latitude of the hospital.
@@ -127,15 +127,19 @@ public class SignUpActivity extends AppCompatActivity {
         bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
         mSnackbar = Snackbar.make(findViewById(R.id.activity_sign_up), "", Snackbar.LENGTH_LONG);
-        View.OnClickListener positiveButtonOnClickListener = new View.OnClickListener() {
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                mBottomSheetDialog.dismiss();
+                mConfirmBottomSheetDialog.dismiss();
                 finishAfterTransition();
             }
         };
-        mBottomSheetDialog = ViewUtils.buildBottomSheetDialog(this, R.string.title_cancel_registration, R.string.message_are_you_sure, positiveButtonOnClickListener, null);
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
+                .setTitle(R.string.title_cancel_registration)
+                .setMessage(R.string.message_are_you_sure)
+                .setPositiveButtonListener(positiveButtonListener)
+        ;
     }
 
     /**
@@ -199,7 +203,7 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case android.R.id.home:
-                mBottomSheetDialog.show();
+                mConfirmBottomSheetDialog.show();
                 return true;
         }
         return super.onOptionsItemSelected(menuItem);
@@ -207,7 +211,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mBottomSheetDialog.show();
+        mConfirmBottomSheetDialog.show();
     }
 
     @Override

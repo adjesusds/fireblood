@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.models.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.models.Place;
 import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
-import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -60,9 +59,9 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     private Marker mMarker;
 
     /**
-     * Instance of the BottomSheetDialog class.
+     * Instance of the ConfirmBottomSheetDialog class.
      */
-    private BottomSheetDialog mBottomSheetDialog;
+    private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
 
     /**
      * Name of the province.
@@ -106,7 +105,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
         supportMapFragment.getMapAsync(this);
         mLoaderManager = getLoaderManager();
-        View.OnClickListener positiveButtonOnClickListener = new View.OnClickListener() {
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -118,7 +117,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 finish();
             }
         };
-        DialogInterface.OnDismissListener negativeButtonOnClickListener = new DialogInterface.OnDismissListener() {
+        DialogInterface.OnDismissListener negativeButtonListener = new DialogInterface.OnDismissListener() {
 
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -127,7 +126,12 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 setGoogleMapGestures();
             }
         };
-        mBottomSheetDialog = ViewUtils.buildBottomSheetDialog(this, R.string.title_select_hospital, R.string.message_are_you_sure, positiveButtonOnClickListener, negativeButtonOnClickListener);
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
+                .setTitle(R.string.title_select_hospital)
+                .setMessage(R.string.message_are_you_sure)
+                .setPositiveButtonListener(positiveButtonListener)
+                .setNegativeButtonListener(negativeButtonListener)
+        ;
         mProvinceName = getIntent().getExtras().getString("province_name");
         mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
@@ -163,7 +167,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
             @Override
             public void run() {
-                mBottomSheetDialog.show();
+                mConfirmBottomSheetDialog.show();
                 mMarker.showInfoWindow();
             }
         }, delay);

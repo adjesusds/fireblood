@@ -3,17 +3,11 @@ package com.arieldiax.codelab.fireblood.utils;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.design.widget.BottomSheetDialog;
 import android.util.Pair;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-
-import com.arieldiax.codelab.fireblood.R;
 
 public final class ViewUtils {
 
@@ -84,41 +78,5 @@ public final class ViewUtils {
     public static void hideKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    /**
-     * Builds a bottom sheet dialog.
-     *
-     * @param activity                      Instance of the Activity class.
-     * @param titleResourceId               Resource ID of the title.
-     * @param messageResourceId             Resource ID of the message.
-     * @param positiveButtonOnClickListener Click listener of the positive button.
-     * @param negativeButtonOnClickListener Click listener of the negative button.
-     */
-    public static BottomSheetDialog buildBottomSheetDialog(Activity activity, int titleResourceId, int messageResourceId, View.OnClickListener positiveButtonOnClickListener, DialogInterface.OnDismissListener negativeButtonOnClickListener) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
-        View contentView = activity.getLayoutInflater().inflate(R.layout.bottom_sheet_dialog_confirm, null);
-        TextView titleTextView = (TextView) contentView.findViewById(R.id.title_text_view);
-        titleTextView.setText(titleResourceId);
-        TextView messageTextView = (TextView) contentView.findViewById(R.id.message_text_view);
-        messageTextView.setText(messageResourceId);
-        TextView mPositiveButtonTextView = (TextView) contentView.findViewById(R.id.positive_button_text_view);
-        mPositiveButtonTextView.setText(android.R.string.ok);
-        mPositiveButtonTextView.setOnClickListener(positiveButtonOnClickListener);
-        TextView mNegativeButtonTextView = (TextView) contentView.findViewById(R.id.negative_button_text_view);
-        mNegativeButtonTextView.setText(android.R.string.cancel);
-        mNegativeButtonTextView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                bottomSheetDialog.dismiss();
-            }
-        });
-        if (negativeButtonOnClickListener != null) {
-            bottomSheetDialog.setOnDismissListener(negativeButtonOnClickListener);
-        }
-        bottomSheetDialog.setContentView(contentView);
-        bottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        return bottomSheetDialog;
     }
 }

@@ -21,15 +21,41 @@ public class Place {
 
     /**
      * Creates a new Place object.
-     *
-     * @param name      Name of the place.
-     * @param latitude  Latitude of the place.
-     * @param longitude Longitude of the place.
      */
-    public Place(String name, double latitude, double longitude) {
+    public Place() {
+    }
+
+    /**
+     * Sets the name of the place.
+     *
+     * @param name Name of the place.
+     * @return The instance of the Place class.
+     */
+    public Place setName(String name) {
         mName = name;
+        return this;
+    }
+
+    /**
+     * Sets the latitude of the place.
+     *
+     * @param latitude Latitude of the place.
+     * @return The instance of the Place class.
+     */
+    public Place setLatitude(double latitude) {
         mLatitude = latitude;
+        return this;
+    }
+
+    /**
+     * Sets the longitude of the place.
+     *
+     * @param longitude Longitude of the place.
+     * @return The instance of the Place class.
+     */
+    public Place setLongitude(double longitude) {
         mLongitude = longitude;
+        return this;
     }
 
     /**
@@ -39,24 +65,6 @@ public class Place {
      */
     public String getName() {
         return mName;
-    }
-
-    /**
-     * Gets the latitude of the place.
-     *
-     * @return The latitude of the place.
-     */
-    public double getLatitude() {
-        return mLatitude;
-    }
-
-    /**
-     * Gets the longitude of the place.
-     *
-     * @return The longitude of the place.
-     */
-    public double getLongitude() {
-        return mLongitude;
     }
 
     /**

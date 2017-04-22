@@ -1,8 +1,12 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.services;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.net.Uri;
+
+import com.arieldiax.codelab.fireblood.utils.QueryUtils;
+import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.models.Place;
 
 import java.util.List;
 

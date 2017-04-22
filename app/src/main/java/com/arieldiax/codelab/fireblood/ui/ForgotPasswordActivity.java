@@ -1,10 +1,12 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.arieldiax.codelab.fireblood.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 

@@ -4,7 +4,7 @@
     android:id="@+id/activity_place_picker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlacePickerActivity">
+    tools:context=".ui.PlacePickerActivity">
 
     <fragment
         android:id="@+id/place_picker_fragment"

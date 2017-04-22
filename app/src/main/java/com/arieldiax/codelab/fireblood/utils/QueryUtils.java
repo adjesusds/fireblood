@@ -1,6 +1,8 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.utils;
 
 import android.text.TextUtils;
+
+import com.arieldiax.codelab.fireblood.models.Place;
 
 import java.io.BufferedReader;
 import java.io.IOException;

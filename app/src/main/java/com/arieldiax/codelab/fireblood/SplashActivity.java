@@ -7,6 +7,9 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.arieldiax.codelab.fireblood.ui.WelcomeActivity;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
+
 public class SplashActivity extends AppCompatActivity {
 
     /**

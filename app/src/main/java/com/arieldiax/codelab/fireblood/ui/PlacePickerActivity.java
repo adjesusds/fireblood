@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.ui;
 
 import android.app.LoaderManager;
 import android.content.DialogInterface;
@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
+import com.arieldiax.codelab.fireblood.models.Place;
+import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

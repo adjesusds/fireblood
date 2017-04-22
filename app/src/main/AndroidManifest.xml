@@ -36,32 +36,32 @@
         </activity>
 
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".ui.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.SignUpActivity"
             android:label="@string/authentication_sign_up"
-            android:parentActivityName=".WelcomeActivity"
+            android:parentActivityName=".ui.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".PlacePickerActivity"
+            android:name=".ui.PlacePickerActivity"
             android:label="@string/authentication_place_picker"
             android:screenOrientation="portrait"
             android:theme="@style/AppPlacePickerTheme" />
 
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.SignInActivity"
             android:label="@string/authentication_sign_in"
             android:launchMode="singleTop"
-            android:parentActivityName=".WelcomeActivity"
+            android:parentActivityName=".ui.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".ui.ForgotPasswordActivity"
             android:label="@string/authentication_forgot_password"
-            android:parentActivityName=".SignInActivity"
+            android:parentActivityName=".ui.SignInActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

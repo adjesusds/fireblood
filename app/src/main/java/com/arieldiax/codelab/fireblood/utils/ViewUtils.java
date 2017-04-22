@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.utils;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+
+import com.arieldiax.codelab.fireblood.R;
 
 public final class ViewUtils {
 

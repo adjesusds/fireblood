@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.utils;
 
 import android.widget.Spinner;
 

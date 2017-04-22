@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,6 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
+import com.arieldiax.codelab.fireblood.utils.FormUtils;
+import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 import java.util.Calendar;
 import java.util.Locale;

@@ -4,9 +4,9 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.net.Uri;
 
-import com.arieldiax.codelab.fireblood.utils.QueryUtils;
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.Place;
+import com.arieldiax.codelab.fireblood.utils.QueryUtils;
 
 import java.util.List;
 

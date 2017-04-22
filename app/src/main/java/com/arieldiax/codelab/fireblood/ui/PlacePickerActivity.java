@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.arieldiax.codelab.fireblood.R;
-import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.arieldiax.codelab.fireblood.models.Place;
 import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

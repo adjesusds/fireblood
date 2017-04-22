@@ -15,9 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
-import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 import java.util.Calendar;

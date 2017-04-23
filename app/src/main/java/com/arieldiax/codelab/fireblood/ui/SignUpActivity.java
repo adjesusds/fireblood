@@ -10,12 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.ConfirmBottomSheetDialog;
+import com.arieldiax.codelab.fireblood.models.FormValidator;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
@@ -56,6 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner mBloodTypeSpinner;
 
     /**
+     * Button field for sign up.
+     */
+    private Button mSignUpButton;
+
+    /**
      * Date picker dialog for birthday.
      */
     private DatePickerDialog mBirthdayDatePickerDialog;
@@ -69,6 +77,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Instance of the ConfirmBottomSheetDialog class.
      */
     private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
+
+    /**
+     * Instance of the FormValidator class.
+     */
+    private FormValidator mFormValidator;
 
     /**
      * Latitude of the hospital.
@@ -86,6 +99,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         initUi();
         init();
+        initValidators();
         initListeners();
     }
 
@@ -98,6 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mHospitalEditText = (EditText) findViewById(R.id.hospital_edit_text);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
+        mSignUpButton = (Button) findViewById(R.id.sign_up_button);
     }
 
     /**
@@ -139,6 +154,25 @@ public class SignUpActivity extends AppCompatActivity {
                 .setTitle(R.string.title_cancel_registration)
                 .setMessage(R.string.message_are_you_sure)
                 .setPositiveButtonListener(positiveButtonListener)
+        ;
+        mFormValidator = new FormValidator(this);
+    }
+
+    /**
+     * Initializes the form validator view bindings.
+     */
+    private void initValidators() {
+        mFormValidator
+                .addValidation(R.id.email_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.password_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.first_name_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.last_name_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.birthday_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.gender_radio_group, R.string.validation_please_select_an_option)
+                .addValidation(R.id.phone_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.province_spinner, R.string.validation_please_select_an_option)
+                .addValidation(R.id.hospital_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.blood_type_spinner, R.string.validation_please_select_an_option)
         ;
     }
 
@@ -184,7 +218,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ViewUtils.hideKeyboard(SignUpActivity.this);
-                if (FormUtils.hasEmptyValue(mProvinceSpinner)) {
+                if (FormUtils.hasEmptyValue(SignUpActivity.this, mProvinceSpinner)) {
                     mSnackbar.setText(R.string.message_please_select_a_province_first).show();
                     return;
                 }
@@ -193,8 +227,19 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
-                pickPlaceIntent.putExtra("province_name", FormUtils.getSpinnerValue(mProvinceSpinner));
+                pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
+            }
+        });
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (!mFormValidator.validate()) {
+                    mSnackbar.setText(R.string.validation_validation_failed).show();
+                    return;
+                }
+                mSnackbar.setText(R.string.validation_validation_passed).show();
             }
         });
     }

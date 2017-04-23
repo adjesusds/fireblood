@@ -1,6 +1,18 @@
 package com.arieldiax.codelab.fireblood.utils;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.design.widget.TextInputLayout;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import com.arieldiax.codelab.fireblood.R;
 
 public final class FormUtils {
 
@@ -12,22 +24,65 @@ public final class FormUtils {
     }
 
     /**
-     * Determines whether or not the spinner has an empty value.
+     * Determines whether or not the view has an empty value.
      *
-     * @param spinner Instance of the Spinner class.
-     * @return Whether or not the spinner has an empty value.
+     * @param activity Instance of the Activity class.
+     * @param view     Instance of the View class.
+     * @return Whether or not the view has an empty value.
      */
-    public static boolean hasEmptyValue(Spinner spinner) {
-        return (spinner.getSelectedItemPosition() == 0);
+    public static boolean hasEmptyValue(Activity activity, View view) {
+        if (view instanceof EditText) {
+            return getViewValue(activity, view).isEmpty();
+        } else if (view instanceof RadioGroup) {
+            return (((RadioGroup) view).getCheckedRadioButtonId() < 0);
+        } else if (view instanceof Spinner) {
+            return (((Spinner) view).getSelectedItemPosition() == 0);
+        }
+        return false;
     }
 
     /**
-     * Gets the spinner value.
+     * Gets the view value.
      *
-     * @param spinner Instance of the Spinner class.
-     * @return The spinner value.
+     * @param activity Instance of the Activity class.
+     * @param view     Instance of the View class.
+     * @return The view value.
      */
-    public static String getSpinnerValue(Spinner spinner) {
-        return spinner.getSelectedItem().toString();
+    public static String getViewValue(Activity activity, View view) {
+        if (view instanceof EditText) {
+            return ((EditText) view).getText().toString();
+        } else if (view instanceof RadioGroup) {
+            return ((RadioButton) activity.findViewById(((RadioGroup) view).getCheckedRadioButtonId())).getText().toString();
+        } else if (view instanceof Spinner) {
+            return ((Spinner) view).getSelectedItem().toString();
+        } else if (view instanceof Switch) {
+            return (((Switch) view).isChecked()) ? "" : null;
+        }
+        return "";
+    }
+
+    /**
+     * Sets the view error.
+     *
+     * @param activity  Instance of the Activity class.
+     * @param view      Instance of the View class.
+     * @param viewError Error of the view.
+     */
+    public static void setViewError(Activity activity, View view, String viewError) {
+        if (view instanceof EditText) {
+            TextInputLayout textInputLayout = (TextInputLayout) view.getParent().getParent();
+            textInputLayout.setError(viewError);
+        } else if (view instanceof RadioGroup) {
+            RadioGroup radioGroup = (RadioGroup) view;
+            Drawable viewIcon = activity.getDrawable(R.drawable.ic_error_black_24dp);
+            viewIcon.setBounds(0, 0, viewIcon.getIntrinsicWidth(), viewIcon.getIntrinsicHeight());
+            ((RadioButton) radioGroup.getChildAt(radioGroup.getChildCount() - 1)).setError(viewError, viewIcon);
+        } else if (view instanceof Spinner) {
+            if (viewError != null) {
+                TextView textView = (TextView) ((Spinner) view).getSelectedView();
+                textView.setText(viewError);
+                textView.setTextColor(Color.BLACK);
+            }
+        }
     }
 }

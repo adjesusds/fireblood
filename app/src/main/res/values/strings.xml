@@ -47,6 +47,12 @@
     <string name="message_are_you_sure">Are you sure?</string>
     <string name="message_action_canceled">Action canceled.</string>
 
+    <!-- Validations related strings. -->
+    <string name="validation_please_fill_the_field">Please fill the field.</string>
+    <string name="validation_please_select_an_option">Please select an option.</string>
+    <string name="validation_validation_failed">Validation failed!</string>
+    <string name="validation_validation_passed">Validation passed!</string>
+
     <!-- Arrays (Provinces) related strings. -->
     <string name="array_value_province_azua" translatable="false">Azua</string>
     <string name="array_value_province_bahoruco" translatable="false">Bahoruco</string>

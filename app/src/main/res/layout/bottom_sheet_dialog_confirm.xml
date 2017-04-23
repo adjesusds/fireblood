@@ -35,12 +35,12 @@
     <TextView
         android:id="@+id/positive_button_text_view"
         style="@style/AppConfirmBottomSheetDialogOption"
-        android:drawableLeft="@drawable/ic_done_black_24dp"
+        android:drawableLeft="@drawable/ic_done_darker_gray_24dp"
         tools:text="Label" />
 
     <TextView
         android:id="@+id/negative_button_text_view"
         style="@style/AppConfirmBottomSheetDialogOption"
-        android:drawableLeft="@drawable/ic_close_black_24dp"
+        android:drawableLeft="@drawable/ic_close_darker_gray_24dp"
         tools:text="Label" />
 </LinearLayout>

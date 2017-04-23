@@ -13,12 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.models.FormValidator;
+import com.arieldiax.codelab.fireblood.models.Validation;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
@@ -32,6 +33,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Consent age of the Dominican Republic.
      */
     private static final int DOMINICAN_REPUBLIC_CONSENT_AGE = 18;
+
+    /**
+     * Scroll view field for sign up.
+     */
+    private ScrollView mSignUpScrollView;
 
     /**
      * Edit text field for birthday.
@@ -107,6 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
      * Initializes the user interface view bindings.
      */
     private void initUi() {
+        mSignUpScrollView = (ScrollView) findViewById(R.id.sign_up_activity);
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
@@ -141,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_values_blood_types, android.R.layout.simple_spinner_item);
         bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
-        mSnackbar = Snackbar.make(findViewById(R.id.activity_sign_up), "", Snackbar.LENGTH_LONG);
+        mSnackbar = Snackbar.make(mSignUpScrollView, "", Snackbar.LENGTH_LONG);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
@@ -163,15 +170,18 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void initValidators() {
         mFormValidator
-                .addValidation(R.id.email_edit_text, R.string.validation_please_fill_the_field)
-                .addValidation(R.id.password_edit_text, R.string.validation_please_fill_the_field)
-                .addValidation(R.id.first_name_edit_text, R.string.validation_please_fill_the_field)
-                .addValidation(R.id.last_name_edit_text, R.string.validation_please_fill_the_field)
-                .addValidation(R.id.birthday_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.email_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.email_edit_text, Validation.REGEX_EMAIL, R.string.validation_please_enter_a_valid_email)
+                .addValidation(R.id.password_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.password_edit_text, Validation.REGEX_PASSWORD, R.string.validation_please_enter_a_valid_password)
+                .addValidation(R.id.first_name_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.last_name_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.birthday_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.gender_radio_group, R.string.validation_please_select_an_option)
-                .addValidation(R.id.phone_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.phone_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.phone_edit_text, Validation.REGEX_PHONE, R.string.validation_please_enter_a_valid_phone)
                 .addValidation(R.id.province_spinner, R.string.validation_please_select_an_option)
-                .addValidation(R.id.hospital_edit_text, R.string.validation_please_fill_the_field)
+                .addValidation(R.id.hospital_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.blood_type_spinner, R.string.validation_please_select_an_option)
         ;
     }
@@ -235,7 +245,9 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                ViewUtils.hideKeyboard(SignUpActivity.this);
                 if (!mFormValidator.validate()) {
+                    mSignUpScrollView.fullScroll(View.FOCUS_UP);
                     mSnackbar.setText(R.string.validation_validation_failed).show();
                     return;
                 }

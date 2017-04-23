@@ -56,7 +56,7 @@ public final class FormUtils {
         } else if (view instanceof Spinner) {
             return ((Spinner) view).getSelectedItem().toString();
         } else if (view instanceof Switch) {
-            return (((Switch) view).isChecked()) ? "" : null;
+            return (((Switch) view).isChecked()) ? "true" : "false";
         }
         return "";
     }
@@ -72,11 +72,15 @@ public final class FormUtils {
         if (view instanceof EditText) {
             TextInputLayout textInputLayout = (TextInputLayout) view.getParent().getParent();
             textInputLayout.setError(viewError);
+            if (viewError == null) {
+                textInputLayout.setErrorEnabled(false);
+            }
         } else if (view instanceof RadioGroup) {
             RadioGroup radioGroup = (RadioGroup) view;
+            RadioButton radioButton = (RadioButton) radioGroup.getChildAt(radioGroup.getChildCount() - 1);
             Drawable viewIcon = activity.getDrawable(R.drawable.ic_error_black_24dp);
             viewIcon.setBounds(0, 0, viewIcon.getIntrinsicWidth(), viewIcon.getIntrinsicHeight());
-            ((RadioButton) radioGroup.getChildAt(radioGroup.getChildCount() - 1)).setError(viewError, viewIcon);
+            radioButton.setError(viewError, viewIcon);
         } else if (view instanceof Spinner) {
             if (viewError != null) {
                 TextView textView = (TextView) ((Spinner) view).getSelectedView();

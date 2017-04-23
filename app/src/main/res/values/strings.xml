@@ -48,8 +48,11 @@
     <string name="message_action_canceled">Action canceled.</string>
 
     <!-- Validations related strings. -->
-    <string name="validation_please_fill_the_field">Please fill the field.</string>
+    <string name="validation_please_complete_the_field">Please complete the field.</string>
     <string name="validation_please_select_an_option">Please select an option.</string>
+    <string name="validation_please_enter_a_valid_email">Please enter a valid email.</string>
+    <string name="validation_please_enter_a_valid_password">Please enter a valid password.</string>
+    <string name="validation_please_enter_a_valid_phone">Please enter a valid phone.</string>
     <string name="validation_validation_failed">Validation failed!</string>
     <string name="validation_validation_passed">Validation passed!</string>
 

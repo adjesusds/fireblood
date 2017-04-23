@@ -1,9 +1,7 @@
 package com.arieldiax.codelab.fireblood.models;
 
 import android.app.Activity;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.util.SparseArray;
 
 public class FormValidator {
 
@@ -13,9 +11,9 @@ public class FormValidator {
     private Activity mActivity;
 
     /**
-     * List of Validation instances.
+     * Map of Validation instances.
      */
-    private List<Validation> mValidations;
+    private SparseArray<Validation> mValidations;
 
     /**
      * Creates a new FormValidator object.
@@ -24,7 +22,7 @@ public class FormValidator {
      */
     public FormValidator(Activity activity) {
         mActivity = activity;
-        mValidations = new ArrayList<>();
+        mValidations = new SparseArray<>();
     }
 
     /**
@@ -35,10 +33,32 @@ public class FormValidator {
      * @return The instance of the FormValidator class.
      */
     public FormValidator addValidation(int fieldResourceId, int errorResourceId) {
-        mValidations.add(new Validation(mActivity)
-                .setField(fieldResourceId)
-                .setError(errorResourceId)
-        );
+        Validation validation = mValidations.get(fieldResourceId);
+        if (validation != null) {
+            validation.addRule(errorResourceId);
+        } else {
+            validation = new Validation(mActivity, fieldResourceId).addRule(errorResourceId);
+        }
+        mValidations.put(fieldResourceId, validation);
+        return this;
+    }
+
+    /**
+     * Adds a validation.
+     *
+     * @param fieldResourceId Resource ID of the field.
+     * @param regexString     String of the regex.
+     * @param errorResourceId Resource ID of the error.
+     * @return The instance of the FormValidator class.
+     */
+    public FormValidator addValidation(int fieldResourceId, String regexString, int errorResourceId) {
+        Validation validation = mValidations.get(fieldResourceId);
+        if (validation != null) {
+            validation.addRule(regexString, errorResourceId);
+        } else {
+            validation = new Validation(mActivity, fieldResourceId).addRule(regexString, errorResourceId);
+        }
+        mValidations.put(fieldResourceId, validation);
         return this;
     }
 
@@ -49,8 +69,8 @@ public class FormValidator {
      */
     public boolean validate() {
         boolean hasPassedValidations = true;
-        for (Validation validation : mValidations) {
-            if (!validation.validate()) {
+        for (int i = 0; i < mValidations.size(); i++) {
+            if (!mValidations.valueAt(i).validate(mActivity)) {
                 hasPassedValidations = false;
             }
         }

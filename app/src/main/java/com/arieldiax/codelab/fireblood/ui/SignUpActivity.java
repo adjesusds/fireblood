@@ -90,6 +90,11 @@ public class SignUpActivity extends AppCompatActivity {
     private FormValidator mFormValidator;
 
     /**
+     * MD5 hash of the form validator.
+     */
+    private String mFormValidatorMd5Hash;
+
+    /**
      * Latitude of the hospital.
      */
     private double mHospitalLatitude;
@@ -183,7 +188,9 @@ public class SignUpActivity extends AppCompatActivity {
                 .addValidation(R.id.province_spinner, R.string.validation_please_select_an_option)
                 .addValidation(R.id.hospital_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.blood_type_spinner, R.string.validation_please_select_an_option)
+                .addValidation(R.id.is_donor_switch, R.string.validation_please_select_an_option)
         ;
+        mFormValidatorMd5Hash = mFormValidator.getMd5Hash();
     }
 
     /**
@@ -260,7 +267,7 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case android.R.id.home:
-                mConfirmBottomSheetDialog.show();
+                attemptToFinishActivity();
                 return true;
         }
         return super.onOptionsItemSelected(menuItem);
@@ -268,7 +275,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mConfirmBottomSheetDialog.show();
+        attemptToFinishActivity();
     }
 
     @Override
@@ -284,6 +291,17 @@ public class SignUpActivity extends AppCompatActivity {
             case RESULT_CANCELED:
                 mSnackbar.setText(extras.getInt("message_resource_id")).show();
                 break;
+        }
+    }
+
+    /**
+     * Attempts to finish the activity.
+     */
+    private void attemptToFinishActivity() {
+        if (!mFormValidatorMd5Hash.equals(mFormValidator.getMd5Hash())) {
+            mConfirmBottomSheetDialog.show();
+        } else {
+            finishAfterTransition();
         }
     }
 }

@@ -3,6 +3,8 @@ package com.arieldiax.codelab.fireblood.models;
 import android.app.Activity;
 import android.util.SparseArray;
 
+import com.arieldiax.codelab.fireblood.utils.Utils;
+
 public class FormValidator {
 
     /**
@@ -60,6 +62,19 @@ public class FormValidator {
         }
         mValidations.put(fieldResourceId, validation);
         return this;
+    }
+
+    /**
+     * Gets the MD5 hash of the form.
+     *
+     * @return The MD5 hash of the form.
+     */
+    public String getMd5Hash() {
+        String hashString = "";
+        for (int i = 0; i < mValidations.size(); i++) {
+            hashString += mValidations.valueAt(i).getValue(mActivity);
+        }
+        return Utils.getMd5Hash(hashString);
     }
 
     /**

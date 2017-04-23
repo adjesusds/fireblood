@@ -52,7 +52,12 @@ public final class FormUtils {
         if (view instanceof EditText) {
             return ((EditText) view).getText().toString();
         } else if (view instanceof RadioGroup) {
-            return ((RadioButton) activity.findViewById(((RadioGroup) view).getCheckedRadioButtonId())).getText().toString();
+            RadioGroup radioGroup = (RadioGroup) view;
+            if (radioGroup.getCheckedRadioButtonId() >= 0) {
+                return ((RadioButton) activity.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+            } else {
+                return "";
+            }
         } else if (view instanceof Spinner) {
             return ((Spinner) view).getSelectedItem().toString();
         } else if (view instanceof Switch) {

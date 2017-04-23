@@ -3,6 +3,8 @@ package com.arieldiax.codelab.fireblood.models;
 import android.app.Activity;
 import android.view.View;
 
+import com.arieldiax.codelab.fireblood.utils.FormUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +64,16 @@ public class Validation {
                 .setError(errorResourceId)
         );
         return this;
+    }
+
+    /**
+     * Gets the value of the validation.
+     *
+     * @param activity Instance of the Activity class.
+     * @return The value of the validation.
+     */
+    public String getValue(Activity activity) {
+        return FormUtils.getViewValue(activity, mView);
     }
 
     /**

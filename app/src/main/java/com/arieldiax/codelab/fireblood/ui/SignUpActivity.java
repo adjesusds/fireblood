@@ -40,14 +40,14 @@ public class SignUpActivity extends AppCompatActivity {
     private ScrollView mSignUpScrollView;
 
     /**
-     * Edit text field for birthday.
-     */
-    private EditText mBirthdayEditText;
-
-    /**
      * Edit text field for phone.
      */
     private EditText mPhoneEditText;
+
+    /**
+     * Edit text field for birthday.
+     */
+    private EditText mBirthdayEditText;
 
     /**
      * Spinner field for province.
@@ -114,8 +114,8 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void initUi() {
         mSignUpScrollView = (ScrollView) findViewById(R.id.sign_up_activity);
-        mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
+        mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mHospitalEditText = (EditText) findViewById(R.id.hospital_edit_text);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
@@ -176,10 +176,10 @@ public class SignUpActivity extends AppCompatActivity {
                 .addValidation(R.id.password_edit_text, Validation.REGEX_PASSWORD, R.string.validation_please_enter_a_valid_password)
                 .addValidation(R.id.first_name_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.last_name_edit_text, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.birthday_edit_text, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.gender_radio_group, R.string.validation_please_select_an_option)
                 .addValidation(R.id.phone_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.phone_edit_text, Validation.REGEX_PHONE, R.string.validation_please_enter_a_valid_phone)
+                .addValidation(R.id.gender_radio_group, R.string.validation_please_select_an_option)
+                .addValidation(R.id.birthday_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.province_spinner, R.string.validation_please_select_an_option)
                 .addValidation(R.id.hospital_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.blood_type_spinner, R.string.validation_please_select_an_option)
@@ -190,14 +190,6 @@ public class SignUpActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     private void initListeners() {
-        mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                ViewUtils.hideKeyboard(SignUpActivity.this);
-                mBirthdayDatePickerDialog.show();
-            }
-        });
         mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -210,6 +202,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
         mPhoneEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                ViewUtils.hideKeyboard(SignUpActivity.this);
+                mBirthdayDatePickerDialog.show();
+            }
+        });
         mProvinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

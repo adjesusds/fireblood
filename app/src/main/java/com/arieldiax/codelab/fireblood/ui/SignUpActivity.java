@@ -90,9 +90,9 @@ public class SignUpActivity extends AppCompatActivity {
     private FormValidator mFormValidator;
 
     /**
-     * MD5 hash of the form validator.
+     * Hash of the form validator.
      */
-    private String mFormValidatorMd5Hash;
+    private String mFormValidatorHash;
 
     /**
      * Latitude of the hospital.
@@ -190,7 +190,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .addValidation(R.id.blood_type_spinner, R.string.validation_please_select_an_option)
                 .addValidation(R.id.is_donor_switch, R.string.validation_please_select_an_option)
         ;
-        mFormValidatorMd5Hash = mFormValidator.getMd5Hash();
+        mFormValidatorHash = mFormValidator.hash();
     }
 
     /**
@@ -298,7 +298,7 @@ public class SignUpActivity extends AppCompatActivity {
      * Attempts to finish the activity.
      */
     private void attemptToFinishActivity() {
-        if (!mFormValidatorMd5Hash.equals(mFormValidator.getMd5Hash())) {
+        if (!mFormValidatorHash.equals(mFormValidator.hash())) {
             mConfirmBottomSheetDialog.show();
         } else {
             finishAfterTransition();

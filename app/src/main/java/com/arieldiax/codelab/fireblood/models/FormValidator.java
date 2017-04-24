@@ -65,16 +65,16 @@ public class FormValidator {
     }
 
     /**
-     * Gets the MD5 hash of the form.
+     * Generates the hash of the form.
      *
-     * @return The MD5 hash of the form.
+     * @return The hash of the form.
      */
-    public String getMd5Hash() {
+    public String hash() {
         String hashString = "";
         for (int i = 0; i < mValidations.size(); i++) {
             hashString += mValidations.valueAt(i).getValue(mActivity);
         }
-        return Utils.getMd5Hash(hashString);
+        return Utils.md5(hashString);
     }
 
     /**

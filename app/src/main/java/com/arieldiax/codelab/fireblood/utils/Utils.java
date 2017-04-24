@@ -14,12 +14,12 @@ public final class Utils {
     }
 
     /**
-     * Gets the MD5 hash of the string.
+     * Generates the MD5 hash of the string.
      *
      * @param hashString String of the hash.
      * @return The MD5 hash of the string.
      */
-    public static String getMd5Hash(String hashString) {
+    public static String md5(String hashString) {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("MD5");

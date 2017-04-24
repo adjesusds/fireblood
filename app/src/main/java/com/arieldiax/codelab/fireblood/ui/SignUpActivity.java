@@ -1,6 +1,7 @@
 package com.arieldiax.codelab.fireblood.ui;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -85,6 +86,11 @@ public class SignUpActivity extends AppCompatActivity {
     private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
 
     /**
+     * Instance of the ProgressDialog class.
+     */
+    private ProgressDialog mProgressDialog;
+
+    /**
      * Instance of the FormValidator class.
      */
     private FormValidator mFormValidator;
@@ -163,10 +169,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
-                .setTitle(R.string.title_cancel_registration)
+                .setTitle(R.string.title_cancel_sign_up)
                 .setMessage(R.string.message_are_you_sure)
                 .setPositiveButtonListener(positiveButtonListener)
         ;
+        mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
+        mProgressDialog.setTitle(R.string.title_start_sign_up);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
         mFormValidator = new FormValidator(this);
     }
 
@@ -258,7 +268,7 @@ public class SignUpActivity extends AppCompatActivity {
                     mSnackbar.setText(R.string.validation_validation_failed).show();
                     return;
                 }
-                mSnackbar.setText(R.string.validation_validation_passed).show();
+                mProgressDialog.show();
             }
         });
     }

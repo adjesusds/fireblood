@@ -49,7 +49,7 @@ public class ConfirmBottomSheetDialog {
 
             @Override
             public void onClick(View view) {
-                mBottomSheetDialog.dismiss();
+                dismiss();
             }
         });
         mBottomSheetDialog.setContentView(contentView);

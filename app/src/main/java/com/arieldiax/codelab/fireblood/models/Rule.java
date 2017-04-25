@@ -8,7 +8,7 @@ import com.arieldiax.codelab.fireblood.utils.FormUtils;
 public class Rule {
 
     /**
-     * Type of the rules.
+     * Types of a rule.
      */
     private static int TYPE_INCREMENTER = 0;
     private static final int TYPE_EMPTY = ++TYPE_INCREMENTER;

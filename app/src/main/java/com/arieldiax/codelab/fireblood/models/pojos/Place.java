@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.models;
+package com.arieldiax.codelab.fireblood.models.pojos;
 
 import com.google.android.gms.maps.model.LatLng;
 

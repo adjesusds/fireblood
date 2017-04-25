@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood;
+package com.arieldiax.codelab.fireblood.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,7 +7,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.arieldiax.codelab.fireblood.ui.WelcomeActivity;
+import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 public class SplashActivity extends AppCompatActivity {

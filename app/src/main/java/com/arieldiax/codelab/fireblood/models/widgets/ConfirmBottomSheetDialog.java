@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.models;
+package com.arieldiax.codelab.fireblood.models.widgets;
 
 import android.app.Activity;
 import android.content.DialogInterface;

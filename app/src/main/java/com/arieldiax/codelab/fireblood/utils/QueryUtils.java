@@ -2,7 +2,7 @@ package com.arieldiax.codelab.fireblood.utils;
 
 import android.text.TextUtils;
 
-import com.arieldiax.codelab.fireblood.models.Place;
+import com.arieldiax.codelab.fireblood.models.pojos.Place;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -18,9 +18,9 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
-import com.arieldiax.codelab.fireblood.models.ConfirmBottomSheetDialog;
-import com.arieldiax.codelab.fireblood.models.FormValidator;
-import com.arieldiax.codelab.fireblood.models.Validation;
+import com.arieldiax.codelab.fireblood.models.validations.FormValidator;
+import com.arieldiax.codelab.fireblood.models.validations.Validation;
+import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;

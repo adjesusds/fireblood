@@ -28,6 +28,7 @@
     <string name="profile_label_phone_hint" translatable="false">+1 ###-###-####</string>
     <string name="profile_label_gender">Gender</string>
     <string name="profile_label_birthday">Birthday</string>
+    <string name="profile_label_birthday_format" translatable="false"><xliff:g id="year">%d</xliff:g>-<xliff:g id="month">%02d</xliff:g>-<xliff:g id="day_of_month">%02d</xliff:g></string>
     <string name="profile_label_gender_female">Female</string>
     <string name="profile_label_gender_male">Male</string>
     <string name="profile_label_province">Province</string>

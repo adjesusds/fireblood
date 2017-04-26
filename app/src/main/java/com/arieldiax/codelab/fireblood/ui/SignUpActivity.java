@@ -26,7 +26,6 @@ import com.arieldiax.codelab.fireblood.utils.FormUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -148,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mBirthdayEditText.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, ++month, dayOfMonth));
+                mBirthdayEditText.setText(getString(R.string.profile_label_birthday_format, year, ++month, dayOfMonth));
             }
         }, year, month, dayOfMonth);
         calendar.set(year, month, dayOfMonth, hourOfDay, minute, second);

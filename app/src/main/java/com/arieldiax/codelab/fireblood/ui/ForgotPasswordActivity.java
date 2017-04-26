@@ -11,7 +11,7 @@ import com.arieldiax.codelab.fireblood.R;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     /**
-     * Text view field for sign in.
+     * Views of the activity.
      */
     private TextView mSignInTextView;
 

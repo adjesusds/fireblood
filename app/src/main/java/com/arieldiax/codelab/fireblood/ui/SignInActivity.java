@@ -14,13 +14,9 @@ import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 public class SignInActivity extends AppCompatActivity {
 
     /**
-     * Image view field for app logo.
+     * Views of the activity.
      */
     private ImageView mAppLogoImageView;
-
-    /**
-     * Text view field for forgot your password.
-     */
     private TextView mForgotYourPasswordTextView;
 
     @Override

@@ -13,18 +13,10 @@ import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 public class WelcomeActivity extends AppCompatActivity {
 
     /**
-     * Image view field for app logo.
+     * Views of the activity.
      */
     private ImageView mAppLogoImageView;
-
-    /**
-     * Button field for sign up.
-     */
     private Button mSignUpButton;
-
-    /**
-     * Button field for sign in.
-     */
     private Button mSignInButton;
 
     @Override

@@ -35,38 +35,14 @@ public class SignUpActivity extends AppCompatActivity {
     private static final int DOMINICAN_REPUBLIC_CONSENT_AGE = 18;
 
     /**
-     * Scroll view field for sign up.
+     * Views of the activity.
      */
     private ScrollView mSignUpScrollView;
-
-    /**
-     * Edit text field for phone.
-     */
     private EditText mPhoneEditText;
-
-    /**
-     * Edit text field for birthday.
-     */
     private EditText mBirthdayEditText;
-
-    /**
-     * Spinner field for province.
-     */
     private Spinner mProvinceSpinner;
-
-    /**
-     * Edit text field for hospital.
-     */
     private EditText mHospitalEditText;
-
-    /**
-     * Spinner field for blood type.
-     */
     private Spinner mBloodTypeSpinner;
-
-    /**
-     * Button field for sign up.
-     */
     private Button mSignUpButton;
 
     /**

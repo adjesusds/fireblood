@@ -39,7 +39,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     private static final int GOOGLE_MAPS_BOUNDARIES_PADDING = 200;
 
     /**
-     * Progress bar field for place picker.
+     * Views of the activity.
      */
     private ProgressBar mPlacePickerProgressBar;
 

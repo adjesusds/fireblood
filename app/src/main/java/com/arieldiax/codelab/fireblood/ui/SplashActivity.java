@@ -13,7 +13,7 @@ import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 public class SplashActivity extends AppCompatActivity {
 
     /**
-     * Image view field for app logo.
+     * Views of the activity.
      */
     private ImageView mAppLogoImageView;
 

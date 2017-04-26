@@ -42,7 +42,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/account_label_email"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:maxLength="@integer/max_length_email" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -59,7 +60,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/account_label_password"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:maxLength="@integer/max_length_password" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -195,7 +194,6 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
-        mPhoneEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
 
             @Override

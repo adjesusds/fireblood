@@ -135,7 +135,7 @@
                         style="@style/AppEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits=" -0123456789+"
+                        android:digits="0123456789"
                         android:inputType="phone"
                         android:maxLength="@integer/max_length_phone" />
                 </android.support.design.widget.TextInputLayout>

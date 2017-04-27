@@ -16,7 +16,7 @@ public class Validation {
     public static final String REGEX_EMAIL = "^[\\w!#$%&'*+\\/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+\\/=?`{|}~^-]+)*@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}$";
     public static final String REGEX_USERNAME = "^[\\w!#$%&'*+\\/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+\\/=?`{|}~^-]+)*$";
     public static final String REGEX_PASSWORD = "^(?=.{8,32}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$";
-    public static final String REGEX_PHONE = "^\\+1 [0-9]{3}-[0-9]{3}-[0-9]{4}$";
+    public static final String REGEX_PHONE = "^8[024]9[0-9]{7}$";
 
     /**
      * Instance of the View class.

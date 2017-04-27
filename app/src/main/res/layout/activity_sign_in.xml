@@ -37,11 +37,11 @@
                 <android.support.design.widget.TextInputLayout style="@style/AppEditTextWrapper">
 
                     <EditText
-                        android:id="@+id/email_edit_text"
+                        android:id="@+id/email_or_username_edit_text"
                         style="@style/AppEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/account_label_email"
+                        android:hint="@string/account_label_email_or_username"
                         android:inputType="textEmailAddress"
                         android:maxLength="@integer/max_length_email" />
                 </android.support.design.widget.TextInputLayout>

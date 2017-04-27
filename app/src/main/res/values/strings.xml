@@ -18,6 +18,8 @@
     <!-- Accounts related strings. -->
     <string name="account_title">Account</string>
     <string name="account_label_email">Email</string>
+    <string name="account_label_username">Username</string>
+    <string name="account_label_email_or_username">Email or Username</string>
     <string name="account_label_password">Password</string>
 
     <!-- Profiles related strings. -->
@@ -55,6 +57,7 @@
     <string name="validation_please_complete_the_field">Please complete the field.</string>
     <string name="validation_please_select_an_option">Please select an option.</string>
     <string name="validation_please_enter_a_valid_email">Please enter a valid email.</string>
+    <string name="validation_please_enter_a_valid_username">Please enter a valid username.</string>
     <string name="validation_please_enter_a_valid_password">Please enter a valid password.</string>
     <string name="validation_please_enter_a_valid_phone">Please enter a valid phone.</string>
     <string name="validation_validation_failed">Validation failed!</string>

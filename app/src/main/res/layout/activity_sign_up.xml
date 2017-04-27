@@ -57,6 +57,21 @@
 
             <LinearLayout style="@style/AppVerticalFormFieldWrapper">
 
+                <android.support.design.widget.TextInputLayout style="@style/AppEditTextWrapper">
+
+                    <EditText
+                        android:id="@+id/username_edit_text"
+                        style="@style/AppEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/account_label_username"
+                        android:inputType="textNoSuggestions"
+                        android:maxLength="@integer/max_length_username" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/AppVerticalFormFieldWrapper">
+
                 <android.support.design.widget.TextInputLayout
                     style="@style/AppEditTextWrapper"
                     app:passwordToggleEnabled="true"

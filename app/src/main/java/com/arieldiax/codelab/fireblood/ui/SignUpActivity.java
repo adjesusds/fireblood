@@ -162,6 +162,8 @@ public class SignUpActivity extends AppCompatActivity {
         mFormValidator
                 .addValidation(R.id.email_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.email_edit_text, Validation.REGEX_EMAIL, R.string.validation_please_enter_a_valid_email)
+                .addValidation(R.id.username_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.username_edit_text, Validation.REGEX_USERNAME, R.string.validation_please_enter_a_valid_username)
                 .addValidation(R.id.password_edit_text, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.password_edit_text, Validation.REGEX_PASSWORD, R.string.validation_please_enter_a_valid_password)
                 .addValidation(R.id.first_name_edit_text, R.string.validation_please_complete_the_field)

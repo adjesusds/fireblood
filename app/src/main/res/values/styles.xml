@@ -5,6 +5,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Customize your theme here. -->
+        <item name="android:itemTextAppearance">@style/AppItemTextAppearance</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
         <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
@@ -62,6 +63,12 @@
     </style>
 
     <style name="AppProgressDialogTitleStyle" parent="@android:style/TextAppearance.Material.Title">
+
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Custom application appearances. -->
+    <style name="AppItemTextAppearance">
 
         <item name="android:textColor">@color/colorPrimary</item>
     </style>

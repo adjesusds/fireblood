@@ -52,6 +52,11 @@
             android:theme="@style/AppPlacePickerTheme" />
 
         <activity
+            android:name=".ui.VerifyEmailActivity"
+            android:label="@string/authentication_verify_email"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.SignInActivity"
             android:label="@string/authentication_sign_in"
             android:launchMode="singleTop"

@@ -4,8 +4,11 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,18 +16,32 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.models.firebase.User;
 import com.arieldiax.codelab.fireblood.models.validations.FormValidator;
 import com.arieldiax.codelab.fireblood.models.validations.Validation;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
+import com.arieldiax.codelab.fireblood.utils.Utils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -37,6 +54,10 @@ public class SignUpActivity extends AppCompatActivity {
      * Views of the activity.
      */
     private ScrollView mSignUpScrollView;
+    private ImageView mAppLogoImageView;
+    private EditText mEmailEditText;
+    private EditText mUsernameEditText;
+    private EditText mPasswordEditText;
     private EditText mPhoneEditText;
     private EditText mBirthdayEditText;
     private Spinner mProvinceSpinner;
@@ -84,6 +105,26 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private double mHospitalLongitude;
 
+    /**
+     * Instance of the DatabaseReference class.
+     */
+    private DatabaseReference mDatabaseReference;
+
+    /**
+     * Instance of the FirebaseAuth class.
+     */
+    private FirebaseAuth mFirebaseAuth;
+
+    /**
+     * Remaining custom validations of the form.
+     */
+    private int mFormRemainingCustomValidations;
+
+    /**
+     * Whether or not the form has passed the custom validations.
+     */
+    private boolean mHasPassedCustomValidations;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +140,10 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void initUi() {
         mSignUpScrollView = (ScrollView) findViewById(R.id.sign_up_activity);
+        mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
+        mEmailEditText = (EditText) findViewById(R.id.email_edit_text);
+        mUsernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        mPasswordEditText = (EditText) findViewById(R.id.password_edit_text);
         mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
@@ -127,10 +172,10 @@ public class SignUpActivity extends AppCompatActivity {
         }, year, month, dayOfMonth);
         calendar.set(year, month, dayOfMonth, hourOfDay, minute, second);
         mBirthdayDatePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
-        ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_values_provinces, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
         provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mProvinceSpinner.setAdapter(provinceArrayAdapter);
-        ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_values_blood_types, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
         bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
         mSnackbar = Snackbar.make(mSignUpScrollView, "", Snackbar.LENGTH_LONG);
@@ -148,10 +193,12 @@ public class SignUpActivity extends AppCompatActivity {
                 .setPositiveButtonListener(positiveButtonListener)
         ;
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_start_sign_up);
+        mProgressDialog.setTitle(R.string.title_signing_up);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
         mProgressDialog.setCancelable(false);
         mFormValidator = new FormValidator(this);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -243,7 +290,11 @@ public class SignUpActivity extends AppCompatActivity {
                     mSnackbar.setText(R.string.validation_validation_failed).show();
                     return;
                 }
-                mProgressDialog.show();
+                if (!ConnectionUtils.hasInternetConnection(SignUpActivity.this)) {
+                    mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
+                    return;
+                }
+                attemptToRegisterUser();
             }
         });
     }
@@ -288,5 +339,163 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             finishAfterTransition();
         }
+    }
+
+    /**
+     * Attempts to register the user.
+     */
+    private void attemptToRegisterUser() {
+        mSignUpScrollView.fullScroll(View.FOCUS_UP);
+        mProgressDialog.show();
+        mFormRemainingCustomValidations = 2;
+        mHasPassedCustomValidations = true;
+        mDatabaseReference
+                .child(User.CHILD_NODE)
+                .orderByChild(User.PROPERTY_EMAIL)
+                .equalTo(FormUtils.getViewValue(this, mEmailEditText))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        if (user != null) {
+                            FormUtils.setViewError(SignUpActivity.this, mEmailEditText, getString(R.string.validation_the_email_is_in_use));
+                            mHasPassedCustomValidations = false;
+                        } else {
+                            FormUtils.setViewError(SignUpActivity.this, mEmailEditText, null);
+                        }
+                        mFormRemainingCustomValidations--;
+                        registerUser();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                })
+        ;
+        mDatabaseReference
+                .child(User.CHILD_NODE)
+                .orderByChild(User.PROPERTY_USERNAME)
+                .equalTo(FormUtils.getViewValue(this, mUsernameEditText))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        if (user != null) {
+                            FormUtils.setViewError(SignUpActivity.this, mUsernameEditText, getString(R.string.validation_the_username_is_in_use));
+                            mHasPassedCustomValidations = false;
+                        } else {
+                            FormUtils.setViewError(SignUpActivity.this, mUsernameEditText, null);
+                        }
+                        mFormRemainingCustomValidations--;
+                        registerUser();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                })
+        ;
+    }
+
+    /**
+     * Registers the user.
+     */
+    private void registerUser() {
+        if (mFormRemainingCustomValidations > 0) {
+            return;
+        }
+        if (!mHasPassedCustomValidations) {
+            mProgressDialog.dismiss();
+            mSnackbar.setText(R.string.validation_validation_failed).show();
+            return;
+        }
+        mFirebaseAuth
+                .createUserWithEmailAndPassword(FormUtils.getViewValue(this, mEmailEditText), FormUtils.getViewValue(this, mPasswordEditText))
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            mProgressDialog.dismiss();
+                            mSnackbar.setText(R.string.message_an_error_has_occurred).show();
+                            return;
+                        }
+                        createUser();
+                    }
+                })
+        ;
+    }
+
+    /**
+     * Creates the user.
+     */
+    private void createUser() {
+        String userKey = mDatabaseReference.child(User.CHILD_NODE).push().getKey();
+        mDatabaseReference
+                .child(User.CHILD_NODE)
+                .child(userKey)
+                .setValue(getUser())
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()) {
+                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (firebaseUser != null) {
+                                firebaseUser.delete();
+                            }
+                            mProgressDialog.dismiss();
+                            mSnackbar.setText(R.string.message_an_error_has_occurred).show();
+                            return;
+                        }
+                        sendVerificationEmail();
+                    }
+                })
+        ;
+    }
+
+    /**
+     * Sends the verification email.
+     */
+    private void sendVerificationEmail() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            firebaseUser
+                    .sendEmailVerification()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            mProgressDialog.dismiss();
+                            Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
+                            ViewUtils.startCustomActivity(SignUpActivity.this, VerifyEmailActivity.class, activityPair, true);
+                        }
+                    })
+            ;
+        }
+    }
+
+    /**
+     * Gets the user.
+     */
+    private User getUser() {
+        SparseArray<String> formValidatorSerialize = mFormValidator.serialize();
+        String email = formValidatorSerialize.get(R.id.email_edit_text);
+        String username = formValidatorSerialize.get(R.id.username_edit_text);
+        String firstName = formValidatorSerialize.get(R.id.first_name_edit_text).trim();
+        String lastName = formValidatorSerialize.get(R.id.last_name_edit_text).trim();
+        String phone = formValidatorSerialize.get(R.id.phone_edit_text);
+        String gender = (formValidatorSerialize.get(R.id.gender_radio_group).equals(String.valueOf(R.id.gender_radio_button_female))) ? User.VALUE_GENDER_FEMALE : User.VALUE_GENDER_MALE;
+        long birthday = Utils.epochTime(formValidatorSerialize.get(R.id.birthday_edit_text), "yyyy-MM-dd");
+        String province = formValidatorSerialize.get(R.id.province_spinner);
+        HashMap<String, Object> hospital = new HashMap<>();
+        hospital.put(User.PROPERTY_HOSPITAL_NAME, formValidatorSerialize.get(R.id.hospital_edit_text));
+        hospital.put(User.PROPERTY_HOSPITAL_LATITUDE, mHospitalLatitude);
+        hospital.put(User.PROPERTY_HOSPITAL_LONGITUDE, mHospitalLongitude);
+        String bloodType = formValidatorSerialize.get(R.id.blood_type_spinner);
+        boolean isDonor = !formValidatorSerialize.get(R.id.is_donor_switch).isEmpty();
+        return new User(email, username, firstName, lastName, phone, gender, birthday, province, hospital, bloodType, isDonor);
     }
 }

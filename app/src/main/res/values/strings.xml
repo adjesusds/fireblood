@@ -10,10 +10,14 @@
     <string name="authentication_already_a_user">Already a user?</string>
     <string name="authentication_sign_in">Sign in</string>
     <string name="authentication_place_picker">Place Picker</string>
+    <string name="authentication_verify_email">Verify Email</string>
+    <string name="authentication_congratulations">Congratulations!</string>
+    <string name="authentication_an_email_has_been_sent_to">An email has been sent to:</string>
+    <string name="authentication_havent_received_the_email_yet">Haven\'t received the email yet?</string>
+    <string name="authentication_send_email">Send Email</string>
     <string name="authentication_forgot_your_password_underlined"><u>Forgot your password?</u></string>
     <string name="authentication_forgot_password">Forgot Password</string>
     <string name="authentication_sign_in_underlined"><u>Sign in!</u></string>
-    <string name="authentication_send_email">Send Email</string>
 
     <!-- Accounts related strings. -->
     <string name="account_title">Account</string>
@@ -29,10 +33,10 @@
     <string name="profile_label_phone">Phone</string>
     <string name="profile_label_phone_hint" translatable="false">8#9#######</string>
     <string name="profile_label_gender">Gender</string>
-    <string name="profile_label_birthday">Birthday</string>
-    <string name="profile_label_birthday_format" translatable="false"><xliff:g id="year">%d</xliff:g>-<xliff:g id="month">%02d</xliff:g>-<xliff:g id="day_of_month">%02d</xliff:g></string>
     <string name="profile_label_gender_female">Female</string>
     <string name="profile_label_gender_male">Male</string>
+    <string name="profile_label_birthday">Birthday</string>
+    <string name="profile_label_birthday_format" translatable="false"><xliff:g id="year">%d</xliff:g>-<xliff:g id="month">%02d</xliff:g>-<xliff:g id="day_of_month">%02d</xliff:g></string>
     <string name="profile_label_province">Province</string>
     <string name="profile_label_hospital">Hospital</string>
     <string name="profile_label_blood_type">Blood Type</string>
@@ -44,7 +48,9 @@
     <!-- Titles related strings. -->
     <string name="title_cancel_sign_up">Cancel Sign up</string>
     <string name="title_select_hospital">Select Hospital</string>
-    <string name="title_start_sign_up">Start Sign up</string>
+    <string name="title_signing_up">Signing up</string>
+    <string name="title_send_verification_email">Send Verification Email</string>
+    <string name="title_sending_verification_email">Sending Verification Email</string>
 
     <!-- Messages related strings. -->
     <string name="message_please_select_a_province_first">Please select a Province first.</string>
@@ -52,6 +58,8 @@
     <string name="message_are_you_sure">Are you sure?</string>
     <string name="message_action_canceled">Action canceled.</string>
     <string name="message_please_wait_a_few_seconds">Please wait a few seconds&#8230;</string>
+    <string name="message_an_error_has_occurred">An error has occurred.</string>
+    <string name="message_verification_email_sent">Verification email sent!</string>
 
     <!-- Validations related strings. -->
     <string name="validation_please_complete_the_field">Please complete the field.</string>
@@ -61,147 +69,104 @@
     <string name="validation_please_enter_a_valid_password">Please enter a valid password.</string>
     <string name="validation_please_enter_a_valid_phone">Please enter a valid phone.</string>
     <string name="validation_validation_failed">Validation failed!</string>
+    <string name="validation_the_email_is_in_use">The email is in use.</string>
+    <string name="validation_the_username_is_in_use">The username is in use.</string>
+
+    <!-- Menu items related strings. -->
+    <string name="menu_item_sign_out">Sign out</string>
 
     <!-- Arrays (Provinces) related strings. -->
-    <string name="array_value_province_azua" translatable="false">Azua</string>
-    <string name="array_value_province_bahoruco" translatable="false">Bahoruco</string>
-    <string name="array_value_province_barahona" translatable="false">Barahona</string>
-    <string name="array_value_province_dajabon" translatable="false">Dajabón</string>
-    <string name="array_value_province_distrito_nacional" translatable="false">Distrito Nacional</string>
-    <string name="array_value_province_duarte" translatable="false">Duarte</string>
-    <string name="array_value_province_el_seibo" translatable="false">El Seibo</string>
-    <string name="array_value_province_elias_pina" translatable="false">Elías Piña</string>
-    <string name="array_value_province_espaillat" translatable="false">Espaillat</string>
-    <string name="array_value_province_hato_mayor" translatable="false">Hato Mayor</string>
-    <string name="array_value_province_hermanas_mirabal" translatable="false">Hermanas Mirabal</string>
-    <string name="array_value_province_independencia" translatable="false">Independencia</string>
-    <string name="array_value_province_la_altagracia" translatable="false">La Altagracia</string>
-    <string name="array_value_province_la_romana" translatable="false">La Romana</string>
-    <string name="array_value_province_la_vega" translatable="false">La Vega</string>
-    <string name="array_value_province_maria_trinidad_sanchez" translatable="false">María Trinidad Sánchez</string>
-    <string name="array_value_province_monsenor_nouel" translatable="false">Monseñor Nouel</string>
-    <string name="array_value_province_monte_cristi" translatable="false">Monte Cristi</string>
-    <string name="array_value_province_monte_plata" translatable="false">Monte Plata</string>
-    <string name="array_value_province_pedernales" translatable="false">Pedernales</string>
-    <string name="array_value_province_peravia" translatable="false">Peravia</string>
-    <string name="array_value_province_puerto_plata" translatable="false">Puerto Plata</string>
-    <string name="array_value_province_samana" translatable="false">Samaná</string>
-    <string name="array_value_province_san_cristobal" translatable="false">San Cristóbal</string>
-    <string name="array_value_province_san_jose_de_ocoa" translatable="false">San José de Ocoa</string>
-    <string name="array_value_province_san_juan" translatable="false">San Juan</string>
-    <string name="array_value_province_san_pedro_de_macoris" translatable="false">San Pedro de Macorís</string>
-    <string name="array_value_province_santiago" translatable="false">Santiago</string>
-    <string name="array_value_province_santiago_rodriguez" translatable="false">Santiago Rodríguez</string>
-    <string name="array_value_province_santo_domingo" translatable="false">Santo Domingo</string>
-    <string name="array_value_province_sanchez_ramirez" translatable="false">Sánchez Ramírez</string>
-    <string name="array_value_province_valverde" translatable="false">Valverde</string>
+    <string name="array_province_azua" translatable="false">Azua</string>
+    <string name="array_province_bahoruco" translatable="false">Bahoruco</string>
+    <string name="array_province_barahona" translatable="false">Barahona</string>
+    <string name="array_province_dajabon" translatable="false">Dajabón</string>
+    <string name="array_province_distrito_nacional" translatable="false">Distrito Nacional</string>
+    <string name="array_province_duarte" translatable="false">Duarte</string>
+    <string name="array_province_el_seibo" translatable="false">El Seibo</string>
+    <string name="array_province_elias_pina" translatable="false">Elías Piña</string>
+    <string name="array_province_espaillat" translatable="false">Espaillat</string>
+    <string name="array_province_hato_mayor" translatable="false">Hato Mayor</string>
+    <string name="array_province_hermanas_mirabal" translatable="false">Hermanas Mirabal</string>
+    <string name="array_province_independencia" translatable="false">Independencia</string>
+    <string name="array_province_la_altagracia" translatable="false">La Altagracia</string>
+    <string name="array_province_la_romana" translatable="false">La Romana</string>
+    <string name="array_province_la_vega" translatable="false">La Vega</string>
+    <string name="array_province_maria_trinidad_sanchez" translatable="false">María Trinidad Sánchez</string>
+    <string name="array_province_monsenor_nouel" translatable="false">Monseñor Nouel</string>
+    <string name="array_province_monte_cristi" translatable="false">Monte Cristi</string>
+    <string name="array_province_monte_plata" translatable="false">Monte Plata</string>
+    <string name="array_province_pedernales" translatable="false">Pedernales</string>
+    <string name="array_province_peravia" translatable="false">Peravia</string>
+    <string name="array_province_puerto_plata" translatable="false">Puerto Plata</string>
+    <string name="array_province_samana" translatable="false">Samaná</string>
+    <string name="array_province_san_cristobal" translatable="false">San Cristóbal</string>
+    <string name="array_province_san_jose_de_ocoa" translatable="false">San José de Ocoa</string>
+    <string name="array_province_san_juan" translatable="false">San Juan</string>
+    <string name="array_province_san_pedro_de_macoris" translatable="false">San Pedro de Macorís</string>
+    <string name="array_province_santiago" translatable="false">Santiago</string>
+    <string name="array_province_santiago_rodriguez" translatable="false">Santiago Rodríguez</string>
+    <string name="array_province_santo_domingo" translatable="false">Santo Domingo</string>
+    <string name="array_province_sanchez_ramirez" translatable="false">Sánchez Ramírez</string>
+    <string name="array_province_valverde" translatable="false">Valverde</string>
 
     <!-- Arrays (Blood Types) related strings. -->
-    <string name="array_value_blood_type_a_minus" translatable="false">A-</string>
-    <string name="array_value_blood_type_a_plus" translatable="false">A+</string>
-    <string name="array_value_blood_type_ab_minus" translatable="false">AB-</string>
-    <string name="array_value_blood_type_ab_plus" translatable="false">AB+</string>
-    <string name="array_value_blood_type_b_minus" translatable="false">B-</string>
-    <string name="array_value_blood_type_b_plus" translatable="false">B+</string>
-    <string name="array_value_blood_type_o_minus" translatable="false">O-</string>
-    <string name="array_value_blood_type_o_plus" translatable="false">O+</string>
+    <string name="array_blood_type_a_plus" translatable="false">A+</string>
+    <string name="array_blood_type_a_minus" translatable="false">A-</string>
+    <string name="array_blood_type_ab_plus" translatable="false">AB+</string>
+    <string name="array_blood_type_ab_minus" translatable="false">AB-</string>
+    <string name="array_blood_type_b_plus" translatable="false">B+</string>
+    <string name="array_blood_type_b_minus" translatable="false">B-</string>
+    <string name="array_blood_type_o_plus" translatable="false">O+</string>
+    <string name="array_blood_type_o_minus" translatable="false">O-</string>
 
     <!-- Arrays related strings. -->
-    <string-array name="array_keys_provinces">
-
-        <item>placeholder</item>
-        <item>azua</item>
-        <item>bahoruco</item>
-        <item>barahona</item>
-        <item>dajabon</item>
-        <item>distrito_nacional</item>
-        <item>duarte</item>
-        <item>el_seibo</item>
-        <item>elias_pina</item>
-        <item>espaillat</item>
-        <item>hato_mayor</item>
-        <item>hermanas_mirabal</item>
-        <item>independencia</item>
-        <item>la_altagracia</item>
-        <item>la_romana</item>
-        <item>la_vega</item>
-        <item>maria_trinidad_sanchez</item>
-        <item>monsenor_nouel</item>
-        <item>monte_cristi</item>
-        <item>monte_plata</item>
-        <item>pedernales</item>
-        <item>peravia</item>
-        <item>puerto_plata</item>
-        <item>samana</item>
-        <item>san_cristobal</item>
-        <item>san_jose_de_ocoa</item>
-        <item>san_juan</item>
-        <item>san_pedro_de_macoris</item>
-        <item>santiago</item>
-        <item>santiago_rodriguez</item>
-        <item>santo_domingo</item>
-        <item>sanchez_ramirez</item>
-        <item>valverde</item>
-    </string-array>
-    <string-array name="array_values_provinces">
+    <string-array name="array_provinces">
 
         <item>@string/placeholder_select_an_option</item>
-        <item>@string/array_value_province_azua</item>
-        <item>@string/array_value_province_bahoruco</item>
-        <item>@string/array_value_province_barahona</item>
-        <item>@string/array_value_province_dajabon</item>
-        <item>@string/array_value_province_distrito_nacional</item>
-        <item>@string/array_value_province_duarte</item>
-        <item>@string/array_value_province_el_seibo</item>
-        <item>@string/array_value_province_elias_pina</item>
-        <item>@string/array_value_province_espaillat</item>
-        <item>@string/array_value_province_hato_mayor</item>
-        <item>@string/array_value_province_hermanas_mirabal</item>
-        <item>@string/array_value_province_independencia</item>
-        <item>@string/array_value_province_la_altagracia</item>
-        <item>@string/array_value_province_la_romana</item>
-        <item>@string/array_value_province_la_vega</item>
-        <item>@string/array_value_province_maria_trinidad_sanchez</item>
-        <item>@string/array_value_province_monsenor_nouel</item>
-        <item>@string/array_value_province_monte_cristi</item>
-        <item>@string/array_value_province_monte_plata</item>
-        <item>@string/array_value_province_pedernales</item>
-        <item>@string/array_value_province_peravia</item>
-        <item>@string/array_value_province_puerto_plata</item>
-        <item>@string/array_value_province_samana</item>
-        <item>@string/array_value_province_san_cristobal</item>
-        <item>@string/array_value_province_san_jose_de_ocoa</item>
-        <item>@string/array_value_province_san_juan</item>
-        <item>@string/array_value_province_san_pedro_de_macoris</item>
-        <item>@string/array_value_province_santiago</item>
-        <item>@string/array_value_province_santiago_rodriguez</item>
-        <item>@string/array_value_province_santo_domingo</item>
-        <item>@string/array_value_province_sanchez_ramirez</item>
-        <item>@string/array_value_province_valverde</item>
+        <item>@string/array_province_azua</item>
+        <item>@string/array_province_bahoruco</item>
+        <item>@string/array_province_barahona</item>
+        <item>@string/array_province_dajabon</item>
+        <item>@string/array_province_distrito_nacional</item>
+        <item>@string/array_province_duarte</item>
+        <item>@string/array_province_el_seibo</item>
+        <item>@string/array_province_elias_pina</item>
+        <item>@string/array_province_espaillat</item>
+        <item>@string/array_province_hato_mayor</item>
+        <item>@string/array_province_hermanas_mirabal</item>
+        <item>@string/array_province_independencia</item>
+        <item>@string/array_province_la_altagracia</item>
+        <item>@string/array_province_la_romana</item>
+        <item>@string/array_province_la_vega</item>
+        <item>@string/array_province_maria_trinidad_sanchez</item>
+        <item>@string/array_province_monsenor_nouel</item>
+        <item>@string/array_province_monte_cristi</item>
+        <item>@string/array_province_monte_plata</item>
+        <item>@string/array_province_pedernales</item>
+        <item>@string/array_province_peravia</item>
+        <item>@string/array_province_puerto_plata</item>
+        <item>@string/array_province_samana</item>
+        <item>@string/array_province_san_cristobal</item>
+        <item>@string/array_province_san_jose_de_ocoa</item>
+        <item>@string/array_province_san_juan</item>
+        <item>@string/array_province_san_pedro_de_macoris</item>
+        <item>@string/array_province_santiago</item>
+        <item>@string/array_province_santiago_rodriguez</item>
+        <item>@string/array_province_santo_domingo</item>
+        <item>@string/array_province_sanchez_ramirez</item>
+        <item>@string/array_province_valverde</item>
     </string-array>
-    <string-array name="array_keys_blood_types">
-
-        <item>placeholder</item>
-        <item>a_minus</item>
-        <item>a_plus</item>
-        <item>ab_minus</item>
-        <item>ab_plus</item>
-        <item>b_minus</item>
-        <item>b_plus</item>
-        <item>o_minus</item>
-        <item>o_plus</item>
-    </string-array>
-    <string-array name="array_values_blood_types">
+    <string-array name="array_blood_types">
 
         <item>@string/placeholder_select_an_option</item>
-        <item>@string/array_value_blood_type_a_minus</item>
-        <item>@string/array_value_blood_type_a_plus</item>
-        <item>@string/array_value_blood_type_ab_minus</item>
-        <item>@string/array_value_blood_type_ab_plus</item>
-        <item>@string/array_value_blood_type_b_minus</item>
-        <item>@string/array_value_blood_type_b_plus</item>
-        <item>@string/array_value_blood_type_o_minus</item>
-        <item>@string/array_value_blood_type_o_plus</item>
+        <item>@string/array_blood_type_a_plus</item>
+        <item>@string/array_blood_type_a_minus</item>
+        <item>@string/array_blood_type_ab_plus</item>
+        <item>@string/array_blood_type_ab_minus</item>
+        <item>@string/array_blood_type_b_plus</item>
+        <item>@string/array_blood_type_b_minus</item>
+        <item>@string/array_blood_type_o_plus</item>
+        <item>@string/array_blood_type_o_minus</item>
     </string-array>
 
     <!-- Configurations related strings. -->

@@ -114,6 +114,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 resultIntent.putExtra("hospital_latitude", mMarker.getPosition().latitude);
                 resultIntent.putExtra("hospital_longitude", mMarker.getPosition().longitude);
                 setResult(RESULT_OK, resultIntent);
+                mConfirmBottomSheetDialog.dismiss();
                 finish();
             }
         };

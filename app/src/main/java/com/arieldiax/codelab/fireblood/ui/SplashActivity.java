@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -43,7 +44,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-                ViewUtils.startCustomActivity(SplashActivity.this, WelcomeActivity.class, activityPair, true);
+                Class activityClass = (FirebaseAuth.getInstance().getCurrentUser() != null) ? VerifyEmailActivity.class : WelcomeActivity.class;
+                ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair, true);
             }
         }, delay);
     }

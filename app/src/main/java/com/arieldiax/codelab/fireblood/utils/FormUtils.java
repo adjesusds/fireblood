@@ -54,14 +54,12 @@ public final class FormUtils {
         } else if (view instanceof RadioGroup) {
             RadioGroup radioGroup = (RadioGroup) view;
             if (radioGroup.getCheckedRadioButtonId() >= 0) {
-                return ((RadioButton) activity.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
-            } else {
-                return "";
+                return String.valueOf(radioGroup.getCheckedRadioButtonId());
             }
         } else if (view instanceof Spinner) {
             return ((Spinner) view).getSelectedItem().toString();
         } else if (view instanceof Switch) {
-            return (((Switch) view).isChecked()) ? "true" : "false";
+            return (((Switch) view).isChecked()) ? " " : "";
         }
         return "";
     }

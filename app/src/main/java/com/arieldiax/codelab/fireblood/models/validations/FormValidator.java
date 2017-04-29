@@ -65,9 +65,9 @@ public class FormValidator {
     }
 
     /**
-     * Generates the hash of the form.
+     * Generates the hashed string of the form.
      *
-     * @return The hash of the form.
+     * @return The hashed string of the form.
      */
     public String hash() {
         String hashString = "";
@@ -90,5 +90,18 @@ public class FormValidator {
             }
         }
         return hasPassedValidations;
+    }
+
+    /**
+     * Generates the serialized map of the form.
+     *
+     * @return The serialized map of the form.
+     */
+    public SparseArray<String> serialize() {
+        SparseArray<String> serializeMap = new SparseArray<>();
+        for (int i = 0; i < mValidations.size(); i++) {
+            serializeMap.put(mValidations.keyAt(i), mValidations.valueAt(i).getValue(mActivity));
+        }
+        return serializeMap;
     }
 }

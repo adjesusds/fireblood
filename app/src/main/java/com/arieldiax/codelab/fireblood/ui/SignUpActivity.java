@@ -26,6 +26,7 @@ import com.arieldiax.codelab.fireblood.models.validations.FormValidator;
 import com.arieldiax.codelab.fireblood.models.validations.Validation;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
+import com.arieldiax.codelab.fireblood.utils.FirebaseUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
 import com.arieldiax.codelab.fireblood.utils.Utils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
@@ -357,12 +358,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
+                        User user = FirebaseUtils.getDataSnapshotChild(dataSnapshot).getValue(User.class);
                         if (user != null) {
                             FormUtils.setViewError(SignUpActivity.this, mEmailEditText, getString(R.string.validation_the_email_is_in_use));
                             mHasPassedCustomValidations = false;
-                        } else {
-                            FormUtils.setViewError(SignUpActivity.this, mEmailEditText, null);
                         }
                         mFormRemainingCustomValidations--;
                         registerUser();
@@ -381,12 +380,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
+                        User user = FirebaseUtils.getDataSnapshotChild(dataSnapshot).getValue(User.class);
                         if (user != null) {
                             FormUtils.setViewError(SignUpActivity.this, mUsernameEditText, getString(R.string.validation_the_username_is_in_use));
                             mHasPassedCustomValidations = false;
-                        } else {
-                            FormUtils.setViewError(SignUpActivity.this, mUsernameEditText, null);
                         }
                         mFormRemainingCustomValidations--;
                         registerUser();

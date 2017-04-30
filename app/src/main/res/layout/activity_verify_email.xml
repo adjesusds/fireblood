@@ -35,7 +35,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/authentication_congratulations"
+                android:text="@string/authentication_label_congratulations"
                 android:textAppearance="@android:style/TextAppearance.Material.Headline" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/authentication_an_email_has_been_sent_to"
+                android:text="@string/authentication_label_an_email_has_been_sent_to"
                 android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
             <TextView
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/authentication_havent_received_the_email_yet"
+            android:text="@string/authentication_label_havent_received_the_email_yet"
             android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
         <FrameLayout
@@ -73,7 +73,7 @@
                 style="@style/AppInverseBorderlessButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/authentication_send_email" />
+                android:text="@string/authentication_label_send_email" />
         </FrameLayout>
     </LinearLayout>
 </ScrollView>

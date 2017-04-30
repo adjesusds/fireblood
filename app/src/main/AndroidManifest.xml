@@ -41,32 +41,32 @@
 
         <activity
             android:name=".ui.SignUpActivity"
-            android:label="@string/authentication_sign_up"
+            android:label="@string/authentication_title_sign_up"
             android:parentActivityName=".ui.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.PlacePickerActivity"
-            android:label="@string/authentication_place_picker"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppPlacePickerTheme" />
-
-        <activity
-            android:name=".ui.VerifyEmailActivity"
-            android:label="@string/authentication_verify_email"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".ui.SignInActivity"
-            android:label="@string/authentication_sign_in"
+            android:label="@string/authentication_title_sign_in"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.PlacePickerActivity"
+            android:label="@string/authentication_title_place_picker"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppPlacePickerTheme" />
+
+        <activity
             android:name=".ui.ForgotPasswordActivity"
-            android:label="@string/authentication_forgot_password"
+            android:label="@string/authentication_title_forgot_password"
             android:parentActivityName=".ui.SignInActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.VerifyEmailActivity"
+            android:label="@string/authentication_title_verify_email"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

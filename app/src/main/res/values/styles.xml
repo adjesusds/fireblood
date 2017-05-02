@@ -70,7 +70,7 @@
     <!-- Custom application appearances. -->
     <style name="AppItemTextAppearance">
 
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <!-- Custom application components. -->

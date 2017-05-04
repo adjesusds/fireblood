@@ -34,35 +34,35 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ScrollView mForgotPasswordScrollView;
-    private EditText mEmailOrUsernameEditText;
-    private TextView mSignInTextView;
-    private Button mSendEmailButton;
+    ScrollView mForgotPasswordScrollView;
+    EditText mEmailOrUsernameEditText;
+    TextView mSignInTextView;
+    Button mSendEmailButton;
 
     /**
      * Instance of the Snackbar class.
      */
-    private Snackbar mSnackbar;
+    Snackbar mSnackbar;
 
     /**
      * Instance of the ProgressDialog class.
      */
-    private ProgressDialog mProgressDialog;
+    ProgressDialog mProgressDialog;
 
     /**
      * Instance of the FormValidator class.
      */
-    private FormValidator mFormValidator;
+    FormValidator mFormValidator;
 
     /**
      * Instance of the DatabaseReference class.
      */
-    private DatabaseReference mDatabaseReference;
+    DatabaseReference mDatabaseReference;
 
     /**
      * Instance of the FirebaseAuth class.
      */
-    private FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mForgotPasswordScrollView = (ScrollView) findViewById(R.id.forgot_password_activity);
         mEmailOrUsernameEditText = (EditText) findViewById(R.id.email_or_username_edit_text);
         mSignInTextView = (TextView) findViewById(R.id.sign_in_text_view);
@@ -87,7 +87,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Initializes the back end logic bindings.
      */
-    private void init() {
+    void init() {
         mSnackbar = Snackbar.make(mForgotPasswordScrollView, "", Snackbar.LENGTH_LONG);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
         mProgressDialog.setTitle(R.string.title_sending_recovery_email);
@@ -101,7 +101,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Initializes the form validator view bindings.
      */
-    private void initValidators() {
+    void initValidators() {
         mFormValidator
                 .addValidation(R.id.email_or_username_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.email_or_username_edit_text, Validation.REGEX_EMAIL_OR_USERNAME, R.string.validation_please_enter_a_valid_email_or_username)
@@ -151,7 +151,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Attempts to send the recovery email.
      */
-    private void attemptToSendRecoveryEmail() {
+    void attemptToSendRecoveryEmail() {
         mForgotPasswordScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
         String emailOrUsername = FormUtils.getViewValue(this, mEmailOrUsernameEditText);
@@ -189,7 +189,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
      *
      * @param email Email of the user.
      */
-    private void sendRecoveryEmail(String email) {
+    void sendRecoveryEmail(String email) {
         mFirebaseAuth
                 .sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

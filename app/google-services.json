@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "874973140457",
+    "firebase_url": "https://fireblood-3c4aa.firebaseio.com",
+    "project_id": "fireblood-3c4aa",
+    "storage_bucket": "fireblood-3c4aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874973140457:android:c56d35f336c9a0f0",
+        "android_client_info": {
+          "package_name": "com.arieldiax.codelab.fireblood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874973140457-gmli4kber94uk8tcij07c9g2dcouijos.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arieldiax.codelab.fireblood",
+            "certificate_hash": "3b3bfb4f23ef826f3016a00ffc1d3946910863c4"
+          }
+        },
+        {
+          "client_id": "874973140457-k4h59jl91sdsh26udmr6omd1pjuolo6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0mUTXG4Te13UBDPiTZzE3HiAS6KGeotU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874973140457-k4h59jl91sdsh26udmr6omd1pjuolo6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

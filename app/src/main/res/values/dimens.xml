@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Custom screen margins. -->
@@ -5,16 +6,10 @@
     <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
+    <dimen name="margin_standard_half">24dp</dimen>
     <dimen name="margin_double">32dp</dimen>
     <dimen name="margin_double_quarter">36dp</dimen>
     <dimen name="margin_triple">48dp</dimen>
-
-    <!-- Custom screen text sizes. -->
-    <dimen name="text_size_body">14sp</dimen>
-    <dimen name="text_size_subheading">16sp</dimen>
-    <dimen name="text_size_form_field">18sp</dimen>
-    <dimen name="text_size_title">20sp</dimen>
-    <dimen name="text_size_display">34sp</dimen>
 
     <!-- Custom app icon sizes. -->
     <dimen name="icon_size_small">100dp</dimen>

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arieldiax.codelab.fireblood">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,8 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/configuration_google_maps_api_key" />
+
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppSplashTheme">
 
@@ -24,41 +36,37 @@
         </activity>
 
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".ui.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.SignUpActivity"
             android:label="@string/authentication_sign_up"
-            android:parentActivityName=".WelcomeActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WelcomeActivity" />
-        </activity>
+            android:parentActivityName=".ui.WelcomeActivity"
+            android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.PlacePickerActivity"
+            android:label="@string/authentication_place_picker"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppPlacePickerTheme" />
+
+        <activity
+            android:name=".ui.VerifyEmailActivity"
+            android:label="@string/authentication_verify_email"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.SignInActivity"
             android:label="@string/authentication_sign_in"
             android:launchMode="singleTop"
-            android:parentActivityName=".WelcomeActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WelcomeActivity" />
-        </activity>
+            android:parentActivityName=".ui.WelcomeActivity"
+            android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".ui.ForgotPasswordActivity"
             android:label="@string/authentication_forgot_password"
-            android:parentActivityName=".SignInActivity"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SignInActivity" />
-        </activity>
+            android:parentActivityName=".ui.SignInActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

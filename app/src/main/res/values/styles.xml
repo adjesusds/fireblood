@@ -1,69 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorSecondaryText</item>
-        <item name="colorControlActivated">@color/colorPrimaryText</item>
+        <item name="android:itemTextAppearance">@style/AppItemTextAppearance</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
         <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textColorHint">@color/colorSecondaryText</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorSecondaryText</item>
+        <item name="colorControlActivated">@color/colorPrimaryText</item>
     </style>
 
     <!-- Custom application themes. -->
     <style name="AppSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@drawable/window_background_splash</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AppPlacePickerTheme" parent="AppTheme">
 
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorMapBackground</item>
+    </style>
+
+    <style name="AppDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+
         <item name="android:textColor">@android:color/tertiary_text_light</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppProgressDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:windowTitleStyle">@style/AppProgressDialogTitleStyle</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <!-- Custom application styles. -->
     <style name="AppSpinnerDropDownItemStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
 
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@android:color/tertiary_text_light</item>
-        <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>
 
     <style name="AppSpinnerItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
 
-        <item name="android:textSize">@dimen/text_size_form_field</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+    </style>
+
+    <style name="AppProgressDialogTitleStyle" parent="@android:style/TextAppearance.Material.Title">
+
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Custom application appearances. -->
+    <style name="AppItemTextAppearance">
+
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <!-- Custom application components. -->
-    <style name="AppTitleTextView">
-
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textSize">@dimen/text_size_title</item>
-    </style>
-
-    <style name="AppDisplayTextView">
-
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textSize">@dimen/text_size_display</item>
-    </style>
-
     <style name="AppButton">
 
         <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppInverseButton">
 
         <item name="android:backgroundTint">@color/colorPrimaryText</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
@@ -77,6 +98,7 @@
     <style name="AppBorderlessButton">
 
         <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
@@ -90,6 +112,7 @@
     <style name="AppInverseBorderlessButton">
 
         <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
@@ -106,10 +129,17 @@
         <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
+        <item name="errorTextAppearance">@style/AppEditTextWrapperError</item>
+    </style>
+
+    <style name="AppEditTextWrapperError" parent="@android:style/TextAppearance.Material.Body1">
+
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="AppEditText">
 
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
@@ -117,10 +147,10 @@
 
         <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
-        <item name="android:textSize">@dimen/text_size_form_field</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
     </style>
 
     <style name="AppRadioGroup">
@@ -135,10 +165,10 @@
 
         <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/text_size_form_field</item>
     </style>
 
     <style name="AppSpinner">
@@ -150,8 +180,22 @@
 
     <style name="AppSwitch">
 
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/margin_double_quarter</item>
         <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/text_size_form_field</item>
+    </style>
+
+    <style name="AppConfirmBottomSheetDialogOption">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:drawablePadding">@dimen/margin_half</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/margin_standard</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 </resources>

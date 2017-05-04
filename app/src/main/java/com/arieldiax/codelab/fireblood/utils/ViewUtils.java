@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.text.format.DateUtils;
 import android.util.Pair;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -52,15 +53,13 @@ public final class ViewUtils {
             ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, activityPair);
             context.startActivity(activityIntent, activityOptions.toBundle());
             if (shouldActivityFinish) {
-                Handler handler = new Handler();
-                int delay = 1000;
-                handler.postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
 
                     @Override
                     public void run() {
                         activity.finish();
                     }
-                }, delay);
+                }, DateUtils.SECOND_IN_MILLIS);
             }
         } else {
             context.startActivity(activityIntent);

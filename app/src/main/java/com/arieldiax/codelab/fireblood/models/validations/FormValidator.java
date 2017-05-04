@@ -31,24 +31,6 @@ public class FormValidator {
      * Adds a validation.
      *
      * @param fieldResourceId Resource ID of the field.
-     * @param errorResourceId Resource ID of the error.
-     * @return The instance of the FormValidator class.
-     */
-    public FormValidator addValidation(int fieldResourceId, int errorResourceId) {
-        Validation validation = mValidations.get(fieldResourceId);
-        if (validation != null) {
-            validation.addRule(errorResourceId);
-        } else {
-            validation = new Validation(mActivity, fieldResourceId).addRule(errorResourceId);
-        }
-        mValidations.put(fieldResourceId, validation);
-        return this;
-    }
-
-    /**
-     * Adds a validation.
-     *
-     * @param fieldResourceId Resource ID of the field.
      * @param regexString     String of the regex.
      * @param errorResourceId Resource ID of the error.
      * @return The instance of the FormValidator class.
@@ -70,11 +52,11 @@ public class FormValidator {
      * @return The hashed string of the form.
      */
     public String hash() {
-        String hashString = "";
+        StringBuilder hashStringBuilder = new StringBuilder();
         for (int i = 0; i < mValidations.size(); i++) {
-            hashString += mValidations.valueAt(i).getValue(mActivity);
+            hashStringBuilder.append(mValidations.valueAt(i).getValue(mActivity));
         }
-        return Utils.md5(hashString);
+        return Utils.md5(hashStringBuilder.toString());
     }
 
     /**

@@ -13,7 +13,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private TextView mSignInTextView;
+    TextView mSignInTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +26,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mSignInTextView = (TextView) findViewById(R.id.sign_in_text_view);
     }
 
     /**
      * Initializes the event listener view bindings.
      */
-    private void initListeners() {
+    void initListeners() {
         mSignInTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override

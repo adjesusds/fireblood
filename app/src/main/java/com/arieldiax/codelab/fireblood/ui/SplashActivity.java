@@ -3,6 +3,7 @@ package com.arieldiax.codelab.fireblood.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ImageView mAppLogoImageView;
+    ImageView mAppLogoImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +30,24 @@ public class SplashActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
     }
 
     /**
      * Initializes the back end logic bindings.
      */
-    private void init() {
-        Handler handler = new Handler();
-        int delay = 1000;
-        handler.postDelayed(new Runnable() {
+    void init() {
+        new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-                Class activityClass = (FirebaseAuth.getInstance().getCurrentUser() != null) ? VerifyEmailActivity.class : WelcomeActivity.class;
+                Class activityClass = (FirebaseAuth.getInstance().getCurrentUser() != null)
+                        ? VerifyEmailActivity.class
+                        : WelcomeActivity.class;
                 ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair, true);
             }
-        }, delay);
+        }, DateUtils.SECOND_IN_MILLIS);
     }
 }

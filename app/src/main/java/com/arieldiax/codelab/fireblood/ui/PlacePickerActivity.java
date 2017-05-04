@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -41,47 +42,47 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     /**
      * Views of the activity.
      */
-    private ProgressBar mPlacePickerProgressBar;
+    ProgressBar mPlacePickerProgressBar;
 
     /**
      * Instance of the GoogleMap class.
      */
-    private GoogleMap mGoogleMap;
+    GoogleMap mGoogleMap;
 
     /**
      * Instance of the LoaderManager class.
      */
-    private LoaderManager mLoaderManager;
+    LoaderManager mLoaderManager;
 
     /**
      * Instance of the Marker class.
      */
-    private Marker mMarker;
+    Marker mMarker;
 
     /**
      * Instance of the ConfirmBottomSheetDialog class.
      */
-    private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
+    ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
 
     /**
      * Name of the province.
      */
-    private String mProvinceName;
+    String mProvinceName;
 
     /**
      * Width of the display.
      */
-    private int mDisplayWidth;
+    int mDisplayWidth;
 
     /**
      * Height of the display.
      */
-    private int mDisplayHeight;
+    int mDisplayHeight;
 
     /**
      * Whether or not the markers have been added.
      */
-    private boolean mMarkersHaveBeenAdded;
+    boolean mMarkersHaveBeenAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +95,14 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mPlacePickerProgressBar = (ProgressBar) findViewById(R.id.place_picker_progress_bar);
     }
 
     /**
      * Initializes the back end logic bindings.
      */
-    private void init() {
+    void init() {
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
         supportMapFragment.getMapAsync(this);
         mLoaderManager = getLoaderManager();
@@ -162,16 +163,14 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     public boolean onMarkerClick(Marker marker) {
         mMarker = marker;
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
-        Handler handler = new Handler();
-        int delay = 500;
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 mConfirmBottomSheetDialog.show();
                 mMarker.showInfoWindow();
             }
-        }, delay);
+        }, DateUtils.SECOND_IN_MILLIS / 2);
         return false;
     }
 
@@ -210,7 +209,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                                 mGoogleMap.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()));
                             }
                         }, delay);
-                        delay += 100;
+                        delay += DateUtils.SECOND_IN_MILLIS / 10;
                     }
                     mGoogleMap.setOnMarkerClickListener(PlacePickerActivity.this);
                     mMarkersHaveBeenAdded = true;
@@ -237,7 +236,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     /**
      * Sets the Google map gestures.
      */
-    private void setGoogleMapGestures() {
+    void setGoogleMapGestures() {
         mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
         mGoogleMap.getUiSettings().setScrollGesturesEnabled(true);
         mGoogleMap.getUiSettings().setTiltGesturesEnabled(true);

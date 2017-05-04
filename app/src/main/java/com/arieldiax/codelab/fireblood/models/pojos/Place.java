@@ -23,6 +23,7 @@ public class Place {
      * Creates a new Place object.
      */
     public Place() {
+        // Required empty public constructor (to allow instantiation).
     }
 
     /**

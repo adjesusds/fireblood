@@ -15,9 +15,9 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ImageView mAppLogoImageView;
-    private Button mSignUpButton;
-    private Button mSignInButton;
+    ImageView mAppLogoImageView;
+    Button mSignUpButton;
+    Button mSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mSignUpButton = (Button) findViewById(R.id.sign_up_button);
         mSignInButton = (Button) findViewById(R.id.sign_in_button);
@@ -39,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * Initializes the event listener view bindings.
      */
-    private void initListeners() {
+    void initListeners() {
         Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
         mSignUpButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignUpActivity.class, activityPair, false));
         mSignInButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignInActivity.class, activityPair, false));

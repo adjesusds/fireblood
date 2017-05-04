@@ -42,8 +42,10 @@ public class PlaceAsyncTaskLoader extends AsyncTaskLoader {
     public List<Place> loadInBackground() {
         Uri requestUri = Uri.parse(GOOGLE_PLACES_API_REQUEST_URL);
         Uri.Builder requestUriBuilder = requestUri.buildUpon();
-        requestUriBuilder.appendQueryParameter("query", mSearchQuery);
-        requestUriBuilder.appendQueryParameter("key", getContext().getString(R.string.configuration_google_maps_api_key));
+        requestUriBuilder
+                .appendQueryParameter("query", mSearchQuery)
+                .appendQueryParameter("key", getContext().getString(R.string.configuration_google_maps_api_key))
+        ;
         String requestUrl = requestUriBuilder.toString();
         return QueryUtils.fetchPlaces(requestUrl);
     }

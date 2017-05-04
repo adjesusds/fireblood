@@ -75,7 +75,7 @@ public class User {
      * @param bloodType Blood type of the user.
      * @param isDonor   Whether or not the user is a donor.
      */
-    public User(String email, String username, String firstName, String lastName, String phone, String gender, long birthday, String province, HashMap<String, Object> hospital, String bloodType, boolean isDonor) {
+    public User(String email, String username, String firstName, String lastName, String phone, String gender, long birthday, String province, Map<String, Object> hospital, String bloodType, boolean isDonor) {
         this.email = email;
         this.username = username;
         this.firstName = firstName;

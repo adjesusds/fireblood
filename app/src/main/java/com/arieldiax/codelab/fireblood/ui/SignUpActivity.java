@@ -54,77 +54,77 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ScrollView mSignUpScrollView;
-    private ImageView mAppLogoImageView;
-    private EditText mEmailEditText;
-    private EditText mUsernameEditText;
-    private EditText mPasswordEditText;
-    private EditText mPhoneEditText;
-    private EditText mBirthdayEditText;
-    private Spinner mProvinceSpinner;
-    private EditText mHospitalEditText;
-    private Spinner mBloodTypeSpinner;
-    private Button mSignUpButton;
+    ScrollView mSignUpScrollView;
+    ImageView mAppLogoImageView;
+    EditText mEmailEditText;
+    EditText mUsernameEditText;
+    EditText mPasswordEditText;
+    EditText mPhoneEditText;
+    EditText mBirthdayEditText;
+    Spinner mProvinceSpinner;
+    EditText mHospitalEditText;
+    Spinner mBloodTypeSpinner;
+    Button mSignUpButton;
 
     /**
      * Date picker dialog for birthday.
      */
-    private DatePickerDialog mBirthdayDatePickerDialog;
+    DatePickerDialog mBirthdayDatePickerDialog;
 
     /**
      * Instance of the Snackbar class.
      */
-    private Snackbar mSnackbar;
+    Snackbar mSnackbar;
 
     /**
      * Instance of the ConfirmBottomSheetDialog class.
      */
-    private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
+    ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
 
     /**
      * Instance of the ProgressDialog class.
      */
-    private ProgressDialog mProgressDialog;
+    ProgressDialog mProgressDialog;
 
     /**
      * Instance of the FormValidator class.
      */
-    private FormValidator mFormValidator;
+    FormValidator mFormValidator;
 
     /**
      * Hash of the form validator.
      */
-    private String mFormValidatorHash;
+    String mFormValidatorHash;
 
     /**
      * Latitude of the hospital.
      */
-    private double mHospitalLatitude;
+    double mHospitalLatitude;
 
     /**
      * Longitude of the hospital.
      */
-    private double mHospitalLongitude;
+    double mHospitalLongitude;
 
     /**
      * Instance of the DatabaseReference class.
      */
-    private DatabaseReference mDatabaseReference;
+    DatabaseReference mDatabaseReference;
 
     /**
      * Instance of the FirebaseAuth class.
      */
-    private FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mFirebaseAuth;
 
     /**
      * Remaining custom validations of the form.
      */
-    private int mFormRemainingCustomValidations;
+    int mFormRemainingCustomValidations;
 
     /**
      * Whether or not the form has passed the custom validations.
      */
-    private boolean mHasPassedCustomValidations;
+    boolean mHasPassedCustomValidations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mSignUpScrollView = (ScrollView) findViewById(R.id.sign_up_activity);
         mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mEmailEditText = (EditText) findViewById(R.id.email_edit_text);
@@ -156,7 +156,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Initializes the back end logic bindings.
      */
-    private void init() {
+    void init() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR) - DOMINICAN_REPUBLIC_CONSENT_AGE;
         int month = calendar.get(Calendar.MONTH);
@@ -205,24 +205,24 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Initializes the form validator view bindings.
      */
-    private void initValidators() {
+    void initValidators() {
         mFormValidator
-                .addValidation(R.id.email_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.email_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.email_edit_text, Validation.REGEX_EMAIL, R.string.validation_please_enter_a_valid_email)
-                .addValidation(R.id.username_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.username_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.username_edit_text, Validation.REGEX_USERNAME, R.string.validation_please_enter_a_valid_username)
-                .addValidation(R.id.password_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.password_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.password_edit_text, Validation.REGEX_PASSWORD, R.string.validation_please_enter_a_valid_password)
-                .addValidation(R.id.first_name_edit_text, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.last_name_edit_text, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.phone_edit_text, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.first_name_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.last_name_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.phone_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.phone_edit_text, Validation.REGEX_PHONE, R.string.validation_please_enter_a_valid_phone)
-                .addValidation(R.id.gender_radio_group, R.string.validation_please_select_an_option)
-                .addValidation(R.id.birthday_edit_text, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.province_spinner, R.string.validation_please_select_an_option)
-                .addValidation(R.id.hospital_edit_text, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.blood_type_spinner, R.string.validation_please_select_an_option)
-                .addValidation(R.id.is_donor_switch, R.string.validation_please_select_an_option)
+                .addValidation(R.id.gender_radio_group, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.birthday_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.province_spinner, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.hospital_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.blood_type_spinner, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.is_donor_switch, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
         ;
         mFormValidatorHash = mFormValidator.hash();
     }
@@ -230,16 +230,13 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Initializes the event listener view bindings.
      */
-    private void initListeners() {
+    void initListeners() {
         mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    mPhoneEditText.setHint(R.string.profile_label_phone_hint);
-                } else {
-                    mPhoneEditText.setHint("");
-                }
+                String phoneHint = (hasFocus) ? getString(R.string.profile_label_phone_hint) : null;
+                mPhoneEditText.setHint(phoneHint);
             }
         });
         mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
@@ -334,7 +331,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Attempts to finish the activity.
      */
-    private void attemptToFinishActivity() {
+    void attemptToFinishActivity() {
         if (!mFormValidatorHash.equals(mFormValidator.hash())) {
             mConfirmBottomSheetDialog.show();
         } else {
@@ -345,7 +342,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Attempts to register the user.
      */
-    private void attemptToRegisterUser() {
+    void attemptToRegisterUser() {
         mSignUpScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
         mFormRemainingCustomValidations = 2;
@@ -399,7 +396,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Registers the user.
      */
-    private void registerUser() {
+    void registerUser() {
         if (mFormRemainingCustomValidations > 0) {
             return;
         }
@@ -428,7 +425,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Creates the user.
      */
-    private void createUser() {
+    void createUser() {
         String userKey = mDatabaseReference.child(User.CHILD_NODE).push().getKey();
         mDatabaseReference
                 .child(User.CHILD_NODE)
@@ -456,7 +453,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Sends the verification email.
      */
-    private void sendVerificationEmail() {
+    void sendVerificationEmail() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             firebaseUser
@@ -477,14 +474,16 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Gets the user.
      */
-    private User getUser() {
+    User getUser() {
         SparseArray<String> formValidatorSerialize = mFormValidator.serialize();
         String email = formValidatorSerialize.get(R.id.email_edit_text);
         String username = formValidatorSerialize.get(R.id.username_edit_text);
         String firstName = formValidatorSerialize.get(R.id.first_name_edit_text).trim();
         String lastName = formValidatorSerialize.get(R.id.last_name_edit_text).trim();
         String phone = formValidatorSerialize.get(R.id.phone_edit_text);
-        String gender = (formValidatorSerialize.get(R.id.gender_radio_group).equals(String.valueOf(R.id.gender_radio_button_female))) ? User.VALUE_GENDER_FEMALE : User.VALUE_GENDER_MALE;
+        String gender = (formValidatorSerialize.get(R.id.gender_radio_group).equals(String.valueOf(R.id.gender_radio_button_female)))
+                ? User.VALUE_GENDER_FEMALE
+                : User.VALUE_GENDER_MALE;
         long birthday = Utils.epochTime(formValidatorSerialize.get(R.id.birthday_edit_text), "yyyy-MM-dd");
         String province = formValidatorSerialize.get(R.id.province_spinner);
         HashMap<String, Object> hospital = new HashMap<>();

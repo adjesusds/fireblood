@@ -16,8 +16,8 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ImageView mAppLogoImageView;
-    private TextView mForgotYourPasswordTextView;
+    ImageView mAppLogoImageView;
+    TextView mForgotYourPasswordTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mForgotYourPasswordTextView = (TextView) findViewById(R.id.forgot_your_password_text_view);
     }
@@ -38,7 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Initializes the event listener view bindings.
      */
-    private void initListeners() {
+    void initListeners() {
         Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
         mForgotYourPasswordTextView.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, ForgotPasswordActivity.class, activityPair, false));
     }

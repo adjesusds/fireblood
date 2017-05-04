@@ -13,6 +13,7 @@ public class Validation {
     /**
      * Regular expressions of a validation.
      */
+    public static final String REGEX_NOT_EMPTY = "^.+$";
     public static final String REGEX_EMAIL = "^[\\w!#$%&'*+\\/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+\\/=?`{|}~^-]+)*@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}$";
     public static final String REGEX_USERNAME = "^[\\w!#$%&'*+\\/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+\\/=?`{|}~^-]+)*$";
     public static final String REGEX_PASSWORD = "^(?=.{8,32}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$";
@@ -37,19 +38,6 @@ public class Validation {
     public Validation(Activity activity, int fieldResourceId) {
         mView = activity.findViewById(fieldResourceId);
         mRules = new ArrayList<>();
-    }
-
-    /**
-     * Adds a rule.
-     *
-     * @param errorResourceId Resource ID of the error.
-     * @return The instance of the Validation class.
-     */
-    public Validation addRule(int errorResourceId) {
-        mRules.add(new Rule()
-                .setError(errorResourceId)
-        );
-        return this;
     }
 
     /**

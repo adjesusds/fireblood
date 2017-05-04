@@ -59,7 +59,9 @@ public final class FormUtils {
         } else if (view instanceof Spinner) {
             return ((Spinner) view).getSelectedItem().toString();
         } else if (view instanceof Switch) {
-            return (((Switch) view).isChecked()) ? " " : "";
+            if (((Switch) view).isChecked()) {
+                return " ";
+            }
         }
         return "";
     }

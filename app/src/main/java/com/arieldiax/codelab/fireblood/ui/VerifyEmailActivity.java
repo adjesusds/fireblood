@@ -28,35 +28,35 @@ public class VerifyEmailActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ScrollView mVerifyEmailScrollView;
-    private ImageView mAppLogoImageView;
-    private TextView mEmailTextView;
-    private Button mSendEmailButton;
+    ScrollView mVerifyEmailScrollView;
+    ImageView mAppLogoImageView;
+    TextView mEmailTextView;
+    Button mSendEmailButton;
 
     /**
      * Instance of the Snackbar class.
      */
-    private Snackbar mSnackbar;
+    Snackbar mSnackbar;
 
     /**
      * Instance of the ConfirmBottomSheetDialog class.
      */
-    private ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
+    ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
 
     /**
      * Instance of the ProgressDialog class.
      */
-    private ProgressDialog mProgressDialog;
+    ProgressDialog mProgressDialog;
 
     /**
      * Instance of the FirebaseAuth class.
      */
-    private FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mFirebaseAuth;
 
     /**
      * Instance of the FirebaseUser class.
      */
-    private FirebaseUser mFirebaseUser;
+    FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mVerifyEmailScrollView = (ScrollView) findViewById(R.id.verify_email_activity);
         mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mEmailTextView = (TextView) findViewById(R.id.email_text_view);
@@ -80,7 +80,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     /**
      * Initializes the back end logic bindings.
      */
-    private void init() {
+    void init() {
         mSnackbar = Snackbar.make(mVerifyEmailScrollView, "", Snackbar.LENGTH_LONG);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
@@ -109,7 +109,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     /**
      * Initializes the event listener view bindings.
      */
-    private void initListeners() {
+    void initListeners() {
         mSendEmailButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -143,7 +143,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     /**
      * Attempts to sign out.
      */
-    private void attemptToSignOut() {
+    void attemptToSignOut() {
         mFirebaseAuth.signOut();
         Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
         ViewUtils.startCustomActivity(this, WelcomeActivity.class, activityPair, true);
@@ -152,7 +152,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     /**
      * Sends the verification email.
      */
-    private void sendVerificationEmail() {
+    void sendVerificationEmail() {
         if (!ConnectionUtils.hasInternetConnection(this)) {
             mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
             return;

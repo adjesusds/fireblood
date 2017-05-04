@@ -37,37 +37,37 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    private ScrollView mSignInScrollView;
-    private ImageView mAppLogoImageView;
-    private EditText mEmailOrUsernameEditText;
-    private EditText mPasswordEditText;
-    private TextView mForgotYourPasswordTextView;
-    private Button mSignInButton;
+    ScrollView mSignInScrollView;
+    ImageView mAppLogoImageView;
+    EditText mEmailOrUsernameEditText;
+    EditText mPasswordEditText;
+    TextView mForgotYourPasswordTextView;
+    Button mSignInButton;
 
     /**
      * Instance of the Snackbar class.
      */
-    private Snackbar mSnackbar;
+    Snackbar mSnackbar;
 
     /**
      * Instance of the ProgressDialog class.
      */
-    private ProgressDialog mProgressDialog;
+    ProgressDialog mProgressDialog;
 
     /**
      * Instance of the FormValidator class.
      */
-    private FormValidator mFormValidator;
+    FormValidator mFormValidator;
 
     /**
      * Instance of the DatabaseReference class.
      */
-    private DatabaseReference mDatabaseReference;
+    DatabaseReference mDatabaseReference;
 
     /**
      * Instance of the FirebaseAuth class.
      */
-    private FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Initializes the user interface view bindings.
      */
-    private void initUi() {
+    void initUi() {
         mSignInScrollView = (ScrollView) findViewById(R.id.sign_in_activity);
         mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mEmailOrUsernameEditText = (EditText) findViewById(R.id.email_or_username_edit_text);
@@ -94,7 +94,7 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Initializes the back end logic bindings.
      */
-    private void init() {
+    void init() {
         mSnackbar = Snackbar.make(mSignInScrollView, "", Snackbar.LENGTH_LONG);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
         mProgressDialog.setTitle(R.string.title_signing_in);
@@ -108,7 +108,7 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Initializes the form validator view bindings.
      */
-    private void initValidators() {
+    void initValidators() {
         mFormValidator
                 .addValidation(R.id.email_or_username_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
                 .addValidation(R.id.email_or_username_edit_text, Validation.REGEX_EMAIL_OR_USERNAME, R.string.validation_please_enter_a_valid_email_or_username)
@@ -155,7 +155,7 @@ public class SignInActivity extends AppCompatActivity {
     /**
      * Attempts to register the user.
      */
-    private void attemptToRegisterUser() {
+    void attemptToRegisterUser() {
         mSignInScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
         String emailOrUsername = FormUtils.getViewValue(this, mEmailOrUsernameEditText);
@@ -193,7 +193,7 @@ public class SignInActivity extends AppCompatActivity {
      *
      * @param email Email of the user.
      */
-    private void registerUser(String email) {
+    void registerUser(String email) {
         mFirebaseAuth
                 .signInWithEmailAndPassword(email, FormUtils.getViewValue(this, mPasswordEditText))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

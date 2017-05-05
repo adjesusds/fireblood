@@ -137,7 +137,7 @@ public class SignInActivity extends AppCompatActivity {
                     mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
                     return;
                 }
-                attemptToRegisterUser();
+                attemptToSignInUser();
             }
         });
     }
@@ -153,14 +153,14 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempts to register the user.
+     * Attempts to sign in the user.
      */
-    void attemptToRegisterUser() {
+    void attemptToSignInUser() {
         mSignInScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
         String emailOrUsername = FormUtils.getViewValue(this, mEmailOrUsernameEditText);
         if (emailOrUsername.matches(Validation.REGEX_EMAIL)) {
-            registerUser(emailOrUsername);
+            signInUser(emailOrUsername);
             return;
         }
         mDatabaseReference
@@ -178,7 +178,7 @@ public class SignInActivity extends AppCompatActivity {
                             mSnackbar.setText(R.string.validation_validation_failed).show();
                             return;
                         }
-                        registerUser(user.email);
+                        signInUser(user.email);
                     }
 
                     @Override
@@ -189,11 +189,11 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Registers the user.
+     * Signs in the user.
      *
      * @param email Email of the user.
      */
-    void registerUser(String email) {
+    void signInUser(String email) {
         mFirebaseAuth
                 .signInWithEmailAndPassword(email, FormUtils.getViewValue(this, mPasswordEditText))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

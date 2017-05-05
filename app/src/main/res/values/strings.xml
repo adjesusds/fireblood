@@ -6,25 +6,25 @@
     <string name="app_slogan">Blood Donations Made Simple</string>
 
     <!-- Authentications related strings. -->
-    <string name="authentication_sign_up">Sign up</string>
-    <string name="authentication_already_a_user">Already a user?</string>
-    <string name="authentication_sign_in">Sign in</string>
-    <string name="authentication_place_picker">Place Picker</string>
-    <string name="authentication_verify_email">Verify Email</string>
-    <string name="authentication_congratulations">Congratulations!</string>
-    <string name="authentication_an_email_has_been_sent_to">An email has been sent to:</string>
-    <string name="authentication_havent_received_the_email_yet">Haven\'t received the email yet?</string>
-    <string name="authentication_send_email">Send Email</string>
-    <string name="authentication_forgot_your_password_underlined"><u>Forgot your password?</u></string>
-    <string name="authentication_forgot_password">Forgot Password</string>
-    <string name="authentication_sign_in_underlined"><u>Sign in!</u></string>
+    <string name="authentication_title_sign_up">Sign up</string>
+    <string name="authentication_title_sign_in">Sign in</string>
+    <string name="authentication_title_place_picker">Place Picker</string>
+    <string name="authentication_title_forgot_password">Forgot Password</string>
+    <string name="authentication_title_verify_email">Verify Email</string>
+    <string name="authentication_label_already_a_user">Already a user?</string>
+    <string name="authentication_label_forgot_your_password_underlined"><u>Forgot your password?</u></string>
+    <string name="authentication_label_sign_in_underlined"><u>Sign in!</u></string>
+    <string name="authentication_label_send_email">Send Email</string>
+    <string name="authentication_label_congratulations">Congratulations!</string>
+    <string name="authentication_label_an_email_has_been_sent_to">An email has been sent to:</string>
+    <string name="authentication_label_havent_received_the_email_yet">Haven\'t received the email yet?</string>
 
     <!-- Accounts related strings. -->
     <string name="account_title">Account</string>
     <string name="account_label_email">Email</string>
     <string name="account_label_username">Username</string>
-    <string name="account_label_email_or_username">Email or Username</string>
     <string name="account_label_password">Password</string>
+    <string name="account_label_email_or_username">Email or Username</string>
 
     <!-- Profiles related strings. -->
     <string name="profile_title">Profile</string>
@@ -47,30 +47,34 @@
 
     <!-- Titles related strings. -->
     <string name="title_cancel_sign_up">Cancel Sign up</string>
-    <string name="title_select_hospital">Select Hospital</string>
     <string name="title_signing_up">Signing up</string>
+    <string name="title_signing_in">Signing in</string>
+    <string name="title_select_hospital">Select Hospital</string>
     <string name="title_send_verification_email">Send Verification Email</string>
     <string name="title_sending_verification_email">Sending Verification Email</string>
 
     <!-- Messages related strings. -->
+    <string name="message_are_you_sure">Are you sure?</string>
     <string name="message_please_select_a_province_first">Please select a Province first.</string>
     <string name="message_please_check_your_internet_connection">Please check your Internet connection.</string>
-    <string name="message_are_you_sure">Are you sure?</string>
     <string name="message_action_canceled">Action canceled.</string>
     <string name="message_please_wait_a_few_seconds">Please wait a few seconds&#8230;</string>
     <string name="message_an_error_has_occurred">An error has occurred.</string>
+    <string name="message_the_credentials_did_not_match_our_records">The credentials did not match our records.</string>
     <string name="message_verification_email_sent">Verification email sent!</string>
 
     <!-- Validations related strings. -->
     <string name="validation_please_complete_the_field">Please complete the field.</string>
     <string name="validation_please_select_an_option">Please select an option.</string>
+    <string name="validation_validation_failed">Validation failed!</string>
     <string name="validation_please_enter_a_valid_email">Please enter a valid email.</string>
     <string name="validation_please_enter_a_valid_username">Please enter a valid username.</string>
     <string name="validation_please_enter_a_valid_password">Please enter a valid password.</string>
     <string name="validation_please_enter_a_valid_phone">Please enter a valid phone.</string>
-    <string name="validation_validation_failed">Validation failed!</string>
     <string name="validation_the_email_is_in_use">The email is in use.</string>
     <string name="validation_the_username_is_in_use">The username is in use.</string>
+    <string name="validation_please_enter_a_valid_email_or_username">Please enter a valid email or username.</string>
+    <string name="validation_the_username_is_not_registered">The username is not registered.</string>
 
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>

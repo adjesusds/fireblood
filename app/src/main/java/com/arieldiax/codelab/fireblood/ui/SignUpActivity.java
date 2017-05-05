@@ -292,7 +292,7 @@ public class SignUpActivity extends AppCompatActivity {
                     mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
                     return;
                 }
-                attemptToRegisterUser();
+                attemptToSignUpUser();
             }
         });
     }
@@ -340,9 +340,9 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempts to register the user.
+     * Attempts to sign up the user.
      */
-    void attemptToRegisterUser() {
+    void attemptToSignUpUser() {
         mSignUpScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
         mFormRemainingCustomValidations = 2;
@@ -361,7 +361,7 @@ public class SignUpActivity extends AppCompatActivity {
                             mHasPassedCustomValidations = false;
                         }
                         mFormRemainingCustomValidations--;
-                        registerUser();
+                        signUpUser();
                     }
 
                     @Override
@@ -383,7 +383,7 @@ public class SignUpActivity extends AppCompatActivity {
                             mHasPassedCustomValidations = false;
                         }
                         mFormRemainingCustomValidations--;
-                        registerUser();
+                        signUpUser();
                     }
 
                     @Override
@@ -394,9 +394,9 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /**
-     * Registers the user.
+     * Signs up the user.
      */
-    void registerUser() {
+    void signUpUser() {
         if (mFormRemainingCustomValidations > 0) {
             return;
         }

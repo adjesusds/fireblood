@@ -52,14 +52,14 @@
                 style="@style/AppInverseButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/authentication_sign_up" />
+                android:text="@string/authentication_title_sign_up" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
-                android:text="@string/authentication_already_a_user"
+                android:text="@string/authentication_label_already_a_user"
                 android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
             <Button
@@ -67,7 +67,7 @@
                 style="@style/AppInverseButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/authentication_sign_in" />
+                android:text="@string/authentication_title_sign_in" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

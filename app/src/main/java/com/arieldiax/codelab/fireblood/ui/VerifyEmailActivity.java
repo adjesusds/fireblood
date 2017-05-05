@@ -129,7 +129,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.sign_out_menu_item:
-                attemptToSignOut();
+                signOutUser();
                 return true;
         }
         return super.onOptionsItemSelected(menuItem);
@@ -141,9 +141,9 @@ public class VerifyEmailActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempts to sign out.
+     * Signs out the user.
      */
-    void attemptToSignOut() {
+    void signOutUser() {
         mFirebaseAuth.signOut();
         Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
         ViewUtils.startCustomActivity(this, WelcomeActivity.class, activityPair, true);

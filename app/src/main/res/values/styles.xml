@@ -4,7 +4,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- Customize your theme here. -->
         <item name="android:itemTextAppearance">@style/AppItemTextAppearance</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
@@ -15,17 +14,20 @@
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimaryText</item>
+        <item name="colorControlNormal">@color/colorSecondaryText</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorSecondaryText</item>
-        <item name="colorControlActivated">@color/colorPrimaryText</item>
     </style>
 
     <!-- Custom application themes. -->
     <style name="AppSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowBackground">@drawable/window_background_splash</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -59,6 +61,7 @@
 
     <style name="AppSpinnerItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
 
+        <item name="android:paddingStart">@dimen/margin_none</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
     </style>
 
@@ -73,7 +76,19 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="AppErrorTextAppearance" parent="@android:style/TextAppearance.Material.Body1">
+
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <!-- Custom application components. -->
+    <style name="AppVerticalDividerView">
+
+        <item name="android:layout_height">@dimen/margin_none</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="AppButton">
 
         <item name="android:backgroundTint">@color/colorPrimary</item>
@@ -90,8 +105,11 @@
 
     <style name="AppBorderlessButtonWrapper">
 
-        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_standard_minus</item>
+        <item name="android:layout_marginStart">@dimen/margin_standard_minus</item>
+        <item name="android:layout_marginTop">@dimen/margin_standard</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
@@ -104,8 +122,11 @@
 
     <style name="AppInverseBorderlessButtonWrapper">
 
-        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_standard_minus</item>
+        <item name="android:layout_marginStart">@dimen/margin_standard_minus</item>
+        <item name="android:layout_marginTop">@dimen/margin_standard</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorPrimaryText</item>
     </style>
 
@@ -116,81 +137,80 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
-    <style name="AppVerticalFormFieldWrapper">
-
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/margin_half</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
     <style name="AppEditTextWrapper">
 
-        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="errorTextAppearance">@style/AppEditTextWrapperError</item>
-    </style>
-
-    <style name="AppEditTextWrapperError" parent="@android:style/TextAppearance.Material.Body1">
-
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="errorTextAppearance">@style/AppErrorTextAppearance</item>
     </style>
 
     <style name="AppEditText">
 
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppFormFieldText">
 
-        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+        <item name="android:layout_marginStart">@dimen/margin_quarter</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Caption</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
     <style name="AppRadioGroup">
 
-        <item name="android:layout_width">@dimen/margin_none</item>
-        <item name="android:layout_height">@dimen/margin_double_quarter</item>
-        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="AppRadioButton">
 
-        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/margin_quarter_half</item>
+        <item name="android:layout_marginStart">@dimen/margin_quarter_half_minus</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
-    <style name="AppSpinner">
+    <style name="AppSpinner" parent="Widget.AppCompat.Spinner.Underlined">
 
-        <item name="android:layout_width">@dimen/margin_none</item>
-        <item name="android:layout_height">@dimen/margin_double_quarter</item>
-        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="AppSwitch">
 
+        <item name="android:layout_height">@dimen/form_field_height</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/margin_double_quarter</item>
-        <item name="android:layout_marginLeft">@dimen/margin_quarter</item>
+        <item name="android:gravity">bottom</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
+    <style name="AppUnderlinedView">
+
+        <item name="android:layout_height">@dimen/margin_single</item>
+        <item name="android:layout_marginEnd">@dimen/margin_quarter</item>
+        <item name="android:layout_marginStart">@dimen/margin_quarter</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@color/colorSecondaryText</item>
+    </style>
+
     <style name="AppConfirmBottomSheetDialogOption">
 
-        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:drawablePadding">@dimen/margin_half</item>
         <item name="android:gravity">center_vertical</item>

@@ -14,60 +14,51 @@
         android:orientation="vertical"
         android:padding="@dimen/margin_standard">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_none"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/app_logo_image_view"
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="@string/transition_app_logo_image_view" />
 
-            <ImageView
-                android:id="@+id/app_logo_image_view"
-                android:layout_width="@dimen/icon_size_large"
-                android:layout_height="@dimen/icon_size_large"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
-                android:transitionName="@string/transition_app_logo_image_view" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_half"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/app_slogan"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/margin_half"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/app_slogan"
-                android:textAppearance="@android:style/TextAppearance.Material.Title" />
-        </LinearLayout>
+        <View style="@style/AppVerticalDividerView" />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/sign_up_button"
+            style="@style/AppInverseButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_standard"
-            android:layout_marginRight="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_double"
+            android:layout_marginStart="@dimen/margin_double"
             android:layout_marginTop="@dimen/margin_half"
-            android:orientation="vertical">
+            android:text="@string/authentication_title_sign_up" />
 
-            <Button
-                android:id="@+id/sign_up_button"
-                style="@style/AppInverseButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/authentication_title_sign_up" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_half"
+            android:text="@string/authentication_label_already_a_user"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/margin_half"
-                android:text="@string/authentication_label_already_a_user"
-                android:textAppearance="@android:style/TextAppearance.Material.Body1" />
-
-            <Button
-                android:id="@+id/sign_in_button"
-                style="@style/AppInverseButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/authentication_title_sign_in" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/sign_in_button"
+            style="@style/AppInverseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_double"
+            android:layout_marginStart="@dimen/margin_double"
+            android:text="@string/authentication_title_sign_in" />
     </LinearLayout>
 </ScrollView>

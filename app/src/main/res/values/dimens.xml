@@ -3,15 +3,21 @@
 
     <!-- Custom screen margins. -->
     <dimen name="margin_none">0dp</dimen>
+    <dimen name="margin_single">1dp</dimen>
+    <dimen name="margin_quarter_half">2dp</dimen>
+    <dimen name="margin_quarter_half_minus">-2dp</dimen>
     <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
+    <dimen name="margin_standard_minus">-16dp</dimen>
     <dimen name="margin_standard_half">24dp</dimen>
     <dimen name="margin_double">32dp</dimen>
-    <dimen name="margin_double_quarter">36dp</dimen>
     <dimen name="margin_triple">48dp</dimen>
 
     <!-- Custom app icon sizes. -->
     <dimen name="icon_size_small">100dp</dimen>
     <dimen name="icon_size_large">200dp</dimen>
+
+    <!-- Custom app form fields. -->
+    <dimen name="form_field_height">40dp</dimen>
 </resources>

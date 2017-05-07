@@ -205,7 +205,10 @@ public class SignInActivity extends AppCompatActivity {
                             mSnackbar.setText(R.string.message_the_credentials_did_not_match_our_records).show();
                             return;
                         }
-                        ViewUtils.startCustomActivity(SignInActivity.this, VerifyEmailActivity.class, null, true);
+                        Class activityClass = (task.getResult().getUser().isEmailVerified())
+                                ? MainActivity.class
+                                : VerifyEmailActivity.class;
+                        ViewUtils.startCustomActivity(SignInActivity.this, activityClass, null, true);
                     }
                 })
         ;

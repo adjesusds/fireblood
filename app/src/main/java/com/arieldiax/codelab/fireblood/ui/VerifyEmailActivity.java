@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,11 @@ public class VerifyEmailActivity extends AppCompatActivity {
      * Instance of the FirebaseUser class.
      */
     FirebaseUser mFirebaseUser;
+
+    /**
+     * Thread of the verification.
+     */
+    Thread mVerificationThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +122,19 @@ public class VerifyEmailActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mVerificationThread = getVerificationThread();
+        mVerificationThread.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mVerificationThread.interrupt();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_verify_activity, menu);
         return true;
@@ -149,6 +168,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void sendVerificationEmail() {
         if (!ConnectionUtils.hasInternetConnection(this)) {
+            mSnackbar.setDuration(Snackbar.LENGTH_LONG);
             mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
             return;
         }
@@ -156,11 +176,12 @@ public class VerifyEmailActivity extends AppCompatActivity {
             mProgressDialog.show();
             mFirebaseUser
                     .sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             mProgressDialog.dismiss();
+                            mSnackbar.setDuration(Snackbar.LENGTH_LONG);
                             if (!task.isSuccessful()) {
                                 mSnackbar.setText(R.string.message_an_error_has_occurred).show();
                                 return;
@@ -170,5 +191,50 @@ public class VerifyEmailActivity extends AppCompatActivity {
                     })
             ;
         }
+    }
+
+    /**
+     * Gets the verification thread.
+     *
+     * @return The verification thread.
+     */
+    Thread getVerificationThread() {
+        return new Thread() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        if (!ConnectionUtils.hasInternetConnection(VerifyEmailActivity.this)) {
+                            if (!mSnackbar.isShown()) {
+                                mSnackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
+                                mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
+                            }
+                        } else {
+                            mSnackbar.dismiss();
+                            mFirebaseUser
+                                    .reload()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (!task.isSuccessful()) {
+                                                return;
+                                            }
+                                            if (mFirebaseUser.isEmailVerified()) {
+                                                ViewUtils.startCustomActivity(VerifyEmailActivity.this, MainActivity.class, null, true);
+                                            }
+                                        }
+                                    })
+                            ;
+                        }
+                        Thread.sleep(DateUtils.SECOND_IN_MILLIS * 5);
+                    } catch (InterruptedException exception) {
+                        exception.printStackTrace();
+                        return;
+                    }
+                }
+            }
+        };
     }
 }

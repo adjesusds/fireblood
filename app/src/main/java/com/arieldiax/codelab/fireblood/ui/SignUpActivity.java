@@ -407,7 +407,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         mFirebaseAuth
                 .createUserWithEmailAndPassword(FormUtils.getViewValue(this, mEmailEditText), FormUtils.getViewValue(this, mPasswordEditText))
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -431,12 +431,12 @@ public class SignUpActivity extends AppCompatActivity {
                 .child(User.CHILD_NODE)
                 .child(userKey)
                 .setValue(getUser())
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
-                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
                             if (firebaseUser != null) {
                                 firebaseUser.delete();
                             }
@@ -454,11 +454,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Sends the verification email.
      */
     void sendVerificationEmail() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             firebaseUser
                     .sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

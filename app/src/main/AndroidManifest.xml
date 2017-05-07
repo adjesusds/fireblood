@@ -69,5 +69,10 @@
             android:label="@string/authentication_title_verify_email"
             android:screenOrientation="portrait"
             android:theme="@style/AppMainTheme" />
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppMainTheme" />
     </application>
 </manifest>

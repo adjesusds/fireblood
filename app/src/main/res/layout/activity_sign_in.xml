@@ -69,8 +69,6 @@
             <Button
                 android:id="@+id/sign_in_button"
                 style="@style/AppInverseBorderlessButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/authentication_title_sign_in" />
         </FrameLayout>
     </LinearLayout>

@@ -15,8 +15,9 @@
     <string name="authentication_label_forgot_your_password_underlined"><u>Forgot your password?</u></string>
     <string name="authentication_label_sign_in_underlined"><u>Sign in!</u></string>
     <string name="authentication_label_send_email">Send Email</string>
-    <string name="authentication_label_congratulations">Congratulations!</string>
+    <string name="authentication_label_almost_there">Almost there!</string>
     <string name="authentication_label_an_email_has_been_sent_to">An email has been sent to:</string>
+    <string name="authentication_label_waiting_for_verification">Waiting for verification&#8230;</string>
     <string name="authentication_label_havent_received_the_email_yet">Haven\'t received the email yet?</string>
 
     <!-- Accounts related strings. -->

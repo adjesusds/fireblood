@@ -204,8 +204,6 @@
             <Button
                 android:id="@+id/sign_up_button"
                 style="@style/AppInverseBorderlessButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/authentication_title_sign_up" />
         </FrameLayout>
     </LinearLayout>

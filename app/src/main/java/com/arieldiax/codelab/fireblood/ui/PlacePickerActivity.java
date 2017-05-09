@@ -175,12 +175,18 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     }
 
     @Override
-    public Loader<List<Place>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Place>> onCreateLoader(
+            int id,
+            Bundle args
+    ) {
         return new PlaceAsyncTaskLoader(this, getString(R.string.configuration_google_places_search_query, mProvinceName));
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Place>> loader, final List<Place> places) {
+    public void onLoadFinished(
+            Loader<List<Place>> loader,
+            final List<Place> places
+    ) {
         if (places == null) {
             Intent resultIntent = new Intent();
             resultIntent.putExtra("message_resource_id", R.string.message_please_check_your_internet_connection);

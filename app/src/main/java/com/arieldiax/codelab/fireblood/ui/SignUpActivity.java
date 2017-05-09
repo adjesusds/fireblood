@@ -43,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -167,8 +168,13 @@ public class SignUpActivity extends AppCompatActivity {
         mBirthdayDatePickerDialog = new DatePickerDialog(this, R.style.AppDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mBirthdayEditText.setText(getString(R.string.profile_label_birthday_format, year, ++month, dayOfMonth));
+            public void onDateSet(
+                    DatePicker view,
+                    int year,
+                    int month,
+                    int dayOfMonth
+            ) {
+                mBirthdayEditText.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, ++month, dayOfMonth));
             }
         }, year, month, dayOfMonth);
         calendar.set(year, month, dayOfMonth, hourOfDay, minute, second);
@@ -234,7 +240,10 @@ public class SignUpActivity extends AppCompatActivity {
         mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
+            public void onFocusChange(
+                    View view,
+                    boolean hasFocus
+            ) {
                 String phoneHint = (hasFocus) ? getString(R.string.profile_label_phone_hint) : null;
                 mPhoneEditText.setHint(phoneHint);
             }
@@ -250,7 +259,12 @@ public class SignUpActivity extends AppCompatActivity {
         mProvinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(
+                    AdapterView<?> parent,
+                    View view,
+                    int position,
+                    long id
+            ) {
                 mHospitalEditText.setText("");
                 mHospitalLatitude = 0.00;
                 mHospitalLongitude = 0.00;
@@ -313,7 +327,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data
+    ) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle extras = data.getExtras();
         switch (resultCode) {
@@ -416,7 +434,7 @@ public class SignUpActivity extends AppCompatActivity {
                             mSnackbar.setText(R.string.message_an_error_has_occurred).show();
                             return;
                         }
-                        createUser();
+                        createUser(task.getResult().getUser().getUid());
                     }
                 })
         ;
@@ -424,12 +442,13 @@ public class SignUpActivity extends AppCompatActivity {
 
     /**
      * Creates the user.
+     *
+     * @param userUid Unique ID of the user.
      */
-    void createUser() {
-        String userKey = mDatabaseReference.child(User.CHILD_NODE).push().getKey();
+    void createUser(String userUid) {
         mDatabaseReference
                 .child(User.CHILD_NODE)
-                .child(userKey)
+                .child(userUid)
                 .setValue(getUser())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
 
@@ -492,6 +511,9 @@ public class SignUpActivity extends AppCompatActivity {
         hospital.put(User.PROPERTY_HOSPITAL_LONGITUDE, mHospitalLongitude);
         String bloodType = formValidatorSerialize.get(R.id.blood_type_spinner);
         boolean isDonor = !formValidatorSerialize.get(R.id.is_donor_switch).isEmpty();
-        return new User(email, username, firstName, lastName, phone, gender, birthday, province, hospital, bloodType, isDonor);
+        long createdAt = System.currentTimeMillis();
+        long updatedAt = 0;
+        long deletedAt = 0;
+        return new User(email, username, firstName, lastName, phone, gender, birthday, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
     }
 }

@@ -51,7 +51,10 @@ public class Rule {
      *
      * @return Whether or not the rule has passed the criteria.
      */
-    public boolean validate(Activity activity, View view) {
+    public boolean validate(
+            Activity activity,
+            View view
+    ) {
         boolean hasPassedCriteria = (mRegex.equals(Validation.REGEX_NOT_EMPTY))
                 ? !FormUtils.hasEmptyValue(activity, view)
                 : FormUtils.getViewValue(activity, view).matches(mRegex);

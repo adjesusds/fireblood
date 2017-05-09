@@ -31,6 +31,9 @@ public class User {
     public static final String PROPERTY_HOSPITAL_LONGITUDE = "longitude";
     public static final String PROPERTY_BLOOD_TYPE = "bloodType";
     public static final String PROPERTY_IS_DONOR = "isDonor";
+    public static final String PROPERTY_CREATED_AT = "createdAt";
+    public static final String PROPERTY_UPDATED_AT = "updatedAt";
+    public static final String PROPERTY_DELETED_AT = "deletedAt";
 
     /**
      * Values of a gender.
@@ -52,6 +55,9 @@ public class User {
     public Map<String, Object> hospital;
     public String bloodType;
     public boolean isDonor;
+    public long createdAt;
+    public long updatedAt;
+    public long deletedAt;
 
     /**
      * Creates a new User object.
@@ -74,8 +80,26 @@ public class User {
      * @param hospital  Hospital of the user.
      * @param bloodType Blood type of the user.
      * @param isDonor   Whether or not the user is a donor.
+     * @param createdAt Create date of the user.
+     * @param updatedAt Update date of the user.
+     * @param deletedAt Delete date of the user.
      */
-    public User(String email, String username, String firstName, String lastName, String phone, String gender, long birthday, String province, Map<String, Object> hospital, String bloodType, boolean isDonor) {
+    public User(
+            String email,
+            String username,
+            String firstName,
+            String lastName,
+            String phone,
+            String gender,
+            long birthday,
+            String province,
+            Map<String, Object> hospital,
+            String bloodType,
+            boolean isDonor,
+            long createdAt,
+            long updatedAt,
+            long deletedAt
+    ) {
         this.email = email;
         this.username = username;
         this.firstName = firstName;
@@ -87,6 +111,9 @@ public class User {
         this.hospital = hospital;
         this.bloodType = bloodType;
         this.isDonor = isDonor;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 
     @Exclude
@@ -103,6 +130,9 @@ public class User {
         user.put(PROPERTY_HOSPITAL, hospital);
         user.put(PROPERTY_BLOOD_TYPE, bloodType);
         user.put(PROPERTY_IS_DONOR, isDonor);
+        user.put(PROPERTY_CREATED_AT, createdAt);
+        user.put(PROPERTY_UPDATED_AT, updatedAt);
+        user.put(PROPERTY_DELETED_AT, deletedAt);
         return user;
     }
 }

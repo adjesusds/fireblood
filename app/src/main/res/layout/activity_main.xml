@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:gravity="center"
-    android:orientation="horizontal"
     tools:context=".ui.MainActivity">
 
-    <ProgressBar
-        android:layout_width="@dimen/progress_bar_small"
-        android:layout_height="@dimen/progress_bar_small"
-        android:indeterminateTint="@color/colorPrimaryDark"
-        android:indeterminateTintMode="src_atop" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_half"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/authentication_label_app_under_construction"
-        android:textAppearance="@android:style/TextAppearance.Material.Title" />
-</LinearLayout>
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:layout_width="@dimen/progress_bar_small"
+            android:layout_height="@dimen/progress_bar_small"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:indeterminateTintMode="src_atop" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/authentication_label_app_under_construction"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+    </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/main_bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/navigation_item_state"
+        app:itemTextColor="@drawable/navigation_item_state"
+        app:menu="@menu/navigation_main" />
+</RelativeLayout>

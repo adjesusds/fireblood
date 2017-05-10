@@ -175,7 +175,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_verify_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_verify_email, menu);
         return true;
     }
 

@@ -37,10 +37,9 @@
         <Button
             android:id="@+id/sign_up_button"
             style="@style/AppInverseButton"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/button_size_large"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_double"
-            android:layout_marginStart="@dimen/margin_double"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_half"
             android:text="@string/authentication_title_sign_up" />
 
@@ -55,10 +54,9 @@
         <Button
             android:id="@+id/sign_in_button"
             style="@style/AppInverseButton"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/button_size_large"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_double"
-            android:layout_marginStart="@dimen/margin_double"
+            android:layout_gravity="center_horizontal"
             android:text="@string/authentication_title_sign_in" />
     </LinearLayout>
 </ScrollView>

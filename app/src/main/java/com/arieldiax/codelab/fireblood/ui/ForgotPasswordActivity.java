@@ -154,7 +154,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     void attemptToSendRecoveryEmail() {
         mForgotPasswordScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
-        String emailOrUsername = FormUtils.getViewValue(this, mEmailOrUsernameEditText);
+        String emailOrUsername = FormUtils.getViewValue(mEmailOrUsernameEditText);
         if (emailOrUsername.matches(Validation.REGEX_EMAIL)) {
             sendRecoveryEmail(emailOrUsername);
             return;

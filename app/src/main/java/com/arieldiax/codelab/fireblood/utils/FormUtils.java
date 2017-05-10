@@ -26,13 +26,12 @@ public final class FormUtils {
     /**
      * Determines whether or not the view has an empty value.
      *
-     * @param activity Instance of the Activity class.
-     * @param view     Instance of the View class.
+     * @param view Instance of the View class.
      * @return Whether or not the view has an empty value.
      */
-    public static boolean hasEmptyValue(Activity activity, View view) {
+    public static boolean hasEmptyValue(View view) {
         if (view instanceof EditText) {
-            return getViewValue(activity, view).isEmpty();
+            return getViewValue(view).isEmpty();
         } else if (view instanceof RadioGroup) {
             return (((RadioGroup) view).getCheckedRadioButtonId() < 0);
         } else if (view instanceof Spinner) {
@@ -44,11 +43,10 @@ public final class FormUtils {
     /**
      * Gets the view value.
      *
-     * @param activity Instance of the Activity class.
-     * @param view     Instance of the View class.
+     * @param view Instance of the View class.
      * @return The view value.
      */
-    public static String getViewValue(Activity activity, View view) {
+    public static String getViewValue(View view) {
         if (view instanceof EditText) {
             return ((EditText) view).getText().toString();
         } else if (view instanceof RadioGroup) {
@@ -73,7 +71,11 @@ public final class FormUtils {
      * @param view      Instance of the View class.
      * @param viewError Error of the view.
      */
-    public static void setViewError(Activity activity, View view, String viewError) {
+    public static void setViewError(
+            Activity activity,
+            View view,
+            String viewError
+    ) {
         if (view instanceof EditText) {
             TextInputLayout textInputLayout = (TextInputLayout) view.getParent().getParent();
             textInputLayout.setError(viewError);

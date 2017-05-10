@@ -279,7 +279,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ViewUtils.hideKeyboard(SignUpActivity.this);
-                if (FormUtils.hasEmptyValue(SignUpActivity.this, mProvinceSpinner)) {
+                if (FormUtils.hasEmptyValue(mProvinceSpinner)) {
                     mSnackbar.setText(R.string.message_please_select_a_province_first).show();
                     return;
                 }
@@ -288,7 +288,7 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
-                pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
+                pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
             }
         });
@@ -368,7 +368,7 @@ public class SignUpActivity extends AppCompatActivity {
         mDatabaseReference
                 .child(User.CHILD_NODE)
                 .orderByChild(User.PROPERTY_EMAIL)
-                .equalTo(FormUtils.getViewValue(this, mEmailEditText))
+                .equalTo(FormUtils.getViewValue(mEmailEditText))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
@@ -390,7 +390,7 @@ public class SignUpActivity extends AppCompatActivity {
         mDatabaseReference
                 .child(User.CHILD_NODE)
                 .orderByChild(User.PROPERTY_USERNAME)
-                .equalTo(FormUtils.getViewValue(this, mUsernameEditText))
+                .equalTo(FormUtils.getViewValue(mUsernameEditText))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
@@ -424,7 +424,7 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
         mFirebaseAuth
-                .createUserWithEmailAndPassword(FormUtils.getViewValue(this, mEmailEditText), FormUtils.getViewValue(this, mPasswordEditText))
+                .createUserWithEmailAndPassword(FormUtils.getViewValue(mEmailEditText), FormUtils.getViewValue(mPasswordEditText))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                     @Override

@@ -58,7 +58,7 @@ public class FormValidator {
     public String hash() {
         StringBuilder hashStringBuilder = new StringBuilder();
         for (int i = 0; i < mValidations.size(); i++) {
-            hashStringBuilder.append(mValidations.valueAt(i).getValue(mActivity));
+            hashStringBuilder.append(mValidations.valueAt(i).getValue());
         }
         return Utils.md5(hashStringBuilder.toString());
     }
@@ -86,7 +86,7 @@ public class FormValidator {
     public SparseArray<String> serialize() {
         SparseArray<String> serializeMap = new SparseArray<>();
         for (int i = 0; i < mValidations.size(); i++) {
-            serializeMap.put(mValidations.keyAt(i), mValidations.valueAt(i).getValue(mActivity));
+            serializeMap.put(mValidations.keyAt(i), mValidations.valueAt(i).getValue());
         }
         return serializeMap;
     }

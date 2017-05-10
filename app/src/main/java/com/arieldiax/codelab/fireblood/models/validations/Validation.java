@@ -65,11 +65,10 @@ public class Validation {
     /**
      * Gets the value of the validation.
      *
-     * @param activity Instance of the Activity class.
      * @return The value of the validation.
      */
-    public String getValue(Activity activity) {
-        return FormUtils.getViewValue(activity, mView);
+    public String getValue() {
+        return FormUtils.getViewValue(mView);
     }
 
     /**

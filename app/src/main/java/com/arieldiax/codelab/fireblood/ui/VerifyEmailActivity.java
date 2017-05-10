@@ -2,6 +2,7 @@ package com.arieldiax.codelab.fireblood.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -57,9 +58,14 @@ public class VerifyEmailActivity extends AppCompatActivity {
     FirebaseUser mFirebaseUser;
 
     /**
-     * Thread of the verification.
+     * Handler of the verification.
      */
-    Thread mVerificationThread;
+    Handler mVerificationHandler;
+
+    /**
+     * Runnable of the verification.
+     */
+    Runnable mVerificationRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,40 @@ public class VerifyEmailActivity extends AppCompatActivity {
         if (mFirebaseUser != null) {
             mEmailTextView.setText(mFirebaseUser.getEmail());
         }
+        mVerificationHandler = new Handler();
+        mVerificationRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    if (!ConnectionUtils.hasInternetConnection(VerifyEmailActivity.this)) {
+                        if (!mSnackbar.isShown()) {
+                            mSnackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
+                            mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
+                        }
+                    } else {
+                        mSnackbar.dismiss();
+                        mFirebaseUser
+                                .reload()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            return;
+                                        }
+                                        if (mFirebaseUser.isEmailVerified()) {
+                                            ViewUtils.startCustomActivity(VerifyEmailActivity.this, MainActivity.class, null, true);
+                                        }
+                                    }
+                                })
+                        ;
+                    }
+                } finally {
+                    mVerificationHandler.postDelayed(mVerificationRunnable, DateUtils.SECOND_IN_MILLIS * 5);
+                }
+            }
+        };
     }
 
     /**
@@ -124,14 +164,13 @@ public class VerifyEmailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mVerificationThread = getVerificationThread();
-        mVerificationThread.start();
+        mVerificationRunnable.run();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mVerificationThread.interrupt();
+        mVerificationHandler.removeCallbacks(mVerificationRunnable);
     }
 
     @Override
@@ -191,50 +230,5 @@ public class VerifyEmailActivity extends AppCompatActivity {
                     })
             ;
         }
-    }
-
-    /**
-     * Gets the verification thread.
-     *
-     * @return The verification thread.
-     */
-    Thread getVerificationThread() {
-        return new Thread() {
-
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        if (!ConnectionUtils.hasInternetConnection(VerifyEmailActivity.this)) {
-                            if (!mSnackbar.isShown()) {
-                                mSnackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
-                                mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
-                            }
-                        } else {
-                            mSnackbar.dismiss();
-                            mFirebaseUser
-                                    .reload()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (!task.isSuccessful()) {
-                                                return;
-                                            }
-                                            if (mFirebaseUser.isEmailVerified()) {
-                                                ViewUtils.startCustomActivity(VerifyEmailActivity.this, MainActivity.class, null, true);
-                                            }
-                                        }
-                                    })
-                            ;
-                        }
-                        Thread.sleep(DateUtils.SECOND_IN_MILLIS * 5);
-                    } catch (InterruptedException exception) {
-                        exception.printStackTrace();
-                        return;
-                    }
-                }
-            }
-        };
     }
 }

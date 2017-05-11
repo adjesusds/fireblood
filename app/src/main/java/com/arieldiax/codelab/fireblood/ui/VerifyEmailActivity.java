@@ -74,6 +74,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
         initUi();
         init();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -109,9 +110,6 @@ public class VerifyEmailActivity extends AppCompatActivity {
         mProgressDialog.setCancelable(false);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser != null) {
-            mEmailTextView.setText(mFirebaseUser.getEmail());
-        }
         mVerificationHandler = new Handler();
         mVerificationRunnable = new Runnable() {
 
@@ -159,6 +157,13 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 mConfirmBottomSheetDialog.show();
             }
         });
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mEmailTextView.setText(mFirebaseUser.getEmail());
     }
 
     @Override
@@ -211,24 +216,22 @@ public class VerifyEmailActivity extends AppCompatActivity {
             mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
             return;
         }
-        if (mFirebaseUser != null) {
-            mProgressDialog.show();
-            mFirebaseUser
-                    .sendEmailVerification()
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+        mProgressDialog.show();
+        mFirebaseUser
+                .sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            mProgressDialog.dismiss();
-                            mSnackbar.setDuration(Snackbar.LENGTH_LONG);
-                            if (!task.isSuccessful()) {
-                                mSnackbar.setText(R.string.message_an_error_has_occurred).show();
-                                return;
-                            }
-                            mSnackbar.setText(R.string.message_verification_email_sent).show();
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mProgressDialog.dismiss();
+                        mSnackbar.setDuration(Snackbar.LENGTH_LONG);
+                        if (!task.isSuccessful()) {
+                            mSnackbar.setText(R.string.message_an_error_has_occurred).show();
+                            return;
                         }
-                    })
-            ;
-        }
+                        mSnackbar.setText(R.string.message_verification_email_sent).show();
+                    }
+                })
+        ;
     }
 }

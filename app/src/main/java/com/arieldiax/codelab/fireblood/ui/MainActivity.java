@@ -1,6 +1,7 @@
 package com.arieldiax.codelab.fireblood.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     /**
+     * Views of the activity.
+     */
+    BottomNavigationView mMainBottomNavigationView;
+
+    /**
      * Instance of the FirebaseAuth class.
      */
     FirebaseAuth mFirebaseAuth;
@@ -20,7 +26,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initUi();
         init();
+        updateUi();
+    }
+
+    /**
+     * Initializes the user interface view bindings.
+     */
+    void initUi() {
+        mMainBottomNavigationView = (BottomNavigationView) findViewById(R.id.main_bottom_navigation_view);
     }
 
     /**
@@ -28,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
      */
     void init() {
         mFirebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mMainBottomNavigationView.setSelectedItemId(R.id.search_navigation_item);
     }
 
     @Override

@@ -84,8 +84,8 @@
     <string name="menu_item_sign_out">Sign out</string>
 
     <!-- Navigation items related strings. -->
-    <string name="navigation_item_search">Search</string>
     <string name="navigation_item_notifications">Notifications</string>
+    <string name="navigation_item_search">Search</string>
     <string name="navigation_item_profile">Profile</string>
 
     <!-- Arrays (Provinces) related strings. -->

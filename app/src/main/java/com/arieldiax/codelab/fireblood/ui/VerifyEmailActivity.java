@@ -142,7 +142,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                         ;
                     }
                 } finally {
-                    mVerificationHandler.postDelayed(mVerificationRunnable, DateUtils.SECOND_IN_MILLIS * 5);
+                    mVerificationHandler.postDelayed(mVerificationRunnable, DateUtils.SECOND_IN_MILLIS * 2);
                 }
             }
         };

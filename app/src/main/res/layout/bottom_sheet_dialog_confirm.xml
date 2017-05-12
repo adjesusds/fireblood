@@ -13,8 +13,7 @@
         android:id="@+id/title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_standard"
-        android:layout_marginRight="@dimen/margin_standard"
+        android:layout_marginStart="@dimen/margin_standard"
         android:layout_marginTop="@dimen/margin_standard"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/colorPrimary"
@@ -25,8 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_standard"
-        android:layout_marginLeft="@dimen/margin_standard"
-        android:layout_marginRight="@dimen/margin_standard"
+        android:layout_marginStart="@dimen/margin_standard"
         android:layout_marginTop="@dimen/margin_half"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         android:textColor="@android:color/black"
@@ -35,12 +33,12 @@
     <TextView
         android:id="@+id/positive_button_text_view"
         style="@style/AppConfirmBottomSheetDialogOption"
-        android:drawableLeft="@drawable/ic_done_darker_gray_24dp"
+        android:drawableStart="@drawable/ic_done_gray_24dp"
         tools:text="Label" />
 
     <TextView
         android:id="@+id/negative_button_text_view"
         style="@style/AppConfirmBottomSheetDialogOption"
-        android:drawableLeft="@drawable/ic_close_darker_gray_24dp"
+        android:drawableStart="@drawable/ic_close_gray_24dp"
         tools:text="Label" />
 </LinearLayout>

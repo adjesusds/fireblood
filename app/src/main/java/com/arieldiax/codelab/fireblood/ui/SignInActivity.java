@@ -75,6 +75,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         initUi();
         init();
+        updateUi();
         initValidators();
         initListeners();
     }
@@ -97,12 +98,18 @@ public class SignInActivity extends AppCompatActivity {
     void init() {
         mSnackbar = Snackbar.make(mSignInScrollView, "", Snackbar.LENGTH_LONG);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_signing_in);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mProgressDialog.setTitle(R.string.title_signing_in);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
     }
 
     /**

@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initUi();
-        init();
+        updateUi();
     }
 
     /**
@@ -36,9 +36,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     /**
-     * Initializes the back end logic bindings.
+     * Updates the user interface view bindings.
      */
-    void init() {
+    void updateUi() {
         new Handler().postDelayed(new Runnable() {
 
             @Override

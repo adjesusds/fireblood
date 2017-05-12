@@ -73,8 +73,8 @@ public class VerifyEmailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verify_email);
         initUi();
         init();
-        initListeners();
         updateUi();
+        initListeners();
     }
 
     /**
@@ -91,23 +91,8 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void init() {
         mSnackbar = Snackbar.make(mVerifyEmailScrollView, "", Snackbar.LENGTH_LONG);
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                sendVerificationEmail();
-            }
-        };
-        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
-                .setTitle(R.string.title_send_verification_email)
-                .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
-        ;
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_sending_verification_email);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mVerificationHandler = new Handler();
@@ -147,6 +132,29 @@ public class VerifyEmailActivity extends AppCompatActivity {
     }
 
     /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mEmailTextView.setText(mFirebaseUser.getEmail());
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
+                sendVerificationEmail();
+            }
+        };
+        mConfirmBottomSheetDialog
+                .setTitle(R.string.title_send_verification_email)
+                .setMessage(R.string.message_are_you_sure)
+                .setPositiveButtonListener(positiveButtonListener)
+        ;
+        mProgressDialog.setTitle(R.string.title_sending_verification_email);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
+    }
+
+    /**
      * Initializes the event listener view bindings.
      */
     void initListeners() {
@@ -157,13 +165,6 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 mConfirmBottomSheetDialog.show();
             }
         });
-    }
-
-    /**
-     * Updates the user interface view bindings.
-     */
-    void updateUi() {
-        mEmailTextView.setText(mFirebaseUser.getEmail());
     }
 
     @Override

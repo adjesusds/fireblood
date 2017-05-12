@@ -50,6 +50,11 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     GoogleMap mGoogleMap;
 
     /**
+     * Instance of the SupportMapFragment class.
+     */
+    SupportMapFragment mSupportMapFragment;
+
+    /**
      * Instance of the LoaderManager class.
      */
     LoaderManager mLoaderManager;
@@ -90,6 +95,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_place_picker);
         initUi();
         init();
+        updateUi();
     }
 
     /**
@@ -103,9 +109,20 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Initializes the back end logic bindings.
      */
     void init() {
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
-        supportMapFragment.getMapAsync(this);
+        mSupportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
         mLoaderManager = getLoaderManager();
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
+        mProvinceName = getIntent().getExtras().getString("province_name");
+        mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
+        mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
+        mMarkersHaveBeenAdded = false;
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mSupportMapFragment.getMapAsync(this);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
@@ -128,16 +145,12 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 setGoogleMapGestures();
             }
         };
-        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
+        mConfirmBottomSheetDialog
                 .setTitle(R.string.title_select_hospital)
                 .setMessage(R.string.message_are_you_sure)
                 .setPositiveButtonListener(positiveButtonListener)
                 .setNegativeButtonListener(negativeButtonListener)
         ;
-        mProvinceName = getIntent().getExtras().getString("province_name");
-        mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
-        mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
-        mMarkersHaveBeenAdded = false;
     }
 
     @Override

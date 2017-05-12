@@ -50,6 +50,7 @@
     <string name="title_signing_up">Signing up</string>
     <string name="title_signing_in">Signing in</string>
     <string name="title_select_hospital">Select Hospital</string>
+    <string name="title_sending_recovery_email">Sending Recovery Email</string>
     <string name="title_send_verification_email">Send Verification Email</string>
     <string name="title_sending_verification_email">Sending Verification Email</string>
 
@@ -61,6 +62,7 @@
     <string name="message_please_wait_a_few_seconds">Please wait a few seconds&#8230;</string>
     <string name="message_an_error_has_occurred">An error has occurred.</string>
     <string name="message_the_credentials_did_not_match_our_records">The credentials did not match our records.</string>
+    <string name="message_recovery_email_sent">Recovery email sent!</string>
     <string name="message_verification_email_sent">Verification email sent!</string>
 
     <!-- Validations related strings. -->
@@ -75,6 +77,7 @@
     <string name="validation_the_username_is_in_use">The username is in use.</string>
     <string name="validation_please_enter_a_valid_email_or_username">Please enter a valid email or username.</string>
     <string name="validation_the_username_is_not_registered">The username is not registered.</string>
+    <string name="validation_the_email_is_not_registered">The email is not registered.</string>
 
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>

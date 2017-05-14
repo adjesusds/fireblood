@@ -17,8 +17,8 @@ import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -50,9 +50,9 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     GoogleMap mGoogleMap;
 
     /**
-     * Instance of the SupportMapFragment class.
+     * Instance of the MapFragment class.
      */
-    SupportMapFragment mSupportMapFragment;
+    MapFragment mMapFragment;
 
     /**
      * Instance of the LoaderManager class.
@@ -109,7 +109,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Initializes the back end logic bindings.
      */
     void init() {
-        mSupportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
+        mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.place_picker_fragment);
         mLoaderManager = getLoaderManager();
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProvinceName = getIntent().getExtras().getString("province_name");
@@ -122,7 +122,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Updates the user interface view bindings.
      */
     void updateUi() {
-        mSupportMapFragment.getMapAsync(this);
+        mMapFragment.getMapAsync(this);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override

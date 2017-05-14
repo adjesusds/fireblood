@@ -73,8 +73,8 @@ public class VerifyEmailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verify_email);
         initUi();
         init();
-        updateUi();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -132,6 +132,19 @@ public class VerifyEmailActivity extends AppCompatActivity {
     }
 
     /**
+     * Initializes the event listener view bindings.
+     */
+    void initListeners() {
+        mSendEmailButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.show();
+            }
+        });
+    }
+
+    /**
      * Updates the user interface view bindings.
      */
     void updateUi() {
@@ -152,19 +165,6 @@ public class VerifyEmailActivity extends AppCompatActivity {
         mProgressDialog.setTitle(R.string.title_sending_verification_email);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
         mProgressDialog.setCancelable(false);
-    }
-
-    /**
-     * Initializes the event listener view bindings.
-     */
-    void initListeners() {
-        mSendEmailButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.show();
-            }
-        });
     }
 
     @Override

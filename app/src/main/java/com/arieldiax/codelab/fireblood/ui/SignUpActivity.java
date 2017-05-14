@@ -133,9 +133,9 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         initUi();
         init();
-        updateUi();
         initValidators();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -186,34 +186,6 @@ public class SignUpActivity extends AppCompatActivity {
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
-    }
-
-    /**
-     * Updates the user interface view bindings.
-     */
-    void updateUi() {
-        ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
-        provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mProvinceSpinner.setAdapter(provinceArrayAdapter);
-        ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
-        bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                finishAfterTransition();
-            }
-        };
-        mConfirmBottomSheetDialog
-                .setTitle(R.string.title_cancel_sign_up)
-                .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
-        ;
-        mProgressDialog.setTitle(R.string.title_signing_up);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
     }
 
     /**
@@ -317,6 +289,34 @@ public class SignUpActivity extends AppCompatActivity {
                 attemptToSignUpUser();
             }
         });
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
+        provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mProvinceSpinner.setAdapter(provinceArrayAdapter);
+        ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
+        bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
+                finishAfterTransition();
+            }
+        };
+        mConfirmBottomSheetDialog
+                .setTitle(R.string.title_cancel_sign_up)
+                .setMessage(R.string.message_are_you_sure)
+                .setPositiveButtonListener(positiveButtonListener)
+        ;
+        mProgressDialog.setTitle(R.string.title_signing_up);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
     }
 
     @Override

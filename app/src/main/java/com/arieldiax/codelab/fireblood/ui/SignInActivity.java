@@ -75,9 +75,9 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         initUi();
         init();
-        updateUi();
         initValidators();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -101,15 +101,6 @@ public class SignInActivity extends AppCompatActivity {
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
-    }
-
-    /**
-     * Updates the user interface view bindings.
-     */
-    void updateUi() {
-        mProgressDialog.setTitle(R.string.title_signing_in);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
     }
 
     /**
@@ -147,6 +138,15 @@ public class SignInActivity extends AppCompatActivity {
                 attemptToSignInUser();
             }
         });
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mProgressDialog.setTitle(R.string.title_signing_in);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
     }
 
     @Override

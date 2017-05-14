@@ -165,7 +165,7 @@ public class SignInActivity extends AppCompatActivity {
     void attemptToSignInUser() {
         mSignInScrollView.fullScroll(View.FOCUS_UP);
         mProgressDialog.show();
-        String emailOrUsername = FormUtils.getViewValue(mEmailOrUsernameEditText);
+        String emailOrUsername = FormUtils.getViewValue(this, mEmailOrUsernameEditText);
         if (emailOrUsername.matches(Validation.REGEX_EMAIL)) {
             signInUser(emailOrUsername);
             return;
@@ -202,7 +202,7 @@ public class SignInActivity extends AppCompatActivity {
      */
     void signInUser(String email) {
         mFirebaseAuth
-                .signInWithEmailAndPassword(email, FormUtils.getViewValue(mPasswordEditText))
+                .signInWithEmailAndPassword(email, FormUtils.getViewValue(this, mPasswordEditText))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                     @Override

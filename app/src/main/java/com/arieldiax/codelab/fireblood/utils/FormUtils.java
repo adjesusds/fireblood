@@ -26,12 +26,16 @@ public final class FormUtils {
     /**
      * Determines whether or not the view has an empty value.
      *
-     * @param view Instance of the View class.
+     * @param activity Instance of the Activity class.
+     * @param view     Instance of the View class.
      * @return Whether or not the view has an empty value.
      */
-    public static boolean hasEmptyValue(View view) {
+    public static boolean hasEmptyValue(
+            Activity activity,
+            View view
+    ) {
         if (view instanceof EditText) {
-            return getViewValue(view).isEmpty();
+            return getViewValue(activity, view).isEmpty();
         } else if (view instanceof RadioGroup) {
             return (((RadioGroup) view).getCheckedRadioButtonId() < 0);
         } else if (view instanceof Spinner) {
@@ -43,19 +47,27 @@ public final class FormUtils {
     /**
      * Gets the view value.
      *
-     * @param view Instance of the View class.
+     * @param activity Instance of the Activity class.
+     * @param view     Instance of the View class.
      * @return The view value.
      */
-    public static String getViewValue(View view) {
+    public static String getViewValue(
+            Activity activity,
+            View view
+    ) {
         if (view instanceof EditText) {
             return ((EditText) view).getText().toString();
         } else if (view instanceof RadioGroup) {
             RadioGroup radioGroup = (RadioGroup) view;
             if (radioGroup.getCheckedRadioButtonId() >= 0) {
-                return String.valueOf(radioGroup.getCheckedRadioButtonId());
+                RadioButton radioButton = (RadioButton) activity.findViewById(radioGroup.getCheckedRadioButtonId());
+                return radioButton.getText().toString();
             }
         } else if (view instanceof Spinner) {
-            return ((Spinner) view).getSelectedItem().toString();
+            Spinner spinner = ((Spinner) view);
+            if (spinner.getSelectedItemPosition() > 0) {
+                return spinner.getSelectedItem().toString();
+            }
         } else if (view instanceof Switch) {
             if (((Switch) view).isChecked()) {
                 return " ";

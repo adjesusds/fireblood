@@ -71,8 +71,18 @@
             android:theme="@style/AppMainTheme" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.NotificationsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppMainTheme" />
+            android:theme="@style/AppNoAnimationTheme" />
+
+        <activity
+            android:name=".ui.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoAnimationTheme" />
+
+        <activity
+            android:name=".ui.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoAnimationTheme" />
     </application>
 </manifest>

@@ -1,6 +1,8 @@
 package com.arieldiax.codelab.fireblood.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,34 +24,67 @@ public class MainActivity extends AppCompatActivity {
      */
     FirebaseAuth mFirebaseAuth;
 
+    /**
+     * Canonical name of the class.
+     */
+    String mClassCanonicalName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initUi();
-        init();
-        updateUi();
     }
 
     /**
      * Initializes the user interface view bindings.
      */
-    void initUi() {
+    protected void initUi() {
         mMainBottomNavigationView = (BottomNavigationView) findViewById(R.id.main_bottom_navigation_view);
     }
 
     /**
      * Initializes the back end logic bindings.
      */
-    void init() {
+    protected void init() {
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mClassCanonicalName = "";
+    }
+
+    /**
+     * Initializes the event listener view bindings.
+     */
+    protected void initListeners() {
+        mMainBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem navigationItem) {
+                Class activityClass = null;
+                switch (navigationItem.getItemId()) {
+                    case R.id.notifications_navigation_item:
+                        activityClass = NotificationsActivity.class;
+                        break;
+                    case R.id.search_navigation_item:
+                        activityClass = SearchActivity.class;
+                        break;
+                    default:
+                        activityClass = ProfileActivity.class;
+                        break;
+                }
+                if (mClassCanonicalName.equals(activityClass.getCanonicalName())) {
+                    return true;
+                }
+                Intent intent = new Intent(MainActivity.this, activityClass);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                return false;
+            }
+        });
     }
 
     /**
      * Updates the user interface view bindings.
      */
-    void updateUi() {
-        mMainBottomNavigationView.setSelectedItemId(R.id.search_navigation_item);
+    protected void updateUi() {
     }
 
     @Override
@@ -70,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        if (!isTaskRoot()) {
+            super.onBackPressed();
+        } else {
+            moveTaskToBack(true);
+        }
     }
 
     /**

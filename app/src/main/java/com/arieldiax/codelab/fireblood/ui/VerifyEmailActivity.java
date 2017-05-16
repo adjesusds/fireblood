@@ -118,7 +118,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                                             return;
                                         }
                                         if (mFirebaseUser.isEmailVerified()) {
-                                            ViewUtils.startCustomActivity(VerifyEmailActivity.this, MainActivity.class, null, true);
+                                            ViewUtils.startCustomActivity(VerifyEmailActivity.this, SearchActivity.class, null, true);
                                         }
                                     }
                                 })

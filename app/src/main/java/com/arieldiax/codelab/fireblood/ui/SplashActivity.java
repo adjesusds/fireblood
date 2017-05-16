@@ -45,15 +45,15 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 boolean isUserSignedIn = firebaseUser != null;
-                Pair<View, String> activityPair = (isUserSignedIn)
-                        ? null
-                        : Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
                 Class activityClass = (isUserSignedIn)
                         ?
                         (firebaseUser.isEmailVerified())
-                                ? MainActivity.class
+                                ? SearchActivity.class
                                 : VerifyEmailActivity.class
                         : WelcomeActivity.class;
+                Pair<View, String> activityPair = (isUserSignedIn)
+                        ? null
+                        : Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
                 ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair, true);
             }
         }, DateUtils.SECOND_IN_MILLIS);

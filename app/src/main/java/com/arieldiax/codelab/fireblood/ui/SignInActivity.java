@@ -213,7 +213,7 @@ public class SignInActivity extends AppCompatActivity {
                             return;
                         }
                         Class activityClass = (task.getResult().getUser().isEmailVerified())
-                                ? MainActivity.class
+                                ? SearchActivity.class
                                 : VerifyEmailActivity.class;
                         ViewUtils.startCustomActivity(SignInActivity.this, activityClass, null, true);
                     }

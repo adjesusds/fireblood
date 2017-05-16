@@ -19,7 +19,6 @@
     <string name="authentication_label_an_email_has_been_sent_to">An email has been sent to:</string>
     <string name="authentication_label_waiting_for_verification">Waiting for verification&#8230;</string>
     <string name="authentication_label_havent_received_the_email_yet">Haven\'t received the email yet?</string>
-    <string name="authentication_label_app_under_construction">App under construction&#8230;</string>
 
     <!-- Accounts related strings. -->
     <string name="account_title">Account</string>

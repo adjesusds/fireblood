@@ -10,6 +10,8 @@ import android.util.Pair;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.arieldiax.codelab.fireblood.ui.SearchActivity;
+
 public final class ViewUtils {
 
     /**
@@ -76,6 +78,9 @@ public final class ViewUtils {
             if (shouldActivityFinish) {
                 activity.finish();
             }
+        }
+        if (activityClass.equals(SearchActivity.class)) {
+            NavigationUtils.stackCustomActivity(context, activityClass, false);
         }
     }
 

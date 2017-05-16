@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.arieldiax.codelab.fireblood.R;
-import com.arieldiax.codelab.fireblood.utils.ViewUtils;
+import com.arieldiax.codelab.fireblood.utils.NavigationUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,9 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mClassCanonicalName.equals(activityClass.getCanonicalName())) {
                     return true;
                 }
-                Intent intent = new Intent(MainActivity.this, activityClass);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+                NavigationUtils.stackCustomActivity(MainActivity.this, activityClass, true);
                 return false;
             }
         });
@@ -105,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isTaskRoot()) {
-            super.onBackPressed();
+        if (!NavigationUtils.isTaskRoot()) {
+            NavigationUtils.unstackCustomActivity(this);
         } else {
             moveTaskToBack(true);
         }
@@ -117,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
      */
     void signOutUser() {
         mFirebaseAuth.signOut();
-        ViewUtils.startCustomActivity(this, WelcomeActivity.class, null, true);
+        Intent activityIntent = new Intent(this, WelcomeActivity.class);
+        activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(activityIntent);
+        NavigationUtils.clearClassesStack();
     }
 }

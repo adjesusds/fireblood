@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 
 import com.arieldiax.codelab.fireblood.ui.SearchActivity;
@@ -93,5 +96,30 @@ public final class ViewUtils {
     public static void hideKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    /**
+     * Gets the fade in animation.
+     *
+     * @return The fade in animation.
+     */
+    public static Animation getFadeInAnimation() {
+        Animation fadeInAnimation = new AlphaAnimation(0, 1);
+        fadeInAnimation.setInterpolator(new AccelerateInterpolator());
+        fadeInAnimation.setStartOffset(DateUtils.SECOND_IN_MILLIS / 2);
+        fadeInAnimation.setDuration(DateUtils.SECOND_IN_MILLIS / 4);
+        return fadeInAnimation;
+    }
+
+    /**
+     * Gets the fade out animation.
+     *
+     * @return The fade out animation.
+     */
+    public static Animation getFadeOutAnimation() {
+        Animation fadeOutAnimation = new AlphaAnimation(1, 0);
+        fadeOutAnimation.setInterpolator(new AccelerateInterpolator());
+        fadeOutAnimation.setDuration(DateUtils.SECOND_IN_MILLIS / 4);
+        return fadeOutAnimation;
     }
 }

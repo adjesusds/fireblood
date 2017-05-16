@@ -7,9 +7,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.widget.FrameLayout;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.utils.NavigationUtils;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
+    FrameLayout mMainFrameLayout;
     BottomNavigationView mMainBottomNavigationView;
 
     /**
@@ -29,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
      */
     String mClassCanonicalName;
 
+    /**
+     * Animations of the activity.
+     */
+    Animation mFadeInAnimation;
+    Animation mFadeOutAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes the user interface view bindings.
      */
     protected void initUi() {
+        mMainFrameLayout = (FrameLayout) findViewById(R.id.main_frame_layout);
         mMainBottomNavigationView = (BottomNavigationView) findViewById(R.id.main_bottom_navigation_view);
     }
 
@@ -48,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     protected void init() {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mClassCanonicalName = "";
+        mFadeInAnimation = ViewUtils.getFadeInAnimation();
+        mFadeOutAnimation = ViewUtils.getFadeOutAnimation();
     }
 
     /**
@@ -83,6 +96,18 @@ public class MainActivity extends AppCompatActivity {
      * Updates the user interface view bindings.
      */
     protected void updateUi() {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMainFrameLayout.startAnimation(mFadeInAnimation);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMainFrameLayout.startAnimation(mFadeOutAnimation);
     }
 
     @Override

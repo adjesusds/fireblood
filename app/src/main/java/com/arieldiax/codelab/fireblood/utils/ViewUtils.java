@@ -75,6 +75,7 @@ public final class ViewUtils {
             }
         } else {
             context.startActivity(activityIntent);
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             if (shouldActivityFinish) {
                 activity.finish();
             }

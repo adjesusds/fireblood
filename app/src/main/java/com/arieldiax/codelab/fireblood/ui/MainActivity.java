@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         Intent activityIntent = new Intent(this, WelcomeActivity.class);
         activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(activityIntent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         NavigationUtils.clearClassesStack();
     }
 }

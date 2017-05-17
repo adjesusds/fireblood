@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
 
-public class Rule {
+class Rule {
 
     /**
      * Regex of the rule.
@@ -20,7 +20,7 @@ public class Rule {
     /**
      * Creates a new Rule object.
      */
-    public Rule() {
+    Rule() {
         // Required empty public constructor (to allow instantiation).
     }
 
@@ -30,7 +30,7 @@ public class Rule {
      * @param regex Regex of the rule.
      * @return The instance of the Rule class.
      */
-    public Rule setRegex(String regex) {
+    Rule setRegex(String regex) {
         mRegex = regex;
         return this;
     }
@@ -41,7 +41,7 @@ public class Rule {
      * @param error Error of the rule.
      * @return The instance of the Rule class.
      */
-    public Rule setError(int error) {
+    Rule setError(int error) {
         mError = error;
         return this;
     }
@@ -53,7 +53,7 @@ public class Rule {
      * @param view     Instance of the View class.
      * @return Whether or not the rule has passed the criteria.
      */
-    public boolean validate(
+    boolean validate(
             Activity activity,
             View view
     ) {

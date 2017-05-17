@@ -27,15 +27,6 @@ public final class NavigationUtils {
     }
 
     /**
-     * Determines whether or not the stack has reached the root.
-     *
-     * @return Whether or not the stack has reached the root.
-     */
-    public static boolean isTaskRoot() {
-        return (sClasses.size() == 1);
-    }
-
-    /**
      * Stacks the custom activity.
      *
      * @param context             Instance of the Context class.
@@ -62,6 +53,15 @@ public final class NavigationUtils {
     public static void unstackCustomActivity(Context context) {
         sClasses.pop();
         startCustomActivity(context, sClasses.peek());
+    }
+
+    /**
+     * Determines whether or not the stack has reached the root.
+     *
+     * @return Whether or not the stack has reached the root.
+     */
+    public static boolean isTaskRoot() {
+        return (sClasses.size() == 1);
     }
 
     /**

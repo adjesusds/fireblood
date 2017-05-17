@@ -134,6 +134,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 setResult(RESULT_OK, resultIntent);
                 mConfirmBottomSheetDialog.dismiss();
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         };
         DialogInterface.OnDismissListener negativeButtonListener = new DialogInterface.OnDismissListener() {
@@ -159,6 +160,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         resultIntent.putExtra("message_resource_id", R.string.message_action_canceled);
         setResult(RESULT_CANCELED, resultIntent);
         finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
@@ -205,6 +207,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
             resultIntent.putExtra("message_resource_id", R.string.message_please_check_your_internet_connection);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return;
         }
         LatLngBounds.Builder latLngBoundsBuilder = new LatLngBounds.Builder();

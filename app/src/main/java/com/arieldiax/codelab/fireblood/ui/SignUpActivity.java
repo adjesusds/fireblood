@@ -270,6 +270,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
                 pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
         mSignUpButton.setOnClickListener(new View.OnClickListener() {

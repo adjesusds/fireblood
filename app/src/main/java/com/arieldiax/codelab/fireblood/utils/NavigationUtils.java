@@ -20,6 +20,13 @@ public final class NavigationUtils {
     private static final Stack<Class> sClasses = new Stack<>();
 
     /**
+     * Creates a new NavigationUtils object (no, it won't).
+     */
+    private NavigationUtils() {
+        // Required empty private constructor (to prevent instantiation).
+    }
+
+    /**
      * Determines whether or not the stack has reached the root.
      *
      * @return Whether or not the stack has reached the root.

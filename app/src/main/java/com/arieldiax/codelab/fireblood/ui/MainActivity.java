@@ -90,12 +90,25 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mMainBottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem navigationItem) {
+                onNavigationItemReselectedListener();
+            }
+        });
     }
 
     /**
      * Updates the user interface view bindings.
      */
     protected void updateUi() {
+    }
+
+    /**
+     * Trigger for on navigation item reselected listener.
+     */
+    protected void onNavigationItemReselectedListener() {
     }
 
     @Override

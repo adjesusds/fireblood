@@ -15,11 +15,11 @@ import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.pojos.Place;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
+import com.arieldiax.codelab.fireblood.utils.MapUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -30,19 +30,9 @@ import java.util.List;
 public class PlacePickerActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LoaderManager.LoaderCallbacks<List<Place>> {
 
     /**
-     * Geographical boundaries of the Dominican Republic.
-     */
-    private static final LatLngBounds DOMINICAN_REPUBLIC_GEOGRAPHICAL_BOUNDARIES = new LatLngBounds(new LatLng(17.361100, -72.007510), new LatLng(19.978699, -68.252600));
-
-    /**
-     * Boundaries padding for Google Maps.
-     */
-    private static final int GOOGLE_MAPS_BOUNDARIES_PADDING = 200;
-
-    /**
      * Views of the activity.
      */
-    ProgressBar mPlacePickerProgressBar;
+    ProgressBar mMapProgressBar;
 
     /**
      * Instance of the GoogleMap class.
@@ -102,14 +92,14 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Initializes the user interface view bindings.
      */
     void initUi() {
-        mPlacePickerProgressBar = (ProgressBar) findViewById(R.id.place_picker_progress_bar);
+        mMapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
     }
 
     /**
      * Initializes the back end logic bindings.
      */
     void init() {
-        mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.place_picker_fragment);
+        mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment);
         mLoaderManager = getLoaderManager();
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProvinceName = getIntent().getExtras().getString("province_name");
@@ -143,7 +133,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
             public void onDismiss(DialogInterface dialog) {
                 mMarker.hideInfoWindow();
                 mMarker = null;
-                setGoogleMapGestures();
+                MapUtils.setGoogleMapGestures(mGoogleMap);
             }
         };
         mConfirmBottomSheetDialog
@@ -167,7 +157,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.google_maps_style));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(DOMINICAN_REPUBLIC_GEOGRAPHICAL_BOUNDARIES, mDisplayWidth, mDisplayHeight, 0));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, mDisplayWidth, mDisplayHeight, 0));
         mGoogleMap.getUiSettings().setIndoorLevelPickerEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
@@ -214,9 +204,9 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         for (Place place : places) {
             latLngBoundsBuilder.include(place.getLocation());
         }
-        mPlacePickerProgressBar.setVisibility(View.GONE);
+        mMapProgressBar.setVisibility(View.GONE);
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(), mDisplayWidth, mDisplayHeight, GOOGLE_MAPS_BOUNDARIES_PADDING), new GoogleMap.CancelableCallback() {
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(), mDisplayWidth, mDisplayHeight, MapUtils.GOOGLE_MAPS_BOUNDARIES_PADDING), new GoogleMap.CancelableCallback() {
 
             @Override
             public void onFinish() {
@@ -240,7 +230,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
                     @Override
                     public void run() {
-                        setGoogleMapGestures();
+                        MapUtils.setGoogleMapGestures(mGoogleMap);
                     }
                 }, delay);
             }
@@ -253,15 +243,5 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onLoaderReset(Loader<List<Place>> loader) {
-    }
-
-    /**
-     * Sets the Google map gestures.
-     */
-    void setGoogleMapGestures() {
-        mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
-        mGoogleMap.getUiSettings().setScrollGesturesEnabled(true);
-        mGoogleMap.getUiSettings().setTiltGesturesEnabled(true);
-        mGoogleMap.getUiSettings().setRotateGesturesEnabled(true);
     }
 }

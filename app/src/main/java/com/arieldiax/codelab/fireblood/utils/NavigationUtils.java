@@ -65,24 +65,24 @@ public final class NavigationUtils {
     }
 
     /**
+     * Clears the classes stack.
+     */
+    public static void clearClassesStack() {
+        sClasses.removeAllElements();
+    }
+
+    /**
      * Starts the custom activity.
      *
      * @param context       Instance of the Context class.
      * @param activityClass Class of the activity.
      */
-    public static void startCustomActivity(
+    private static void startCustomActivity(
             Context context,
             Class activityClass
     ) {
         Intent activityIntent = new Intent(context, activityClass);
         activityIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(activityIntent);
-    }
-
-    /**
-     * Clears the classes stack.
-     */
-    public static void clearClassesStack() {
-        sClasses.removeAllElements();
     }
 }

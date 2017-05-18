@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Base application themes. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <item name="android:itemTextAppearance">@style/AppItemTextAppearance</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
@@ -21,6 +21,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="AppMainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
     <!-- Custom application themes. -->
     <style name="AppSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -33,7 +40,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AppPlacePickerTheme" parent="AppTheme">
+    <style name="AppPlacePickerTheme" parent="AppBaseTheme">
 
         <item name="android:windowBackground">@color/colorMapBackground</item>
     </style>
@@ -115,6 +122,8 @@
 
     <style name="AppBorderlessButton">
 
+        <item name="android:layout_height">@dimen/borderless_button_height</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
@@ -132,6 +141,8 @@
 
     <style name="AppInverseBorderlessButton">
 
+        <item name="android:layout_height">@dimen/borderless_button_height</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimary</item>

@@ -4,7 +4,7 @@
     android:id="@+id/verify_email_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@android:color/white"
     android:fillViewport="true"
     tools:context=".ui.VerifyEmailActivity">
 
@@ -17,22 +17,12 @@
         android:paddingRight="@dimen/margin_standard"
         android:paddingTop="@dimen/margin_standard">
 
-        <ImageView
-            android:id="@+id/app_logo_image_view"
-            android:layout_width="@dimen/icon_size_large"
-            android:layout_height="@dimen/icon_size_large"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
-            android:transitionName="@string/transition_app_logo_image_view" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_half"
             android:fontFamily="sans-serif-light"
-            android:text="@string/authentication_label_congratulations"
+            android:text="@string/authentication_label_almost_there"
             android:textAppearance="@android:style/TextAppearance.Material.Headline" />
 
         <TextView
@@ -51,7 +41,33 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_half"
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:textColor="@color/colorPrimary"
             tools:text="foo@bar.com" />
+
+        <View style="@style/AppVerticalDividerView" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_half"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="@dimen/progress_bar_small"
+                android:layout_height="@dimen/progress_bar_small"
+                android:indeterminateTint="@color/colorPrimaryDark"
+                android:indeterminateTintMode="src_atop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_half"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/authentication_label_waiting_for_verification"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
+        </LinearLayout>
 
         <View style="@style/AppVerticalDividerView" />
 
@@ -63,13 +79,11 @@
             android:text="@string/authentication_label_havent_received_the_email_yet"
             android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
-        <FrameLayout style="@style/AppInverseBorderlessButtonWrapper">
+        <FrameLayout style="@style/AppBorderlessButtonWrapper">
 
             <Button
                 android:id="@+id/send_email_button"
-                style="@style/AppInverseBorderlessButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/AppBorderlessButton"
                 android:text="@string/authentication_label_send_email" />
         </FrameLayout>
     </LinearLayout>

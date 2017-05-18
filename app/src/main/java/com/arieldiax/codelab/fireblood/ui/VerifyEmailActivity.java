@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -29,7 +27,6 @@ public class VerifyEmailActivity extends AppCompatActivity {
      * Views of the activity.
      */
     ScrollView mVerifyEmailScrollView;
-    ImageView mAppLogoImageView;
     TextView mEmailTextView;
     Button mSendEmailButton;
 
@@ -72,7 +69,6 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void initUi() {
         mVerifyEmailScrollView = (ScrollView) findViewById(R.id.verify_email_activity);
-        mAppLogoImageView = (ImageView) findViewById(R.id.app_logo_image_view);
         mEmailTextView = (TextView) findViewById(R.id.email_text_view);
         mSendEmailButton = (Button) findViewById(R.id.send_email_button);
     }
@@ -145,8 +141,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void signOutUser() {
         mFirebaseAuth.signOut();
-        Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-        ViewUtils.startCustomActivity(this, WelcomeActivity.class, activityPair, true);
+        ViewUtils.startCustomActivity(this, WelcomeActivity.class, null, true);
     }
 
     /**

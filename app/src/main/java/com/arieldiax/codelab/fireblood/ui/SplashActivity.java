@@ -42,8 +42,11 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-                Class activityClass = (FirebaseAuth.getInstance().getCurrentUser() != null)
+                boolean isUserSignedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
+                Pair<View, String> activityPair = (isUserSignedIn)
+                        ? null
+                        : Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
+                Class activityClass = (isUserSignedIn)
                         ? VerifyEmailActivity.class
                         : WelcomeActivity.class;
                 ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair, true);

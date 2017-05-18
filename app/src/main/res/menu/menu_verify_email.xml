@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/verify_email_menu"
-    tools:context=".ui.VerifyEmailActivity">
+    tools:context=".ui.verification.VerifyEmailActivity">
 
     <item
         android:id="@+id/sign_out_menu_item"

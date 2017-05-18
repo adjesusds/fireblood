@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.navigation.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.ui.launch.WelcomeActivity;
+import com.arieldiax.codelab.fireblood.ui.navigation.notifications.NotificationsActivity;
+import com.arieldiax.codelab.fireblood.ui.navigation.profile.ProfileActivity;
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
 import com.arieldiax.codelab.fireblood.utils.NavigationUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,24 +24,24 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Views of the activity.
      */
-    FrameLayout mMainFrameLayout;
-    BottomNavigationView mMainBottomNavigationView;
+    protected FrameLayout mMainFrameLayout;
+    protected BottomNavigationView mMainBottomNavigationView;
 
     /**
      * Instance of the FirebaseAuth class.
      */
-    FirebaseAuth mFirebaseAuth;
+    protected FirebaseAuth mFirebaseAuth;
 
     /**
      * Canonical name of the class.
      */
-    String mClassCanonicalName;
+    protected String mClassCanonicalName;
 
     /**
      * Animations of the activity.
      */
-    Animation mFadeInAnimation;
-    Animation mFadeOutAnimation;
+    protected Animation mFadeInAnimation;
+    protected Animation mFadeOutAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

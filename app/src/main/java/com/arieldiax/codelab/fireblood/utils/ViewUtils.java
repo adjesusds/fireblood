@@ -13,7 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 
-import com.arieldiax.codelab.fireblood.ui.SearchActivity;
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
 
 public final class ViewUtils {
 

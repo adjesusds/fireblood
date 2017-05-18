@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.registration.signup;
 
 import android.app.LoaderManager;
 import android.content.DialogInterface;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.loaders.PlacesAsyncTaskLoader;
 import com.arieldiax.codelab.fireblood.models.pojos.Place;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
-import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
 import com.arieldiax.codelab.fireblood.utils.MapUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -184,7 +184,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
             int id,
             Bundle args
     ) {
-        return new PlaceAsyncTaskLoader(this, getString(R.string.configuration_google_places_search_query, mProvinceName));
+        return new PlacesAsyncTaskLoader(this, getString(R.string.configuration_google_places_search_query, mProvinceName));
     }
 
     @Override

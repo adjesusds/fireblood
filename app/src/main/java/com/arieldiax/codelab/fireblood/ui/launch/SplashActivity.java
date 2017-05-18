@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.launch;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
+import com.arieldiax.codelab.fireblood.ui.verification.VerifyEmailActivity;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

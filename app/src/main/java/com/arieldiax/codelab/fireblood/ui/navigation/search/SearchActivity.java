@@ -1,9 +1,10 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.navigation.search;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.ui.navigation.main.MainActivity;
 import com.arieldiax.codelab.fireblood.utils.MapUtils;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;

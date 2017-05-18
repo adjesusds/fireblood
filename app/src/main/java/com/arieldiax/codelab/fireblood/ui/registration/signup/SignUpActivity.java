@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.registration.signup;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -25,6 +25,7 @@ import com.arieldiax.codelab.fireblood.models.firebase.User;
 import com.arieldiax.codelab.fireblood.models.validations.FormValidator;
 import com.arieldiax.codelab.fireblood.models.validations.Validation;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
+import com.arieldiax.codelab.fireblood.ui.verification.VerifyEmailActivity;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FirebaseUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;

@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.verification;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
+import com.arieldiax.codelab.fireblood.ui.launch.WelcomeActivity;
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.android.gms.tasks.OnCompleteListener;

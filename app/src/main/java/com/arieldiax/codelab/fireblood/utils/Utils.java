@@ -42,7 +42,10 @@ public final class Utils {
      * @param datePattern Pattern of the date.
      * @return The epoch time of the string.
      */
-    public static long epochTime(String str, String datePattern) {
+    public static long epochTime(
+            String str,
+            String datePattern
+    ) {
         Date date = null;
         try {
             date = new SimpleDateFormat(datePattern, Locale.getDefault()).parse(str);

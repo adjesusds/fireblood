@@ -72,6 +72,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         init();
         initValidators();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -90,9 +91,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     void init() {
         mSnackbar = Snackbar.make(mForgotPasswordScrollView, "", Snackbar.LENGTH_LONG);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_sending_recovery_email);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -136,6 +134,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 attemptToSendRecoveryEmail();
             }
         });
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mProgressDialog.setTitle(R.string.title_sending_recovery_email);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
     }
 
     @Override

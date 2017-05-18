@@ -37,7 +37,6 @@
     <string name="profile_label_gender_female">Female</string>
     <string name="profile_label_gender_male">Male</string>
     <string name="profile_label_birthday">Birthday</string>
-    <string name="profile_label_birthday_format" translatable="false"><xliff:g id="year">%d</xliff:g>-<xliff:g id="month">%02d</xliff:g>-<xliff:g id="day_of_month">%02d</xliff:g></string>
     <string name="profile_label_province">Province</string>
     <string name="profile_label_hospital">Hospital</string>
     <string name="profile_label_blood_type">Blood Type</string>
@@ -82,6 +81,11 @@
 
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>
+
+    <!-- Navigation items related strings. -->
+    <string name="navigation_item_notifications">Notifications</string>
+    <string name="navigation_item_search">Search</string>
+    <string name="navigation_item_profile">Profile</string>
 
     <!-- Arrays (Provinces) related strings. -->
     <string name="array_province_azua" translatable="false">Azua</string>

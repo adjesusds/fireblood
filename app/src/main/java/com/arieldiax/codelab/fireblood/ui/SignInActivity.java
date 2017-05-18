@@ -77,6 +77,7 @@ public class SignInActivity extends AppCompatActivity {
         init();
         initValidators();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -97,9 +98,6 @@ public class SignInActivity extends AppCompatActivity {
     void init() {
         mSnackbar = Snackbar.make(mSignInScrollView, "", Snackbar.LENGTH_LONG);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_signing_in);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -140,6 +138,15 @@ public class SignInActivity extends AppCompatActivity {
                 attemptToSignInUser();
             }
         });
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mProgressDialog.setTitle(R.string.title_signing_in);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
     }
 
     @Override
@@ -205,7 +212,10 @@ public class SignInActivity extends AppCompatActivity {
                             mSnackbar.setText(R.string.message_the_credentials_did_not_match_our_records).show();
                             return;
                         }
-                        ViewUtils.startCustomActivity(SignInActivity.this, VerifyEmailActivity.class, null, true);
+                        Class activityClass = (task.getResult().getUser().isEmailVerified())
+                                ? SearchActivity.class
+                                : VerifyEmailActivity.class;
+                        ViewUtils.startCustomActivity(SignInActivity.this, activityClass, null, true);
                     }
                 })
         ;

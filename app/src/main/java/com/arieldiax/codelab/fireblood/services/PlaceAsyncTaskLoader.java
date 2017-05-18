@@ -28,7 +28,10 @@ public class PlaceAsyncTaskLoader extends AsyncTaskLoader {
      * @param context     Instance of the Context class.
      * @param searchQuery Query of the search.
      */
-    public PlaceAsyncTaskLoader(Context context, String searchQuery) {
+    public PlaceAsyncTaskLoader(
+            Context context,
+            String searchQuery
+    ) {
         super(context);
         mSearchQuery = searchQuery;
     }

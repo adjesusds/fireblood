@@ -2,9 +2,11 @@ package com.arieldiax.codelab.fireblood.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +57,16 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     FirebaseUser mFirebaseUser;
 
+    /**
+     * Handler of the verification.
+     */
+    Handler mVerificationHandler;
+
+    /**
+     * Runnable of the verification.
+     */
+    Runnable mVerificationRunnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +74,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
         initUi();
         init();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -78,28 +91,44 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void init() {
         mSnackbar = Snackbar.make(mVerifyEmailScrollView, "", Snackbar.LENGTH_LONG);
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                sendVerificationEmail();
-            }
-        };
-        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
-                .setTitle(R.string.title_send_verification_email)
-                .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
-        ;
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_sending_verification_email);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser != null) {
-            mEmailTextView.setText(mFirebaseUser.getEmail());
-        }
+        mVerificationHandler = new Handler();
+        mVerificationRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    if (!ConnectionUtils.hasInternetConnection(VerifyEmailActivity.this)) {
+                        if (!mSnackbar.isShown()) {
+                            mSnackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
+                            mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
+                        }
+                    } else {
+                        mSnackbar.dismiss();
+                        mFirebaseUser
+                                .reload()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            return;
+                                        }
+                                        if (mFirebaseUser.isEmailVerified()) {
+                                            ViewUtils.startCustomActivity(VerifyEmailActivity.this, SearchActivity.class, null, true);
+                                        }
+                                    }
+                                })
+                        ;
+                    }
+                } finally {
+                    mVerificationHandler.postDelayed(mVerificationRunnable, DateUtils.SECOND_IN_MILLIS * 2);
+                }
+            }
+        };
     }
 
     /**
@@ -115,9 +144,44 @@ public class VerifyEmailActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mEmailTextView.setText(mFirebaseUser.getEmail());
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
+                sendVerificationEmail();
+            }
+        };
+        mConfirmBottomSheetDialog
+                .setTitle(R.string.title_send_verification_email)
+                .setMessage(R.string.message_are_you_sure)
+                .setPositiveButtonListener(positiveButtonListener)
+        ;
+        mProgressDialog.setTitle(R.string.title_sending_verification_email);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mVerificationRunnable.run();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mVerificationHandler.removeCallbacks(mVerificationRunnable);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_verify_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_verify_email, menu);
         return true;
     }
 
@@ -149,26 +213,26 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void sendVerificationEmail() {
         if (!ConnectionUtils.hasInternetConnection(this)) {
+            mSnackbar.setDuration(Snackbar.LENGTH_LONG);
             mSnackbar.setText(R.string.message_please_check_your_internet_connection).show();
             return;
         }
-        if (mFirebaseUser != null) {
-            mProgressDialog.show();
-            mFirebaseUser
-                    .sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+        mProgressDialog.show();
+        mFirebaseUser
+                .sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            mProgressDialog.dismiss();
-                            if (!task.isSuccessful()) {
-                                mSnackbar.setText(R.string.message_an_error_has_occurred).show();
-                                return;
-                            }
-                            mSnackbar.setText(R.string.message_verification_email_sent).show();
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mProgressDialog.dismiss();
+                        mSnackbar.setDuration(Snackbar.LENGTH_LONG);
+                        if (!task.isSuccessful()) {
+                            mSnackbar.setText(R.string.message_an_error_has_occurred).show();
+                            return;
                         }
-                    })
-            ;
-        }
+                        mSnackbar.setText(R.string.message_verification_email_sent).show();
+                    }
+                })
+        ;
     }
 }

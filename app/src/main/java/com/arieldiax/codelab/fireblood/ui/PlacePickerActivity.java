@@ -17,8 +17,8 @@ import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.services.PlaceAsyncTaskLoader;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -48,6 +48,11 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Instance of the GoogleMap class.
      */
     GoogleMap mGoogleMap;
+
+    /**
+     * Instance of the MapFragment class.
+     */
+    MapFragment mMapFragment;
 
     /**
      * Instance of the LoaderManager class.
@@ -90,6 +95,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_place_picker);
         initUi();
         init();
+        updateUi();
     }
 
     /**
@@ -103,9 +109,20 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Initializes the back end logic bindings.
      */
     void init() {
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.place_picker_fragment);
-        supportMapFragment.getMapAsync(this);
+        mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.place_picker_fragment);
         mLoaderManager = getLoaderManager();
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
+        mProvinceName = getIntent().getExtras().getString("province_name");
+        mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
+        mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
+        mMarkersHaveBeenAdded = false;
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mMapFragment.getMapAsync(this);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
@@ -117,6 +134,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 setResult(RESULT_OK, resultIntent);
                 mConfirmBottomSheetDialog.dismiss();
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         };
         DialogInterface.OnDismissListener negativeButtonListener = new DialogInterface.OnDismissListener() {
@@ -128,16 +146,12 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
                 setGoogleMapGestures();
             }
         };
-        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
+        mConfirmBottomSheetDialog
                 .setTitle(R.string.title_select_hospital)
                 .setMessage(R.string.message_are_you_sure)
                 .setPositiveButtonListener(positiveButtonListener)
                 .setNegativeButtonListener(negativeButtonListener)
         ;
-        mProvinceName = getIntent().getExtras().getString("province_name");
-        mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
-        mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
-        mMarkersHaveBeenAdded = false;
     }
 
     @Override
@@ -146,6 +160,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         resultIntent.putExtra("message_resource_id", R.string.message_action_canceled);
         setResult(RESULT_CANCELED, resultIntent);
         finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
@@ -175,17 +190,24 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     }
 
     @Override
-    public Loader<List<Place>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Place>> onCreateLoader(
+            int id,
+            Bundle args
+    ) {
         return new PlaceAsyncTaskLoader(this, getString(R.string.configuration_google_places_search_query, mProvinceName));
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Place>> loader, final List<Place> places) {
+    public void onLoadFinished(
+            Loader<List<Place>> loader,
+            final List<Place> places
+    ) {
         if (places == null) {
             Intent resultIntent = new Intent();
             resultIntent.putExtra("message_resource_id", R.string.message_please_check_your_internet_connection);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return;
         }
         LatLngBounds.Builder latLngBoundsBuilder = new LatLngBounds.Builder();

@@ -30,7 +30,10 @@ public final class FormUtils {
      * @param view     Instance of the View class.
      * @return Whether or not the view has an empty value.
      */
-    public static boolean hasEmptyValue(Activity activity, View view) {
+    public static boolean hasEmptyValue(
+            Activity activity,
+            View view
+    ) {
         if (view instanceof EditText) {
             return getViewValue(activity, view).isEmpty();
         } else if (view instanceof RadioGroup) {
@@ -48,16 +51,23 @@ public final class FormUtils {
      * @param view     Instance of the View class.
      * @return The view value.
      */
-    public static String getViewValue(Activity activity, View view) {
+    public static String getViewValue(
+            Activity activity,
+            View view
+    ) {
         if (view instanceof EditText) {
             return ((EditText) view).getText().toString();
         } else if (view instanceof RadioGroup) {
             RadioGroup radioGroup = (RadioGroup) view;
             if (radioGroup.getCheckedRadioButtonId() >= 0) {
-                return String.valueOf(radioGroup.getCheckedRadioButtonId());
+                RadioButton radioButton = (RadioButton) activity.findViewById(radioGroup.getCheckedRadioButtonId());
+                return radioButton.getText().toString();
             }
         } else if (view instanceof Spinner) {
-            return ((Spinner) view).getSelectedItem().toString();
+            Spinner spinner = ((Spinner) view);
+            if (spinner.getSelectedItemPosition() > 0) {
+                return spinner.getSelectedItem().toString();
+            }
         } else if (view instanceof Switch) {
             if (((Switch) view).isChecked()) {
                 return " ";
@@ -73,7 +83,11 @@ public final class FormUtils {
      * @param view      Instance of the View class.
      * @param viewError Error of the view.
      */
-    public static void setViewError(Activity activity, View view, String viewError) {
+    public static void setViewError(
+            Activity activity,
+            View view,
+            String viewError
+    ) {
         if (view instanceof EditText) {
             TextInputLayout textInputLayout = (TextInputLayout) view.getParent().getParent();
             textInputLayout.setError(viewError);

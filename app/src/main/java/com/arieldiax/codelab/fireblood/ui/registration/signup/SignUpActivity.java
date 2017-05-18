@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.registration.signup;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -25,6 +25,7 @@ import com.arieldiax.codelab.fireblood.models.firebase.User;
 import com.arieldiax.codelab.fireblood.models.validations.FormValidator;
 import com.arieldiax.codelab.fireblood.models.validations.Validation;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
+import com.arieldiax.codelab.fireblood.ui.verification.VerifyEmailActivity;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FirebaseUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
@@ -43,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -134,6 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
         init();
         initValidators();
         initListeners();
+        updateUi();
     }
 
     /**
@@ -167,36 +170,20 @@ public class SignUpActivity extends AppCompatActivity {
         mBirthdayDatePickerDialog = new DatePickerDialog(this, R.style.AppDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mBirthdayEditText.setText(getString(R.string.profile_label_birthday_format, year, ++month, dayOfMonth));
+            public void onDateSet(
+                    DatePicker view,
+                    int year,
+                    int month,
+                    int dayOfMonth
+            ) {
+                mBirthdayEditText.setText(String.format(Locale.getDefault(), "%d-%02d-%02d", year, ++month, dayOfMonth));
             }
         }, year, month, dayOfMonth);
         calendar.set(year, month, dayOfMonth, hourOfDay, minute, second);
         mBirthdayDatePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
-        ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
-        provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mProvinceSpinner.setAdapter(provinceArrayAdapter);
-        ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
-        bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
         mSnackbar = Snackbar.make(mSignUpScrollView, "", Snackbar.LENGTH_LONG);
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                finishAfterTransition();
-            }
-        };
-        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this)
-                .setTitle(R.string.title_cancel_sign_up)
-                .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
-        ;
+        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
-        mProgressDialog.setTitle(R.string.title_signing_up);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -234,7 +221,10 @@ public class SignUpActivity extends AppCompatActivity {
         mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
+            public void onFocusChange(
+                    View view,
+                    boolean hasFocus
+            ) {
                 String phoneHint = (hasFocus) ? getString(R.string.profile_label_phone_hint) : null;
                 mPhoneEditText.setHint(phoneHint);
             }
@@ -250,7 +240,12 @@ public class SignUpActivity extends AppCompatActivity {
         mProvinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(
+                    AdapterView<?> parent,
+                    View view,
+                    int position,
+                    long id
+            ) {
                 mHospitalEditText.setText("");
                 mHospitalLatitude = 0.00;
                 mHospitalLongitude = 0.00;
@@ -276,6 +271,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
                 pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -297,6 +293,34 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
+        provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mProvinceSpinner.setAdapter(provinceArrayAdapter);
+        ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
+        bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
+                finishAfterTransition();
+            }
+        };
+        mConfirmBottomSheetDialog
+                .setTitle(R.string.title_cancel_sign_up)
+                .setMessage(R.string.message_are_you_sure)
+                .setPositiveButtonListener(positiveButtonListener)
+        ;
+        mProgressDialog.setTitle(R.string.title_signing_up);
+        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -313,7 +337,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data
+    ) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle extras = data.getExtras();
         switch (resultCode) {
@@ -407,7 +435,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         mFirebaseAuth
                 .createUserWithEmailAndPassword(FormUtils.getViewValue(this, mEmailEditText), FormUtils.getViewValue(this, mPasswordEditText))
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -416,7 +444,7 @@ public class SignUpActivity extends AppCompatActivity {
                             mSnackbar.setText(R.string.message_an_error_has_occurred).show();
                             return;
                         }
-                        createUser();
+                        createUser(task.getResult().getUser().getUid());
                     }
                 })
         ;
@@ -424,19 +452,20 @@ public class SignUpActivity extends AppCompatActivity {
 
     /**
      * Creates the user.
+     *
+     * @param userUid Unique ID of the user.
      */
-    void createUser() {
-        String userKey = mDatabaseReference.child(User.CHILD_NODE).push().getKey();
+    void createUser(String userUid) {
         mDatabaseReference
                 .child(User.CHILD_NODE)
-                .child(userKey)
+                .child(userUid)
                 .setValue(getUser())
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
-                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
                             if (firebaseUser != null) {
                                 firebaseUser.delete();
                             }
@@ -454,11 +483,11 @@ public class SignUpActivity extends AppCompatActivity {
      * Sends the verification email.
      */
     void sendVerificationEmail() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             firebaseUser
                     .sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -492,6 +521,9 @@ public class SignUpActivity extends AppCompatActivity {
         hospital.put(User.PROPERTY_HOSPITAL_LONGITUDE, mHospitalLongitude);
         String bloodType = formValidatorSerialize.get(R.id.blood_type_spinner);
         boolean isDonor = !formValidatorSerialize.get(R.id.is_donor_switch).isEmpty();
-        return new User(email, username, firstName, lastName, phone, gender, birthday, province, hospital, bloodType, isDonor);
+        long createdAt = System.currentTimeMillis();
+        long updatedAt = 0;
+        long deletedAt = 0;
+        return new User(email, username, firstName, lastName, phone, gender, birthday, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
     }
 }

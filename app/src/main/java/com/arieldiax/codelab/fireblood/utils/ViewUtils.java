@@ -8,7 +8,12 @@ import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
+
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
 
 public final class ViewUtils {
 
@@ -28,7 +33,12 @@ public final class ViewUtils {
      * @param shouldActivityFinish Whether or not the activity should be finished.
      * @return The start custom activity on click listener
      */
-    public static View.OnClickListener getStartCustomActivityOnClickListener(final Context context, final Class activityClass, final Pair<View, String> activityPair, final boolean shouldActivityFinish) {
+    public static View.OnClickListener getStartCustomActivityOnClickListener(
+            final Context context,
+            final Class activityClass,
+            final Pair<View, String> activityPair,
+            final boolean shouldActivityFinish
+    ) {
         return new View.OnClickListener() {
 
             @Override
@@ -46,7 +56,12 @@ public final class ViewUtils {
      * @param activityPair         Pair of the activity.
      * @param shouldActivityFinish Whether or not the activity should be finished.
      */
-    public static void startCustomActivity(Context context, Class activityClass, Pair<View, String> activityPair, boolean shouldActivityFinish) {
+    public static void startCustomActivity(
+            Context context,
+            Class activityClass,
+            Pair<View, String> activityPair,
+            boolean shouldActivityFinish
+    ) {
         final Activity activity = (Activity) context;
         Intent activityIntent = new Intent(context, activityClass);
         if (activityPair != null) {
@@ -63,9 +78,13 @@ public final class ViewUtils {
             }
         } else {
             context.startActivity(activityIntent);
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             if (shouldActivityFinish) {
                 activity.finish();
             }
+        }
+        if (activityClass.equals(SearchActivity.class)) {
+            NavigationUtils.stackCustomActivity(context, activityClass, false);
         }
     }
 
@@ -77,5 +96,30 @@ public final class ViewUtils {
     public static void hideKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    /**
+     * Gets the fade in animation.
+     *
+     * @return The fade in animation.
+     */
+    public static Animation getFadeInAnimation() {
+        Animation fadeInAnimation = new AlphaAnimation(0, 1);
+        fadeInAnimation.setInterpolator(new AccelerateInterpolator());
+        fadeInAnimation.setStartOffset(DateUtils.SECOND_IN_MILLIS / 2);
+        fadeInAnimation.setDuration(DateUtils.SECOND_IN_MILLIS / 4);
+        return fadeInAnimation;
+    }
+
+    /**
+     * Gets the fade out animation.
+     *
+     * @return The fade out animation.
+     */
+    public static Animation getFadeOutAnimation() {
+        Animation fadeOutAnimation = new AlphaAnimation(1, 0);
+        fadeOutAnimation.setInterpolator(new AccelerateInterpolator());
+        fadeOutAnimation.setDuration(DateUtils.SECOND_IN_MILLIS / 4);
+        return fadeOutAnimation;
     }
 }

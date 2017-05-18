@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.launch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.ui.registration.signin.SignInActivity;
+import com.arieldiax.codelab.fireblood.ui.registration.signup.SignUpActivity;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 public class WelcomeActivity extends AppCompatActivity {

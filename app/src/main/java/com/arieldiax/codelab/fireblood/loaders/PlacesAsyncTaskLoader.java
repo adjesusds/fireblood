@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.services;
+package com.arieldiax.codelab.fireblood.loaders;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.arieldiax.codelab.fireblood.utils.QueryUtils;
 
 import java.util.List;
 
-public class PlaceAsyncTaskLoader extends AsyncTaskLoader {
+public class PlacesAsyncTaskLoader extends AsyncTaskLoader {
 
     /**
      * Request URL of the Google Places API.
@@ -23,12 +23,15 @@ public class PlaceAsyncTaskLoader extends AsyncTaskLoader {
     private String mSearchQuery;
 
     /**
-     * Creates a new PlaceAsyncTaskLoader object.
+     * Creates a new PlacesAsyncTaskLoader object.
      *
      * @param context     Instance of the Context class.
      * @param searchQuery Query of the search.
      */
-    public PlaceAsyncTaskLoader(Context context, String searchQuery) {
+    public PlacesAsyncTaskLoader(
+            Context context,
+            String searchQuery
+    ) {
         super(context);
         mSearchQuery = searchQuery;
     }

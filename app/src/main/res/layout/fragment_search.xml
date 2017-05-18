@@ -4,7 +4,6 @@
     android:id="@+id/search_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/margin_triple_half"
     tools:context=".ui.SearchActivity">
 
     <fragment

@@ -11,7 +11,8 @@
     <FrameLayout
         android:id="@+id/main_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_triple_half" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/main_bottom_navigation_view"

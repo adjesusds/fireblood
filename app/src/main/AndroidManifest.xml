@@ -23,7 +23,7 @@
             android:value="@string/configuration_google_maps_api_key" />
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.launch.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppSplashTheme">
 
@@ -36,38 +36,60 @@
         </activity>
 
         <activity
-            android:name=".ui.WelcomeActivity"
+            android:name=".ui.launch.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.SignUpActivity"
+            android:name=".ui.registration.signup.SignUpActivity"
             android:label="@string/authentication_title_sign_up"
-            android:parentActivityName=".ui.WelcomeActivity"
+            android:parentActivityName=".ui.launch.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.SignInActivity"
+            android:name=".ui.registration.signin.SignInActivity"
             android:label="@string/authentication_title_sign_in"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.WelcomeActivity"
+            android:parentActivityName=".ui.launch.WelcomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.PlacePickerActivity"
+            android:name=".ui.registration.signup.PlacePickerActivity"
             android:label="@string/authentication_title_place_picker"
             android:screenOrientation="portrait"
             android:theme="@style/AppPlacePickerTheme" />
 
         <activity
-            android:name=".ui.ForgotPasswordActivity"
+            android:name=".ui.registration.signin.ForgotPasswordActivity"
             android:label="@string/authentication_title_forgot_password"
-            android:parentActivityName=".ui.SignInActivity"
+            android:parentActivityName=".ui.registration.signin.SignInActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.VerifyEmailActivity"
+            android:name=".ui.verification.VerifyEmailActivity"
             android:label="@string/authentication_title_verify_email"
             android:screenOrientation="portrait"
             android:theme="@style/AppMainTheme" />
+
+        <activity
+            android:name=".ui.navigation.notifications.NotificationsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoAnimationTheme" />
+
+        <activity
+            android:name=".ui.navigation.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoAnimationTheme" />
+
+        <activity
+            android:name=".ui.navigation.profile.ProfileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoAnimationTheme" />
+
+        <activity
+            android:name=".ui.navigation.profile.ViewPhotoActivity"
+            android:parentActivityName=".ui.navigation.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppViewPhotoTheme" />
     </application>
 </manifest>

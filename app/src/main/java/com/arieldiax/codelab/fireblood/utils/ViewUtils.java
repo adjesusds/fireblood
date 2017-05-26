@@ -26,21 +26,23 @@ public final class ViewUtils {
      *
      * @param context              Instance of the Context class.
      * @param activityClass        Class of the activity.
-     * @param activityPair         Pair of the activity.
+     * @param activityPair1        Pair 1 of the activity.
+     * @param activityPair2        Pair 2 of the activity.
      * @param shouldActivityFinish Whether or not the activity should be finished.
      * @return The start custom activity on click listener
      */
     public static View.OnClickListener getStartCustomActivityOnClickListener(
             final Context context,
             final Class activityClass,
-            final Pair<View, String> activityPair,
+            final Pair<View, String> activityPair1,
+            final Pair<View, String> activityPair2,
             final boolean shouldActivityFinish
     ) {
         return new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                startCustomActivity(context, activityClass, activityPair, shouldActivityFinish);
+                startCustomActivity(context, activityClass, activityPair1, activityPair2, shouldActivityFinish);
             }
         };
     }
@@ -50,19 +52,24 @@ public final class ViewUtils {
      *
      * @param context              Instance of the Context class.
      * @param activityClass        Class of the activity.
-     * @param activityPair         Pair of the activity.
+     * @param activityPair1        Pair 1 of the activity.
+     * @param activityPair2        Pair 2 of the activity.
      * @param shouldActivityFinish Whether or not the activity should be finished.
      */
     public static void startCustomActivity(
             Context context,
             Class activityClass,
-            Pair<View, String> activityPair,
+            Pair<View, String> activityPair1,
+            Pair<View, String> activityPair2,
             boolean shouldActivityFinish
     ) {
         final Activity activity = (Activity) context;
         Intent activityIntent = new Intent(context, activityClass);
-        if (activityPair != null) {
-            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, activityPair);
+        if (activityPair1 != null) {
+            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, activityPair1);
+            if (activityPair2 != null) {
+                activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, activityPair1, activityPair2);
+            }
             context.startActivity(activityIntent, activityOptions.toBundle());
             if (shouldActivityFinish) {
                 new Handler().postDelayed(new Runnable() {

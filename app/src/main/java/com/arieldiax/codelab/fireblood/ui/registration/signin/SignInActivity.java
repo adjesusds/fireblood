@@ -121,8 +121,8 @@ public class SignInActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     void initListeners() {
-        Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-        mForgotYourPasswordTextView.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, ForgotPasswordActivity.class, activityPair, false));
+        Pair<View, String> activityPair1 = Pair.create((View) mAppLogoImageView, mAppLogoImageView.getTransitionName());
+        mForgotYourPasswordTextView.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, ForgotPasswordActivity.class, activityPair1, null, false));
         mSignInButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -217,7 +217,7 @@ public class SignInActivity extends AppCompatActivity {
                         Class activityClass = (task.getResult().getUser().isEmailVerified())
                                 ? SearchActivity.class
                                 : VerifyEmailActivity.class;
-                        ViewUtils.startCustomActivity(SignInActivity.this, activityClass, null, true);
+                        ViewUtils.startCustomActivity(SignInActivity.this, activityClass, null, null, true);
                     }
                 })
         ;

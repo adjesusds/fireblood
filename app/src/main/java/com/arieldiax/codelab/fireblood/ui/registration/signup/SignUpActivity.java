@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
@@ -491,8 +490,7 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             mProgressDialog.dismiss();
-                            Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-                            ViewUtils.startCustomActivity(SignUpActivity.this, VerifyEmailActivity.class, activityPair, true);
+                            ViewUtils.startCustomActivity(SignUpActivity.this, VerifyEmailActivity.class, null, null, true);
                         }
                     })
             ;

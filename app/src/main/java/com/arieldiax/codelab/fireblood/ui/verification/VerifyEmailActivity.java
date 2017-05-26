@@ -120,7 +120,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                                             return;
                                         }
                                         if (mFirebaseUser.isEmailVerified()) {
-                                            ViewUtils.startCustomActivity(VerifyEmailActivity.this, SearchActivity.class, null, true);
+                                            ViewUtils.startCustomActivity(VerifyEmailActivity.this, SearchActivity.class, null, null, true);
                                         }
                                     }
                                 })
@@ -207,7 +207,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void signOutUser() {
         mFirebaseAuth.signOut();
-        ViewUtils.startCustomActivity(this, WelcomeActivity.class, null, true);
+        ViewUtils.startCustomActivity(this, WelcomeActivity.class, null, null, true);
     }
 
     /**

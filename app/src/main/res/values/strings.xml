@@ -96,11 +96,13 @@
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>
     <string name="menu_item_share">Share</string>
+    <string name="menu_item_save">Save</string>
 
     <!-- Navigation items related strings. -->
     <string name="navigation_item_notifications">Notifications</string>
     <string name="navigation_item_search">Search</string>
     <string name="navigation_item_profile">Profile</string>
+    <string name="navigation_item_edit_profile">Edit Profile</string>
 
     <!-- Arrays (Provinces) related strings. -->
     <string name="array_province_azua" translatable="false">Azua</string>
@@ -204,4 +206,8 @@
     <string name="transition_app_logo_image_view" translatable="false">app_logo_image_view</string>
     <string name="transition_user_photo_image_view" translatable="false">user_photo_image_view</string>
     <string name="transition_edit_profile_image_view" translatable="false">edit_profile_image_view</string>
+
+    <!-- Theme names related strings. -->
+    <string name="theme_name_app_base" translatable="false">AppBaseTheme</string>
+    <string name="theme_name_app_main" translatable="false">AppMainTheme</string>
 </resources>

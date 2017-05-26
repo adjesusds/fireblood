@@ -42,9 +42,9 @@ public class WelcomeActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     void initListeners() {
-        Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-        mSignUpButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignUpActivity.class, activityPair, false));
-        mSignInButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignInActivity.class, activityPair, false));
+        Pair<View, String> activityPair1 = Pair.create((View) mAppLogoImageView, mAppLogoImageView.getTransitionName());
+        mSignUpButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignUpActivity.class, activityPair1, null, false));
+        mSignInButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignInActivity.class, activityPair1, null, false));
     }
 
     @Override

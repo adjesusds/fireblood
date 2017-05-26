@@ -91,5 +91,12 @@
             android:parentActivityName=".ui.navigation.profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppViewPhotoTheme" />
+
+        <activity
+            android:name=".ui.navigation.profile.EditProfileActivity"
+            android:label="@string/navigation_item_edit_profile"
+            android:parentActivityName=".ui.navigation.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppEditProfileTheme" />
     </application>
 </manifest>

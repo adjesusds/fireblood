@@ -53,10 +53,10 @@ public class SplashActivity extends AppCompatActivity {
                                 ? SearchActivity.class
                                 : VerifyEmailActivity.class
                         : WelcomeActivity.class;
-                Pair<View, String> activityPair = (isUserSignedIn)
+                Pair<View, String> activityPair1 = (isUserSignedIn)
                         ? null
-                        : Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-                ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair, true);
+                        : Pair.create((View) mAppLogoImageView, mAppLogoImageView.getTransitionName());
+                ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair1, null, true);
             }
         }, DateUtils.SECOND_IN_MILLIS);
     }

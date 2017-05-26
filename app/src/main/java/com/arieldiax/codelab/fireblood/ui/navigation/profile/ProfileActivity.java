@@ -19,6 +19,8 @@ public class ProfileActivity extends MainActivity {
      * Views of the activity.
      */
     ImageView mUserPhotoImageView;
+    FrameLayout mEditProfileFrameLayout;
+    ImageView mEditProfileImageView;
     TextView mUserFullNameTextView;
     TextView mUserProvinceTextView;
     TextView mUserCountryTextView;
@@ -41,6 +43,8 @@ public class ProfileActivity extends MainActivity {
     protected void initUi() {
         super.initUi();
         mUserPhotoImageView = (ImageView) findViewById(R.id.user_photo_image_view);
+        mEditProfileFrameLayout = (FrameLayout) findViewById(R.id.edit_profile_frame_layout);
+        mEditProfileImageView = (ImageView) findViewById(R.id.edit_profile_image_view);
         mUserFullNameTextView = (TextView) findViewById(R.id.user_full_name_text_view);
         mUserProvinceTextView = (TextView) findViewById(R.id.user_province_text_view);
         mUserCountryTextView = (TextView) findViewById(R.id.user_country_text_view);
@@ -59,13 +63,22 @@ public class ProfileActivity extends MainActivity {
     @Override
     protected void initListeners() {
         super.initListeners();
-        final Pair<View, String> activityPair = Pair.create((View) mUserPhotoImageView, getString(R.string.transition_user_photo_image_view));
+        final Pair<View, String> activityPair1 = Pair.create((View) mUserPhotoImageView, mUserPhotoImageView.getTransitionName());
+        final Pair<View, String> activityPair2 = Pair.create((View) mEditProfileImageView, mEditProfileImageView.getTransitionName());
         mUserPhotoImageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 shouldActivityAnimate = false;
-                ViewUtils.startCustomActivity(ProfileActivity.this, ViewPhotoActivity.class, activityPair, false);
+                ViewUtils.startCustomActivity(ProfileActivity.this, ViewPhotoActivity.class, activityPair1, null, false);
+            }
+        });
+        mEditProfileFrameLayout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                shouldActivityAnimate = false;
+                ViewUtils.startCustomActivity(ProfileActivity.this, EditProfileActivity.class, activityPair1, activityPair2, false);
             }
         });
     }

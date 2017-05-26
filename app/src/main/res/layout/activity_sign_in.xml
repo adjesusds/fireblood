@@ -29,24 +29,24 @@
             android:src="@mipmap/ic_launcher"
             android:transitionName="@string/transition_app_logo_image_view" />
 
-        <android.support.design.widget.TextInputLayout style="@style/AppEditTextWrapper">
+        <android.support.design.widget.TextInputLayout style="@style/AppBaseEditTextWrapper">
 
             <EditText
                 android:id="@+id/email_or_username_edit_text"
-                style="@style/AppEditText"
+                style="@style/AppBaseEditText"
                 android:hint="@string/account_label_email_or_username"
                 android:inputType="textEmailAddress"
                 android:maxLength="@integer/max_length_email" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            style="@style/AppEditTextWrapper"
+            style="@style/AppBaseEditTextWrapper"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorPrimaryText">
 
             <EditText
                 android:id="@+id/password_edit_text"
-                style="@style/AppEditText"
+                style="@style/AppBaseEditText"
                 android:hint="@string/account_label_password"
                 android:inputType="textPassword"
                 android:maxLength="@integer/max_length_password" />

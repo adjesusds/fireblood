@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputLayout;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -88,6 +89,10 @@ public final class FormUtils {
             View view,
             String viewError
     ) {
+        TypedValue outValue = new TypedValue();
+        activity.getTheme().resolveAttribute(R.attr.themeName, outValue, true);
+        String themeNameAppBase = activity.getString(R.string.theme_name_app_base);
+        boolean isAppBaseTheme = outValue.string.equals(themeNameAppBase);
         if (view instanceof EditText) {
             TextInputLayout textInputLayout = (TextInputLayout) view.getParent().getParent();
             textInputLayout.setError(viewError);
@@ -97,14 +102,19 @@ public final class FormUtils {
         } else if (view instanceof RadioGroup) {
             RadioGroup radioGroup = (RadioGroup) view;
             RadioButton radioButton = (RadioButton) radioGroup.getChildAt(radioGroup.getChildCount() - 1);
-            Drawable viewIcon = activity.getDrawable(R.drawable.ic_error_black_24dp);
+            Drawable viewIcon = (isAppBaseTheme)
+                    ? activity.getDrawable(R.drawable.ic_error_black_24dp)
+                    : activity.getDrawable(R.drawable.ic_error_red_24dp);
             viewIcon.setBounds(0, 0, viewIcon.getIntrinsicWidth(), viewIcon.getIntrinsicHeight());
             radioButton.setError(viewError, viewIcon);
         } else if (view instanceof Spinner) {
             if (viewError != null) {
                 TextView textView = (TextView) ((Spinner) view).getSelectedView();
                 textView.setText(viewError);
-                textView.setTextColor(Color.BLACK);
+                int textColor = (isAppBaseTheme)
+                        ? Color.BLACK
+                        : activity.getResources().getColor(R.color.colorAccent);
+                textView.setTextColor(textColor);
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.launch;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
+import com.arieldiax.codelab.fireblood.ui.verification.VerifyEmailActivity;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initUi();
-        init();
+        updateUi();
     }
 
     /**
@@ -35,20 +38,24 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     /**
-     * Initializes the back end logic bindings.
+     * Updates the user interface view bindings.
      */
-    void init() {
+    void updateUi() {
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                boolean isUserSignedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                boolean isUserSignedIn = firebaseUser != null;
+                Class activityClass = (isUserSignedIn)
+                        ?
+                        (firebaseUser.isEmailVerified())
+                                ? SearchActivity.class
+                                : VerifyEmailActivity.class
+                        : WelcomeActivity.class;
                 Pair<View, String> activityPair = (isUserSignedIn)
                         ? null
                         : Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-                Class activityClass = (isUserSignedIn)
-                        ? VerifyEmailActivity.class
-                        : WelcomeActivity.class;
                 ViewUtils.startCustomActivity(SplashActivity.this, activityClass, activityPair, true);
             }
         }, DateUtils.SECOND_IN_MILLIS);

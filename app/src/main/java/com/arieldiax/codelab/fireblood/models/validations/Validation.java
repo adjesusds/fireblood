@@ -36,7 +36,10 @@ public class Validation {
      * @param activity        Instance of the Activity class.
      * @param fieldResourceId Resource ID of the field.
      */
-    public Validation(Activity activity, int fieldResourceId) {
+    Validation(
+            Activity activity,
+            int fieldResourceId
+    ) {
         mView = activity.findViewById(fieldResourceId);
         mRules = new ArrayList<>();
     }
@@ -48,7 +51,10 @@ public class Validation {
      * @param errorResourceId Resource ID of the error.
      * @return The instance of the Validation class.
      */
-    public Validation addRule(String regexString, int errorResourceId) {
+    Validation addRule(
+            String regexString,
+            int errorResourceId
+    ) {
         mRules.add(new Rule()
                 .setRegex(regexString)
                 .setError(errorResourceId)
@@ -62,16 +68,17 @@ public class Validation {
      * @param activity Instance of the Activity class.
      * @return The value of the validation.
      */
-    public String getValue(Activity activity) {
+    String getValue(Activity activity) {
         return FormUtils.getViewValue(activity, mView);
     }
 
     /**
      * Determines whether or not the validation has passed the rules.
      *
+     * @param activity Instance of the Activity class.
      * @return Whether or not the validation has passed the rules.
      */
-    public boolean validate(Activity activity) {
+    boolean validate(Activity activity) {
         boolean hasPassedRules = true;
         for (Rule rule : mRules) {
             if (!rule.validate(activity, mView)) {

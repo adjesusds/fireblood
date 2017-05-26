@@ -10,6 +10,8 @@ import android.util.Pair;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
+
 public final class ViewUtils {
 
     /**
@@ -28,7 +30,12 @@ public final class ViewUtils {
      * @param shouldActivityFinish Whether or not the activity should be finished.
      * @return The start custom activity on click listener
      */
-    public static View.OnClickListener getStartCustomActivityOnClickListener(final Context context, final Class activityClass, final Pair<View, String> activityPair, final boolean shouldActivityFinish) {
+    public static View.OnClickListener getStartCustomActivityOnClickListener(
+            final Context context,
+            final Class activityClass,
+            final Pair<View, String> activityPair,
+            final boolean shouldActivityFinish
+    ) {
         return new View.OnClickListener() {
 
             @Override
@@ -46,7 +53,12 @@ public final class ViewUtils {
      * @param activityPair         Pair of the activity.
      * @param shouldActivityFinish Whether or not the activity should be finished.
      */
-    public static void startCustomActivity(Context context, Class activityClass, Pair<View, String> activityPair, boolean shouldActivityFinish) {
+    public static void startCustomActivity(
+            Context context,
+            Class activityClass,
+            Pair<View, String> activityPair,
+            boolean shouldActivityFinish
+    ) {
         final Activity activity = (Activity) context;
         Intent activityIntent = new Intent(context, activityClass);
         if (activityPair != null) {
@@ -66,6 +78,9 @@ public final class ViewUtils {
             if (shouldActivityFinish) {
                 activity.finish();
             }
+        }
+        if (activityClass.equals(SearchActivity.class)) {
+            NavigationUtils.stackCustomActivity(context, activityClass, false);
         }
     }
 

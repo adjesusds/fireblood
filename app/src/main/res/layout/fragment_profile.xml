@@ -25,7 +25,8 @@
             android:background="@drawable/background_profile_image_view"
             android:elevation="@dimen/margin_quarter"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="@string/transition_user_photo_image_view" />
 
         <FrameLayout
             android:id="@+id/edit_profile_frame_layout"
@@ -43,7 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit_black_24dp"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/colorPrimary"
+                android:transitionName="@string/transition_edit_profile_image_view" />
         </FrameLayout>
 
         <android.support.v7.widget.CardView

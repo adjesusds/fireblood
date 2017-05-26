@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     protected Animation mFadeInAnimation;
     protected Animation mFadeOutAnimation;
 
+    /**
+     * Whether or not the activity should be animated.
+     */
+    protected boolean shouldActivityAnimate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         mClassCanonicalName = "";
         mFadeInAnimation = AnimationUtils.getFadeInAnimation();
         mFadeOutAnimation = AnimationUtils.getFadeOutAnimation();
+        shouldActivityAnimate = true;
     }
 
     /**
@@ -118,13 +124,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mMainFrameLayout.startAnimation(mFadeInAnimation);
+        if (shouldActivityAnimate) {
+            mMainFrameLayout.startAnimation(mFadeInAnimation);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mMainFrameLayout.startAnimation(mFadeOutAnimation);
+        if (shouldActivityAnimate) {
+            mMainFrameLayout.startAnimation(mFadeOutAnimation);
+        }
     }
 
     @Override

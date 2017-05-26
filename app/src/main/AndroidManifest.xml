@@ -82,7 +82,14 @@
 
         <activity
             android:name=".ui.navigation.profile.ProfileActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoAnimationTheme" />
+
+        <activity
+            android:name=".ui.navigation.profile.ViewPhotoActivity"
+            android:parentActivityName=".ui.navigation.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppViewPhotoTheme" />
     </application>
 </manifest>

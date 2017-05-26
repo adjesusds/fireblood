@@ -1,6 +1,8 @@
 package com.arieldiax.codelab.fireblood.ui.navigation.profile;
 
 import android.os.Bundle;
+import android.util.Pair;
+import android.view.View;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.ui.navigation.main.MainActivity;
 import com.arieldiax.codelab.fireblood.utils.AnimationUtils;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 public class ProfileActivity extends MainActivity {
 
@@ -54,6 +57,20 @@ public class ProfileActivity extends MainActivity {
     }
 
     @Override
+    protected void initListeners() {
+        super.initListeners();
+        final Pair<View, String> activityPair = Pair.create((View) mUserPhotoImageView, getString(R.string.transition_user_photo_image_view));
+        mUserPhotoImageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                shouldActivityAnimate = false;
+                ViewUtils.startCustomActivity(ProfileActivity.this, ViewPhotoActivity.class, activityPair, false);
+            }
+        });
+    }
+
+    @Override
     protected void updateUi() {
         super.updateUi();
         mMainBottomNavigationView.setSelectedItemId(R.id.profile_navigation_item);
@@ -66,5 +83,11 @@ public class ProfileActivity extends MainActivity {
         mUserGenderTextView.startAnimation(blinkAnimation);
         mUserBloodTypeTextView.startAnimation(blinkAnimation);
         mUserIsDonorTextView.startAnimation(blinkAnimation);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shouldActivityAnimate = true;
     }
 }

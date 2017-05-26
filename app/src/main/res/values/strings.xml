@@ -95,6 +95,7 @@
 
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>
+    <string name="menu_item_share">Share</string>
 
     <!-- Navigation items related strings. -->
     <string name="navigation_item_notifications">Notifications</string>
@@ -201,4 +202,6 @@
 
     <!-- Transitions related strings. -->
     <string name="transition_app_logo_image_view" translatable="false">app_logo_image_view</string>
+    <string name="transition_user_photo_image_view" translatable="false">user_photo_image_view</string>
+    <string name="transition_edit_profile_image_view" translatable="false">edit_profile_image_view</string>
 </resources>

@@ -9,4 +9,5 @@
     <color name="colorSecondaryText">#E0E0E0</color>
     <color name="colorIconBackground">#757575</color>
     <color name="colorMapBackground">#BDBDBD</color>
+    <color name="colorProfileBackground">#E6E9EC</color>
 </resources>

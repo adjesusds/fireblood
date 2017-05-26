@@ -15,8 +15,8 @@ import com.arieldiax.codelab.fireblood.ui.launch.WelcomeActivity;
 import com.arieldiax.codelab.fireblood.ui.navigation.notifications.NotificationsActivity;
 import com.arieldiax.codelab.fireblood.ui.navigation.profile.ProfileActivity;
 import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
+import com.arieldiax.codelab.fireblood.utils.AnimationUtils;
 import com.arieldiax.codelab.fireblood.utils.NavigationUtils;
-import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
     protected void init() {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mClassCanonicalName = "";
-        mFadeInAnimation = ViewUtils.getFadeInAnimation();
-        mFadeOutAnimation = ViewUtils.getFadeOutAnimation();
+        mFadeInAnimation = AnimationUtils.getFadeInAnimation();
+        mFadeOutAnimation = AnimationUtils.getFadeOutAnimation();
     }
 
     /**
@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         Intent activityIntent = new Intent(this, WelcomeActivity.class);
         activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(activityIntent);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         NavigationUtils.clearClassesStack();
     }
 }

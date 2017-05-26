@@ -1,18 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_standard"
+    android:background="@color/colorProfileBackground"
+    android:fillViewport="true"
     tools:context=".ui.navigation.profile.ProfileActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/navigation_item_profile"
-        android:textAppearance="@android:style/TextAppearance.Material.Title" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="@dimen/margin_standard">
+
+        <ImageView
+            android:id="@+id/user_photo_image_view"
+            android:layout_width="@dimen/image_size_small"
+            android:layout_height="@dimen/image_size_small"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin_double_half_quarter_minus"
+            android:layout_marginTop="@dimen/margin_quarter"
+            android:background="@drawable/background_profile_image_view"
+            android:elevation="@dimen/margin_quarter"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+        <FrameLayout
+            android:id="@+id/edit_profile_frame_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="@dimen/margin_triple_half_minus"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:elevation="@dimen/margin_quarter"
+            android:padding="@dimen/margin_standard">
+
+            <ImageView
+                android:id="@+id/edit_profile_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_black_24dp"
+                android:tint="@color/colorPrimary" />
+        </FrameLayout>
+
+        <android.support.v7.widget.CardView
+            style="@style/AppCardView"
+            card_view:contentPaddingTop="@dimen/margin_triple_half">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/user_full_name_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_quarter_half"
+                    android:background="@drawable/background_profile_text_view"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_horizontal"
+                    android:textAppearance="@android:style/TextAppearance.Material.Title"
+                    tools:text="Full Name" />
+
+                <TextView
+                    android:id="@+id/user_province_text_view"
+                    style="@style/AppCardViewBody"
+                    android:gravity="center_horizontal"
+                    tools:text="Province" />
+
+                <TextView
+                    android:id="@+id/user_country_text_view"
+                    style="@style/AppCardViewBody"
+                    android:layout_marginTop="@dimen/margin_none"
+                    android:gravity="center_horizontal"
+                    tools:text="Country" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/AppCardView"
+            android:layout_marginTop="@dimen/margin_half">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppCardViewSubheading"
+                    android:text="@string/profile_subheading_about_me" />
+
+                <TextView
+                    android:id="@+id/user_age_text_view"
+                    style="@style/AppCardViewBody"
+                    tools:text="@string/profile_information_user_age" />
+
+                <TextView
+                    android:id="@+id/user_gender_text_view"
+                    style="@style/AppCardViewBody"
+                    tools:text="@string/profile_information_user_gender_female" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/AppCardView"
+            android:layout_marginTop="@dimen/margin_half">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppCardViewSubheading"
+                    android:text="@string/profile_subheading_blood_information" />
+
+                <TextView
+                    android:id="@+id/user_blood_type_text_view"
+                    style="@style/AppCardViewBody"
+                    tools:text="@string/profile_information_user_blood_type" />
+
+                <TextView
+                    android:id="@+id/user_is_donor_text_view"
+                    style="@style/AppCardViewBody"
+                    tools:text="@string/profile_information_user_is_donor_false" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/AppCardView"
+            android:layout_marginTop="@dimen/margin_half">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppCardViewSubheading"
+                    android:text="@string/profile_subheading_hospital" />
+
+                <TextView
+                    android:id="@+id/user_hospital_text_view"
+                    style="@style/AppCardViewOption"
+                    android:layout_marginTop="@dimen/margin_half"
+                    android:drawableStart="@drawable/ic_directions_gray_24dp"
+                    android:text="@string/profile_body_show_location" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/AppCardView"
+            android:layout_marginBottom="@dimen/margin_quarter_half"
+            android:layout_marginTop="@dimen/margin_half">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppCardViewSubheading"
+                    android:text="@string/profile_subheading_contact_me" />
+
+                <TextView
+                    android:id="@+id/an_email_text_view"
+                    style="@style/AppCardViewOption"
+                    android:layout_marginTop="@dimen/margin_half"
+                    android:drawableStart="@drawable/ic_email_gray_24dp"
+                    android:text="@string/profile_body_send_email" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/a_call_text_view"
+                        style="@style/AppCardViewOption"
+                        android:layout_width="@dimen/margin_none"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_call_gray_24dp"
+                        android:text="@string/profile_body_make_call" />
+
+                    <TextView
+                        android:id="@+id/a_message_text_view"
+                        style="@style/AppCardViewOption"
+                        android:layout_width="@dimen/margin_none"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_message_gray_24dp"
+                        android:text="@string/profile_body_send_message" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

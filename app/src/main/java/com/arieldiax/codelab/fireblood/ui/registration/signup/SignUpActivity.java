@@ -271,7 +271,6 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
                 pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -509,11 +508,13 @@ public class SignUpActivity extends AppCompatActivity {
         String username = formValidatorSerialize.get(R.id.username_edit_text);
         String firstName = formValidatorSerialize.get(R.id.first_name_edit_text).trim();
         String lastName = formValidatorSerialize.get(R.id.last_name_edit_text).trim();
+        String fullName = firstName + " " + lastName;
         String phone = formValidatorSerialize.get(R.id.phone_edit_text);
         String gender = (formValidatorSerialize.get(R.id.gender_radio_group).equals(String.valueOf(R.id.gender_radio_button_female)))
                 ? User.VALUE_GENDER_FEMALE
                 : User.VALUE_GENDER_MALE;
         long birthday = Utils.epochTime(formValidatorSerialize.get(R.id.birthday_edit_text), "yyyy-MM-dd");
+        String country = User.VALUE_COUNTRY_REPUBLICA_DOMINICANA;
         String province = formValidatorSerialize.get(R.id.province_spinner);
         HashMap<String, Object> hospital = new HashMap<>();
         hospital.put(User.PROPERTY_HOSPITAL_NAME, formValidatorSerialize.get(R.id.hospital_edit_text));
@@ -524,6 +525,6 @@ public class SignUpActivity extends AppCompatActivity {
         long createdAt = System.currentTimeMillis();
         long updatedAt = 0;
         long deletedAt = 0;
-        return new User(email, username, firstName, lastName, phone, gender, birthday, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
+        return new User(email, username, firstName, lastName, fullName, phone, gender, birthday, country, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
     }
 }

@@ -2,30 +2,45 @@
 <resources>
 
     <!-- Base application themes. -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <item name="android:itemTextAppearance">@style/AppItemTextAppearance</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
         <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textColorHint">@color/colorSecondaryText</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorPrimaryText</item>
-        <item name="colorControlNormal">@color/colorSecondaryText</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AppMainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="AppTheme">
 
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textColorHint">@color/colorSecondaryText</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowEnterTransition">@transition/slide_base</item>
+        <item name="android:windowExitTransition">@transition/slide_base</item>
+        <item name="colorControlActivated">@color/colorPrimaryText</item>
+        <item name="colorControlNormal">@color/colorSecondaryText</item>
+        <item name="themeName">@string/theme_name_app_base</item>
+    </style>
+
+    <style name="AppMainTheme" parent="AppTheme">
+
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/tertiary_text_light</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowEnterTransition">@null</item>
+        <item name="android:windowExitTransition">@null</item>
+        <item name="themeName">@string/theme_name_app_main</item>
+    </style>
+
+    <style name="AppNoAnimationTheme" parent="AppMainTheme">
+
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
     <!-- Custom application themes. -->
@@ -45,6 +60,22 @@
         <item name="android:windowBackground">@color/colorMapBackground</item>
     </style>
 
+    <style name="AppViewPhotoTheme" parent="AppMainTheme">
+
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowEnterTransition">@transition/fade_view_photo</item>
+        <item name="android:windowExitTransition">@transition/fade_view_photo</item>
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+    </style>
+
+    <style name="AppEditProfileTheme" parent="AppMainTheme">
+
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowEnterTransition">@transition/slide_base</item>
+        <item name="android:windowExitTransition">@transition/slide_base</item>
+    </style>
+
     <style name="AppDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
 
         <item name="android:textColor">@android:color/tertiary_text_light</item>
@@ -57,6 +88,11 @@
         <item name="android:textColor">@android:color/black</item>
         <item name="android:windowTitleStyle">@style/AppProgressDialogTitleStyle</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppBottomNavigationViewTheme">
+
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
     <!-- Custom application styles. -->
@@ -83,9 +119,16 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="AppErrorTextAppearance" parent="@android:style/TextAppearance.Material.Body1">
+    <style name="AppErrorTextAppearance" parent="@android:style/TextAppearance.Material.Body1" />
+
+    <style name="AppBaseErrorTextAppearance" parent="AppErrorTextAppearance">
 
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="AppMainErrorTextAppearance" parent="AppErrorTextAppearance">
+
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <!-- Custom application components. -->
@@ -113,8 +156,8 @@
     <style name="AppBorderlessButtonWrapper">
 
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">@dimen/margin_standard_minus</item>
-        <item name="android:layout_marginStart">@dimen/margin_standard_minus</item>
+        <item name="android:layout_marginEnd">@dimen/margin_standard_single_minus</item>
+        <item name="android:layout_marginStart">@dimen/margin_standard_single_minus</item>
         <item name="android:layout_marginTop">@dimen/margin_standard</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorPrimary</item>
@@ -132,8 +175,8 @@
     <style name="AppInverseBorderlessButtonWrapper">
 
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">@dimen/margin_standard_minus</item>
-        <item name="android:layout_marginStart">@dimen/margin_standard_minus</item>
+        <item name="android:layout_marginEnd">@dimen/margin_standard_single_minus</item>
+        <item name="android:layout_marginStart">@dimen/margin_standard_single_minus</item>
         <item name="android:layout_marginTop">@dimen/margin_standard</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorPrimaryText</item>
@@ -153,7 +196,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/margin_half</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="errorTextAppearance">@style/AppErrorTextAppearance</item>
+    </style>
+
+    <style name="AppBaseEditTextWrapper" parent="AppEditTextWrapper">
+
+        <item name="errorTextAppearance">@style/AppBaseErrorTextAppearance</item>
+    </style>
+
+    <style name="AppMainEditTextWrapper" parent="AppEditTextWrapper">
+
+        <item name="errorTextAppearance">@style/AppMainErrorTextAppearance</item>
     </style>
 
     <style name="AppEditText">
@@ -161,7 +213,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+    </style>
+
+    <style name="AppBaseEditText" parent="AppEditText">
+
         <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppMainEditText" parent="AppEditText">
+
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="AppFormFieldText">
@@ -171,7 +232,16 @@
         <item name="android:layout_marginTop">@dimen/margin_half</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Caption</item>
+    </style>
+
+    <style name="AppBaseFormFieldText" parent="AppFormFieldText">
+
         <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="AppMainFormFieldText" parent="AppFormFieldText">
+
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
     </style>
 
     <style name="AppRadioGroup">
@@ -190,7 +260,16 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">@dimen/margin_none</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+    </style>
+
+    <style name="AppBaseRadioButton" parent="AppRadioButton">
+
         <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppMainRadioButton" parent="AppRadioButton">
+
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="AppSpinner" parent="Widget.AppCompat.Spinner.Underlined">
@@ -215,7 +294,16 @@
         <item name="android:layout_marginEnd">@dimen/margin_quarter</item>
         <item name="android:layout_marginStart">@dimen/margin_quarter</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="AppBaseUnderlinedView" parent="AppUnderlinedView">
+
+        <item name="android:background">@color/colorBaseUnderlinedView</item>
+    </style>
+
+    <style name="AppMainUnderlinedView" parent="AppUnderlinedView">
+
+        <item name="android:background">@color/colorMainUnderlinedView</item>
     </style>
 
     <style name="AppConfirmBottomSheetDialogOption">
@@ -223,10 +311,51 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
         <item name="android:drawablePadding">@dimen/margin_double</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/margin_standard</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Button</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppCardView">
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="cardCornerRadius">@dimen/margin_quarter_half</item>
+        <item name="contentPadding">@dimen/margin_standard</item>
+    </style>
+
+    <style name="AppCardViewSubheading">
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppCardViewBody">
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/background_profile_text_view</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body1</item>
+    </style>
+
+    <style name="AppCardViewOption">
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">@dimen/margin_standard</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingBottom">@dimen/margin_half</item>
+        <item name="android:paddingTop">@dimen/margin_half</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body1</item>
     </style>
 </resources>

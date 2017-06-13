@@ -1,5 +1,7 @@
 package com.arieldiax.codelab.fireblood.utils;
 
+import android.text.format.DateUtils;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,7 +44,10 @@ public final class Utils {
      * @param datePattern Pattern of the date.
      * @return The epoch time of the string.
      */
-    public static long epochTime(String str, String datePattern) {
+    public static long epochTime(
+            String str,
+            String datePattern
+    ) {
         Date date = null;
         try {
             date = new SimpleDateFormat(datePattern, Locale.getDefault()).parse(str);
@@ -53,5 +58,15 @@ public final class Utils {
             return date.getTime();
         }
         return 0;
+    }
+
+    /**
+     * Calculates the age of a user.
+     *
+     * @param birthdayEpochTime Epoch time of the birthday.
+     * @return The age of a user.
+     */
+    public static int calculateUserAge(long birthdayEpochTime) {
+        return (int) ((System.currentTimeMillis() - birthdayEpochTime) / DateUtils.YEAR_IN_MILLIS);
     }
 }

@@ -35,7 +35,11 @@ public class FormValidator {
      * @param errorResourceId Resource ID of the error.
      * @return The instance of the FormValidator class.
      */
-    public FormValidator addValidation(int fieldResourceId, String regexString, int errorResourceId) {
+    public FormValidator addValidation(
+            int fieldResourceId,
+            String regexString,
+            int errorResourceId
+    ) {
         Validation validation = mValidations.get(fieldResourceId);
         if (validation != null) {
             validation.addRule(regexString, errorResourceId);

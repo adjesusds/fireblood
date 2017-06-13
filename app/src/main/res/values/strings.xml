@@ -42,12 +42,12 @@
     <string name="profile_label_blood_type">Blood Type</string>
     <string name="profile_label_is_donor">Is Donor?</string>
     <string name="profile_subheading_about_me">About me</string>
-    <string name="profile_information_user_age">I have <b><xliff:g id="user_age">%d</xliff:g></b> years old.</string>
-    <string name="profile_information_user_gender_female">I am a <b>woman</b>.</string>
-    <string name="profile_information_user_gender_male">I am a <b>man</b>.</string>
+    <string name="profile_information_user_age">I have <xliff:g id="user_age">%d</xliff:g> years old.</string>
+    <string name="profile_information_user_gender_female">I am a woman.</string>
+    <string name="profile_information_user_gender_male">I am a man.</string>
     <string name="profile_subheading_blood_information">Blood Information</string>
-    <string name="profile_information_user_blood_type">I have <b><xliff:g id="user_blood_type">%s</xliff:g></b> blood.</string>
-    <string name="profile_information_user_is_donor_false">I am <b>not</b> currently donating blood.</string>
+    <string name="profile_information_user_blood_type">I have <xliff:g id="user_blood_type">%s</xliff:g> blood.</string>
+    <string name="profile_information_user_is_donor_false">I am not currently donating blood.</string>
     <string name="profile_information_user_is_donor_true">I am currently donating blood.</string>
     <string name="profile_subheading_hospital">Hospital</string>
     <string name="profile_subheading_contact_me">Contact me</string>
@@ -78,6 +78,9 @@
     <string name="message_the_credentials_did_not_match_our_records">The credentials did not match our records.</string>
     <string name="message_recovery_email_sent">Recovery email sent!</string>
     <string name="message_verification_email_sent">Verification email sent!</string>
+    <string name="message_loading_data">Loading data&#8230;</string>
+    <string name="message_the_data_has_not_loaded_yet">The data has not loaded yet.</string>
+    <string name="message_no_application_was_found">No application was found.</string>
 
     <!-- Validations related strings. -->
     <string name="validation_please_complete_the_field">Please complete the field.</string>
@@ -102,6 +105,7 @@
     <string name="navigation_item_notifications">Notifications</string>
     <string name="navigation_item_search">Search</string>
     <string name="navigation_item_profile">Profile</string>
+    <string name="navigation_item_view_photo">View Photo</string>
     <string name="navigation_item_edit_profile">Edit Profile</string>
 
     <!-- Arrays (Provinces) related strings. -->

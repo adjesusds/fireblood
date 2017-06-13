@@ -504,10 +504,11 @@ public class SignUpActivity extends AppCompatActivity {
         SparseArray<String> formValidatorSerialize = mFormValidator.serialize();
         String email = formValidatorSerialize.get(R.id.email_edit_text);
         String username = formValidatorSerialize.get(R.id.username_edit_text);
+        String photoUrl = "";
         String firstName = formValidatorSerialize.get(R.id.first_name_edit_text).trim();
         String lastName = formValidatorSerialize.get(R.id.last_name_edit_text).trim();
         String fullName = firstName + " " + lastName;
-        String phone = formValidatorSerialize.get(R.id.phone_edit_text);
+        long phone = Long.valueOf(formValidatorSerialize.get(R.id.phone_edit_text));
         String gender = (formValidatorSerialize.get(R.id.gender_radio_group).equals(String.valueOf(R.id.gender_radio_button_female)))
                 ? User.VALUE_GENDER_FEMALE
                 : User.VALUE_GENDER_MALE;
@@ -523,6 +524,6 @@ public class SignUpActivity extends AppCompatActivity {
         long createdAt = System.currentTimeMillis();
         long updatedAt = 0;
         long deletedAt = 0;
-        return new User(email, username, firstName, lastName, fullName, phone, gender, birthday, country, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
+        return new User(email, username, photoUrl, firstName, lastName, fullName, phone, gender, birthday, country, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
     }
 }

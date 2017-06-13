@@ -4,7 +4,6 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @IgnoreExtraProperties
 public class User {
@@ -19,6 +18,7 @@ public class User {
      */
     public static final String PROPERTY_EMAIL = "email";
     public static final String PROPERTY_USERNAME = "username";
+    public static final String PROPERTY_PHOTO_URL = "photoUrl";
     public static final String PROPERTY_FIRST_NAME = "firstName";
     public static final String PROPERTY_LAST_NAME = "lastName";
     public static final String PROPERTY_FULL_NAME = "fullName";
@@ -53,15 +53,16 @@ public class User {
      */
     public String email;
     public String username;
+    public String photoUrl;
     public String firstName;
     public String lastName;
     public String fullName;
-    public String phone;
+    public long phone;
     public String gender;
     public long birthday;
     public String country;
     public String province;
-    public Map<String, Object> hospital;
+    public HashMap<String, Object> hospital;
     public String bloodType;
     public boolean isDonor;
     public long createdAt;
@@ -80,6 +81,7 @@ public class User {
      *
      * @param email     Email of the user.
      * @param username  Username of the user.
+     * @param photoUrl  Photo URL of the user.
      * @param firstName First name of the user.
      * @param lastName  Last name of the user.
      * @param fullName  Full name of the user.
@@ -98,15 +100,16 @@ public class User {
     public User(
             String email,
             String username,
+            String photoUrl,
             String firstName,
             String lastName,
             String fullName,
-            String phone,
+            long phone,
             String gender,
             long birthday,
             String country,
             String province,
-            Map<String, Object> hospital,
+            HashMap<String, Object> hospital,
             String bloodType,
             boolean isDonor,
             long createdAt,
@@ -115,6 +118,7 @@ public class User {
     ) {
         this.email = email;
         this.username = username;
+        this.photoUrl = photoUrl;
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullName = fullName;
@@ -132,10 +136,11 @@ public class User {
     }
 
     @Exclude
-    public Map<String, Object> toMap() {
+    public HashMap<String, Object> toMap() {
         HashMap<String, Object> user = new HashMap<>();
         user.put(PROPERTY_EMAIL, email);
         user.put(PROPERTY_USERNAME, username);
+        user.put(PROPERTY_PHOTO_URL, photoUrl);
         user.put(PROPERTY_FIRST_NAME, firstName);
         user.put(PROPERTY_LAST_NAME, lastName);
         user.put(PROPERTY_FULL_NAME, fullName);

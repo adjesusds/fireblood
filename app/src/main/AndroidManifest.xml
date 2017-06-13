@@ -82,12 +82,13 @@
 
         <activity
             android:name=".ui.navigation.profile.ProfileActivity"
-            android:launchMode="singleTop"
+            android:label="@string/message_loading_data"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoAnimationTheme" />
 
         <activity
             android:name=".ui.navigation.profile.ViewPhotoActivity"
+            android:label="@string/navigation_item_view_photo"
             android:parentActivityName=".ui.navigation.profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppViewPhotoTheme" />

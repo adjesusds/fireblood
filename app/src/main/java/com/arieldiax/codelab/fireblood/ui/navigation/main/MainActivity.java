@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.ui.launch.WelcomeActivity;
@@ -18,6 +19,9 @@ import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
 import com.arieldiax.codelab.fireblood.utils.AnimationUtils;
 import com.arieldiax.codelab.fireblood.utils.NavigationUtils;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +32,24 @@ public class MainActivity extends AppCompatActivity {
     protected BottomNavigationView mMainBottomNavigationView;
 
     /**
+     * Instance of the Toast class.
+     */
+    protected Toast mToast;
+
+    /**
+     * Instance of the DatabaseReference class.
+     */
+    protected DatabaseReference mDatabaseReference;
+
+    /**
      * Instance of the FirebaseAuth class.
      */
     protected FirebaseAuth mFirebaseAuth;
+
+    /**
+     * Instance of the FirebaseUser class.
+     */
+    protected FirebaseUser mFirebaseUser;
 
     /**
      * Canonical name of the class.
@@ -66,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
      * Initializes the back end logic bindings.
      */
     protected void init() {
+        mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mClassCanonicalName = "";
         mFadeInAnimation = AnimationUtils.getFadeInAnimation();
         mFadeOutAnimation = AnimationUtils.getFadeOutAnimation();
@@ -96,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mClassCanonicalName.equals(activityClass.getCanonicalName())) {
                     return true;
                 }
+                shouldActivityAnimate = true;
                 NavigationUtils.stackCustomActivity(MainActivity.this, activityClass, true);
                 return false;
             }
@@ -126,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (shouldActivityAnimate) {
             mMainFrameLayout.startAnimation(mFadeInAnimation);
+            shouldActivityAnimate = false;
         }
     }
 

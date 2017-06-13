@@ -9,6 +9,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.models.firebase.User;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
+import java.util.HashMap;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -43,6 +48,21 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     void updateUi() {
         mPhotoImageView.setClipToOutline(true);
+        HashMap<String, Object> user = (HashMap<String, Object>) getIntent().getSerializableExtra(User.CHILD_NODE);
+        String userPhotoUrl = user.get(User.PROPERTY_PHOTO_URL).toString();
+        if (!userPhotoUrl.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions
+                    .placeholder(R.mipmap.ic_launcher)
+                    .circleCrop()
+            ;
+            Glide
+                    .with(this)
+                    .load(userPhotoUrl)
+                    .apply(requestOptions)
+                    .into(mPhotoImageView)
+            ;
+        }
         mEditProfileImageView.setClipToOutline(true);
         ArrayAdapter<CharSequence> provinceArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_provinces, android.R.layout.simple_spinner_item);
         provinceArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

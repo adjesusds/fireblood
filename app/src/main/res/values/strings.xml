@@ -68,6 +68,7 @@
     <string name="title_sending_verification_email">Sending Verification Email</string>
     <string name="title_cancel_edit_profile">Cancel Edit Profile</string>
     <string name="title_editing_profile">Editing Profile</string>
+    <string name="title_edit_profile_photo">Edit Profile Photo</string>
 
     <!-- Messages related strings. -->
     <string name="message_are_you_sure">Are you sure?</string>
@@ -81,7 +82,13 @@
     <string name="message_verification_email_sent">Verification email sent!</string>
     <string name="message_the_data_has_not_loaded_yet">The data has not loaded yet.</string>
     <string name="message_no_application_was_found">No application was found.</string>
+    <string name="message_the_photo_has_not_processed_yet">The photo has not processed yet.</string>
+    <string name="message_profile_photo_successfully_edited">Profile photo successfully edited.</string>
     <string name="message_profile_successfully_edited">Profile successfully edited.</string>
+
+    <!-- Labels related strings. -->
+    <string name="label_gallery">Gallery</string>
+    <string name="label_remove_photo">Remove photo</string>
 
     <!-- Validations related strings. -->
     <string name="validation_please_complete_the_field">Please complete the field.</string>

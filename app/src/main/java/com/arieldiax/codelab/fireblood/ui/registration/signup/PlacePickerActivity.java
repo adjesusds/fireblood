@@ -127,12 +127,12 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
             @Override
             public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(PROP_OUT_HOSPITAL_NAME, mMarker.getTitle());
                 resultIntent.putExtra(PROP_OUT_HOSPITAL_LATITUDE, mMarker.getPosition().latitude);
                 resultIntent.putExtra(PROP_OUT_HOSPITAL_LONGITUDE, mMarker.getPosition().longitude);
                 setResult(RESULT_OK, resultIntent);
-                mConfirmBottomSheetDialog.dismiss();
                 finish();
             }
         };

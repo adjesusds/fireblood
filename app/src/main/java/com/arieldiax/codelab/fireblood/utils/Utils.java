@@ -41,19 +41,19 @@ public final class Utils {
     }
 
     /**
-     * Generates the unix time of the string.
+     * Generates the Unix time of the date.
      *
-     * @param str         The string.
+     * @param dateString  String of the date.
      * @param datePattern Pattern of the date.
-     * @return The unix time of the string.
+     * @return The Unix time of the date.
      */
     public static long unixTime(
-            String str,
+            String dateString,
             String datePattern
     ) {
         Date date = null;
         try {
-            date = new SimpleDateFormat(datePattern, Locale.getDefault()).parse(str);
+            date = new SimpleDateFormat(datePattern, Locale.getDefault()).parse(dateString);
         } catch (ParseException exception) {
             exception.printStackTrace();
         }

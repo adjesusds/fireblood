@@ -14,6 +14,17 @@ public class User {
     public static final String CHILD_PATH = "users";
 
     /**
+     * Path segments for user profile photo.
+     */
+    public static final String PATH_SEGMENT_USER_UID = ":userUid";
+    public static final String PATH_SEGMENT_UNIX_TIME = ":unixTime";
+
+    /**
+     * Storage path of a user profile photo.
+     */
+    public static String sStoragePathProfilePhoto = "images/" + CHILD_PATH + "/" + PATH_SEGMENT_USER_UID + "/profilePhotos/" + PATH_SEGMENT_UNIX_TIME + "/original";
+
+    /**
      * Properties of a user.
      */
     public static final String PROPERTY_EMAIL = "email";

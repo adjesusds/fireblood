@@ -47,6 +47,11 @@ import java.util.Locale;
 public class SignUpActivity extends AppCompatActivity {
 
     /**
+     * Request codes of the activity.
+     */
+    private static final int REQUEST_CODE_PICK_PLACE = 0;
+
+    /**
      * Consent age of the Dominican Republic.
      */
     private static final int DOMINICAN_REPUBLIC_CONSENT_AGE = 18;
@@ -263,7 +268,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
                 pickPlaceIntent.putExtra(PlacePickerActivity.PROP_IN_PROVINCE_NAME, FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
-                startActivityForResult(pickPlaceIntent, 0);
+                startActivityForResult(pickPlaceIntent, REQUEST_CODE_PICK_PLACE);
             }
         });
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -335,15 +340,19 @@ public class SignUpActivity extends AppCompatActivity {
             Intent data
     ) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle extras = data.getExtras();
-        switch (resultCode) {
-            case RESULT_OK:
-                mHospitalEditText.setText(extras.getString(PlacePickerActivity.PROP_OUT_HOSPITAL_NAME));
-                mHospitalLatitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LATITUDE);
-                mHospitalLongitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LONGITUDE);
-                break;
-            case RESULT_CANCELED:
-                mSnackbar.setText(extras.getInt(PlacePickerActivity.PROP_OUT_MESSAGE_RESOURCE_ID)).show();
+        switch (requestCode) {
+            case REQUEST_CODE_PICK_PLACE:
+                Bundle extras = data.getExtras();
+                switch (resultCode) {
+                    case RESULT_OK:
+                        mHospitalEditText.setText(extras.getString(PlacePickerActivity.PROP_OUT_HOSPITAL_NAME));
+                        mHospitalLatitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LATITUDE);
+                        mHospitalLongitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LONGITUDE);
+                        break;
+                    case RESULT_CANCELED:
+                        mSnackbar.setText(extras.getInt(PlacePickerActivity.PROP_OUT_MESSAGE_RESOURCE_ID)).show();
+                        break;
+                }
                 break;
         }
     }

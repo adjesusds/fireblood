@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,15 +19,19 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.firebase.User;
 import com.arieldiax.codelab.fireblood.models.validations.FormValidator;
 import com.arieldiax.codelab.fireblood.models.validations.Validation;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
+import com.arieldiax.codelab.fireblood.models.widgets.PhotoBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.ui.registration.signup.PlacePickerActivity;
 import com.arieldiax.codelab.fireblood.utils.ConnectionUtils;
 import com.arieldiax.codelab.fireblood.utils.FormUtils;
@@ -38,6 +43,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -52,6 +60,12 @@ public class EditProfileActivity extends AppCompatActivity {
     public static final String PROP_IN_USER_MAP = "user_map";
 
     /**
+     * Request codes of the activity.
+     */
+    private static final int REQUEST_CODE_PICK_IMAGE = 0;
+    private static final int REQUEST_CODE_PICK_PLACE = 1;
+
+    /**
      * Consent age of the Dominican Republic.
      */
     private static final int DOMINICAN_REPUBLIC_CONSENT_AGE = 18;
@@ -60,8 +74,10 @@ public class EditProfileActivity extends AppCompatActivity {
      * Views of the activity.
      */
     ScrollView mEditProfileScrollView;
+    RelativeLayout mPhotoRelativeLayout;
     ImageView mPhotoImageView;
     ImageView mEditProfileImageView;
+    ProgressBar mPhotoProgressBar;
     EditText mPhoneEditText;
     EditText mBirthdayEditText;
     Spinner mProvinceSpinner;
@@ -84,6 +100,11 @@ public class EditProfileActivity extends AppCompatActivity {
     DatePickerDialog mBirthdayDatePickerDialog;
 
     /**
+     * Instance of the Toast class.
+     */
+    Toast mToast;
+
+    /**
      * Instance of the Snackbar class.
      */
     Snackbar mSnackbar;
@@ -92,6 +113,11 @@ public class EditProfileActivity extends AppCompatActivity {
      * Instance of the ConfirmBottomSheetDialog class.
      */
     ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
+
+    /**
+     * Instance of the PhotoBottomSheetDialog class.
+     */
+    PhotoBottomSheetDialog mPhotoBottomSheetDialog;
 
     /**
      * Instance of the ProgressDialog class.
@@ -119,6 +145,16 @@ public class EditProfileActivity extends AppCompatActivity {
     DatabaseReference mDatabaseReference;
 
     /**
+     * Instance of the StorageReference class.
+     */
+    StorageReference mStorageReference;
+
+    /**
+     * Whether or not the form has processed the profile photo.
+     */
+    boolean mHasProcessedProfilePhoto;
+
+    /**
      * Whether or not the form has loaded the field entries.
      */
     boolean mHasLoadedFieldEntries;
@@ -139,8 +175,10 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     void initUi() {
         mEditProfileScrollView = (ScrollView) findViewById(R.id.edit_profile_activity);
+        mPhotoRelativeLayout = (RelativeLayout) findViewById(R.id.photo_relative_layout);
         mPhotoImageView = (ImageView) findViewById(R.id.photo_image_view);
         mEditProfileImageView = (ImageView) findViewById(R.id.edit_profile_image_view);
+        mPhotoProgressBar = (ProgressBar) findViewById(R.id.photo_progress_bar);
         mPhoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         mBirthdayEditText = (EditText) findViewById(R.id.birthday_edit_text);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
@@ -176,13 +214,17 @@ public class EditProfileActivity extends AppCompatActivity {
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         calendar.set(year, month, dayOfMonth, hourOfDay, minute, second);
         mBirthdayDatePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+        mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
         mSnackbar = Snackbar.make(mEditProfileScrollView, "", Snackbar.LENGTH_LONG);
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
+        mPhotoBottomSheetDialog = new PhotoBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
         mFormValidator = new FormValidator(this);
         mHospitalLatitude = mUser.hospital.latitude;
         mHospitalLongitude = mUser.hospital.longitude;
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        mHasProcessedProfilePhoto = true;
         mHasLoadedFieldEntries = false;
     }
 
@@ -208,6 +250,21 @@ public class EditProfileActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     void initListeners() {
+        mPhotoRelativeLayout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (!mHasProcessedProfilePhoto) {
+                    mToast.setText(R.string.message_the_photo_has_not_processed_yet);
+                    mToast.show();
+                    return;
+                }
+                mPhotoBottomSheetDialog
+                        .setRemovePhotoButtonState(!mUser.photoUrl.isEmpty())
+                        .show()
+                ;
+            }
+        });
         mPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -253,6 +310,11 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ViewUtils.hideKeyboard(EditProfileActivity.this);
+                if (!mHasProcessedProfilePhoto) {
+                    mToast.setText(R.string.message_the_photo_has_not_processed_yet);
+                    mToast.show();
+                    return;
+                }
                 if (FormUtils.hasEmptyValue(EditProfileActivity.this, mProvinceSpinner)) {
                     mSnackbar.setText(R.string.message_please_select_a_province_first).show();
                     return;
@@ -263,7 +325,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
                 Intent pickPlaceIntent = new Intent(EditProfileActivity.this, PlacePickerActivity.class);
                 pickPlaceIntent.putExtra(PlacePickerActivity.PROP_IN_PROVINCE_NAME, FormUtils.getViewValue(EditProfileActivity.this, mProvinceSpinner));
-                startActivityForResult(pickPlaceIntent, 0);
+                startActivityForResult(pickPlaceIntent, REQUEST_CODE_PICK_PLACE);
             }
         });
     }
@@ -307,6 +369,29 @@ public class EditProfileActivity extends AppCompatActivity {
                 .setMessage(R.string.message_are_you_sure)
                 .setPositiveButtonListener(positiveButtonListener)
         ;
+        View.OnClickListener galleryButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPhotoBottomSheetDialog.dismiss();
+                Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(pickImageIntent, REQUEST_CODE_PICK_IMAGE);
+            }
+        };
+        View.OnClickListener removePhotoButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPhotoBottomSheetDialog.dismiss();
+                mPhotoProgressBar.setVisibility(View.VISIBLE);
+                mHasProcessedProfilePhoto = false;
+                updateUserProfilePhoto("");
+            }
+        };
+        mPhotoBottomSheetDialog
+                .setGalleryButtonListener(galleryButtonListener)
+                .setRemovePhotoButtonListener(removePhotoButtonListener)
+        ;
         mProgressDialog.setTitle(R.string.title_editing_profile);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
         mFormValidator.populate(getUserMap());
@@ -333,6 +418,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 return true;
             case R.id.save_menu_item:
                 ViewUtils.hideKeyboard(EditProfileActivity.this);
+                if (!mHasProcessedProfilePhoto) {
+                    mToast.setText(R.string.message_the_photo_has_not_processed_yet);
+                    mToast.show();
+                    return true;
+                }
                 if (!mFormValidator.hasChanged()) {
                     mSnackbar.setText(R.string.validation_no_data_has_changed).show();
                     return true;
@@ -364,15 +454,48 @@ public class EditProfileActivity extends AppCompatActivity {
             Intent data
     ) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle extras = data.getExtras();
-        switch (resultCode) {
-            case RESULT_OK:
-                mHospitalEditText.setText(extras.getString(PlacePickerActivity.PROP_OUT_HOSPITAL_NAME));
-                mHospitalLatitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LATITUDE);
-                mHospitalLongitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LONGITUDE);
+        switch (requestCode) {
+            case REQUEST_CODE_PICK_IMAGE:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        mPhotoProgressBar.setVisibility(View.VISIBLE);
+                        mHasProcessedProfilePhoto = false;
+                        mStorageReference
+                                .child(User.sStoragePathProfilePhoto.replace(User.PATH_SEGMENT_USER_UID, mUserUid).replace(User.PATH_SEGMENT_UNIX_TIME, String.valueOf(System.currentTimeMillis())))
+                                .putFile(data.getData())
+                                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                        if (!task.isSuccessful()) {
+                                            mPhotoProgressBar.setVisibility(View.GONE);
+                                            mHasProcessedProfilePhoto = true;
+                                            mSnackbar.setText(R.string.message_an_error_has_occurred).show();
+                                            return;
+                                        }
+                                        @SuppressWarnings("VisibleForTests") String photoUrl = task.getResult().getDownloadUrl().toString();
+                                        updateUserProfilePhoto(photoUrl);
+                                    }
+                                })
+                        ;
+                        break;
+                    case RESULT_CANCELED:
+                        mSnackbar.setText(R.string.message_action_canceled).show();
+                        break;
+                }
                 break;
-            case RESULT_CANCELED:
-                mSnackbar.setText(extras.getInt(PlacePickerActivity.PROP_OUT_MESSAGE_RESOURCE_ID)).show();
+            case REQUEST_CODE_PICK_PLACE:
+                Bundle extras = data.getExtras();
+                switch (resultCode) {
+                    case RESULT_OK:
+                        mHospitalEditText.setText(extras.getString(PlacePickerActivity.PROP_OUT_HOSPITAL_NAME));
+                        mHospitalLatitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LATITUDE);
+                        mHospitalLongitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LONGITUDE);
+                        break;
+                    case RESULT_CANCELED:
+                        mSnackbar.setText(extras.getInt(PlacePickerActivity.PROP_OUT_MESSAGE_RESOURCE_ID)).show();
+                        break;
+                }
                 break;
         }
     }
@@ -399,11 +522,63 @@ public class EditProfileActivity extends AppCompatActivity {
      * Attempts to finish the activity.
      */
     void attemptToFinishActivity() {
+        if (!mHasProcessedProfilePhoto) {
+            mToast.setText(R.string.message_the_photo_has_not_processed_yet);
+            mToast.show();
+            return;
+        }
         if (mFormValidator.hasChanged()) {
             mConfirmBottomSheetDialog.show();
         } else {
             finishAfterTransition();
         }
+    }
+
+    /**
+     * Updates the user profile photo.
+     *
+     * @param photoUrl URL of the photo.
+     */
+    void updateUserProfilePhoto(String photoUrl) {
+        HashMap<String, Object> userMap = new HashMap<>();
+        final String userPhotoUrl = photoUrl;
+        long userUpdatedAt = System.currentTimeMillis();
+        userMap.put(User.PROPERTY_PHOTO_URL, userPhotoUrl);
+        userMap.put(User.PROPERTY_UPDATED_AT, userUpdatedAt);
+        mDatabaseReference
+                .child(User.CHILD_PATH)
+                .child(mUserUid)
+                .updateChildren(userMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mPhotoProgressBar.setVisibility(View.GONE);
+                        mHasProcessedProfilePhoto = true;
+                        if (!task.isSuccessful()) {
+                            mSnackbar.setText(R.string.message_an_error_has_occurred).show();
+                            return;
+                        }
+                        mSnackbar.setText(R.string.message_profile_photo_successfully_edited).show();
+                        mUser.photoUrl = userPhotoUrl;
+                        if (!mUser.photoUrl.isEmpty()) {
+                            RequestOptions requestOptions = new RequestOptions();
+                            requestOptions
+                                    .placeholder(R.mipmap.ic_launcher)
+                                    .circleCrop()
+                            ;
+                            Glide
+                                    .with(EditProfileActivity.this)
+                                    .load(mUser.photoUrl)
+                                    .apply(requestOptions)
+                                    .into(mPhotoImageView)
+                            ;
+                        } else {
+                            mPhotoImageView.setImageResource(R.mipmap.ic_launcher);
+                        }
+                    }
+                })
+        ;
     }
 
     /**
@@ -458,7 +633,7 @@ public class EditProfileActivity extends AppCompatActivity {
         boolean isDonor = !userMap.get(User.PROPERTY_IS_DONOR).toString().isEmpty();
         long userCreatedAt = mUser.createdAt;
         long userUpdatedAt = System.currentTimeMillis();
-        long userDeletedAt = 0;
+        long userDeletedAt = mUser.deletedAt;
         userMap.put(User.PROPERTY_EMAIL, userEmail);
         userMap.put(User.PROPERTY_USERNAME, userUsername);
         userMap.put(User.PROPERTY_PHOTO_URL, userPhotoUrl);

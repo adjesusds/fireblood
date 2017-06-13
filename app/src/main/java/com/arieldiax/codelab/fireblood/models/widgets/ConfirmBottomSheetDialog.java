@@ -17,17 +17,17 @@ public class ConfirmBottomSheetDialog {
     private BottomSheetDialog mBottomSheetDialog;
 
     /**
-     * Text text field for title.
+     * Text view field for title.
      */
     private TextView mTitleTextView;
 
     /**
-     * Text text field for message.
+     * Text view field for message.
      */
     private TextView mMessageTextView;
 
     /**
-     * Text text field for positive button.
+     * Text view field for positive button.
      */
     private TextView mPositiveButtonTextView;
 

@@ -50,6 +50,16 @@
                 android:src="@drawable/ic_edit_black_24dp"
                 android:tint="@color/colorPrimary"
                 android:transitionName="@string/transition_edit_profile_image_view" />
+
+            <ProgressBar
+                android:id="@+id/photo_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elevation="@dimen/margin_quarter"
+                android:indeterminateTint="@color/colorPrimaryDark"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <TextView

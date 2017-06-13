@@ -8,7 +8,6 @@
     <!-- Authentications related strings. -->
     <string name="authentication_title_sign_up">Sign up</string>
     <string name="authentication_title_sign_in">Sign in</string>
-    <string name="authentication_title_place_picker">Place Picker</string>
     <string name="authentication_title_forgot_password">Forgot Password</string>
     <string name="authentication_title_verify_email">Verify Email</string>
     <string name="authentication_label_already_a_user">Already a user?</string>
@@ -67,6 +66,8 @@
     <string name="title_sending_recovery_email">Sending Recovery Email</string>
     <string name="title_send_verification_email">Send Verification Email</string>
     <string name="title_sending_verification_email">Sending Verification Email</string>
+    <string name="title_cancel_edit_profile">Cancel Edit Profile</string>
+    <string name="title_editing_profile">Editing Profile</string>
 
     <!-- Messages related strings. -->
     <string name="message_are_you_sure">Are you sure?</string>
@@ -78,9 +79,9 @@
     <string name="message_the_credentials_did_not_match_our_records">The credentials did not match our records.</string>
     <string name="message_recovery_email_sent">Recovery email sent!</string>
     <string name="message_verification_email_sent">Verification email sent!</string>
-    <string name="message_loading_data">Loading data&#8230;</string>
     <string name="message_the_data_has_not_loaded_yet">The data has not loaded yet.</string>
     <string name="message_no_application_was_found">No application was found.</string>
+    <string name="message_profile_successfully_edited">Profile successfully edited.</string>
 
     <!-- Validations related strings. -->
     <string name="validation_please_complete_the_field">Please complete the field.</string>
@@ -95,6 +96,7 @@
     <string name="validation_please_enter_a_valid_email_or_username">Please enter a valid email or username.</string>
     <string name="validation_the_username_is_not_registered">The username is not registered.</string>
     <string name="validation_the_email_is_not_registered">The email is not registered.</string>
+    <string name="validation_no_data_has_changed">No data has changed.</string>
 
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>

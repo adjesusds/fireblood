@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -91,11 +90,6 @@ public class SignUpActivity extends AppCompatActivity {
      * Instance of the FormValidator class.
      */
     FormValidator mFormValidator;
-
-    /**
-     * Hash of the form validator.
-     */
-    String mFormValidatorHash;
 
     /**
      * Latitude of the hospital.
@@ -193,24 +187,24 @@ public class SignUpActivity extends AppCompatActivity {
      */
     void initValidators() {
         mFormValidator
-                .addValidation(R.id.email_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.email_edit_text, Validation.REGEX_EMAIL, R.string.validation_please_enter_a_valid_email)
-                .addValidation(R.id.username_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.username_edit_text, Validation.REGEX_USERNAME, R.string.validation_please_enter_a_valid_username)
-                .addValidation(R.id.password_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.password_edit_text, Validation.REGEX_PASSWORD, R.string.validation_please_enter_a_valid_password)
-                .addValidation(R.id.first_name_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.last_name_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.phone_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.phone_edit_text, Validation.REGEX_PHONE, R.string.validation_please_enter_a_valid_phone)
-                .addValidation(R.id.gender_radio_group, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
-                .addValidation(R.id.birthday_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.province_spinner, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
-                .addValidation(R.id.hospital_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.blood_type_spinner, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
-                .addValidation(R.id.is_donor_switch, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.email_edit_text, User.PROPERTY_EMAIL, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.email_edit_text, User.PROPERTY_EMAIL, Validation.REGEX_EMAIL, R.string.validation_please_enter_a_valid_email)
+                .addValidation(R.id.username_edit_text, User.PROPERTY_USERNAME, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.username_edit_text, User.PROPERTY_USERNAME, Validation.REGEX_USERNAME, R.string.validation_please_enter_a_valid_username)
+                .addValidation(R.id.password_edit_text, null, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.password_edit_text, null, Validation.REGEX_PASSWORD, R.string.validation_please_enter_a_valid_password)
+                .addValidation(R.id.first_name_edit_text, User.PROPERTY_FIRST_NAME, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.last_name_edit_text, User.PROPERTY_LAST_NAME, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.phone_edit_text, User.PROPERTY_PHONE, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.phone_edit_text, User.PROPERTY_PHONE, Validation.REGEX_PHONE, R.string.validation_please_enter_a_valid_phone)
+                .addValidation(R.id.gender_radio_group, User.PROPERTY_GENDER, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.birthday_edit_text, User.PROPERTY_BIRTHDAY, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.province_spinner, User.PROPERTY_PROVINCE, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.hospital_edit_text, User.PROPERTY_HOSPITAL, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.blood_type_spinner, User.PROPERTY_BLOOD_TYPE, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .addValidation(R.id.is_donor_switch, User.PROPERTY_IS_DONOR, Validation.REGEX_NOT_EMPTY, R.string.validation_please_select_an_option)
+                .updateHash()
         ;
-        mFormValidatorHash = mFormValidator.hash();
     }
 
     /**
@@ -224,7 +218,7 @@ public class SignUpActivity extends AppCompatActivity {
                     View view,
                     boolean hasFocus
             ) {
-                String phoneHint = (hasFocus) ? getString(R.string.profile_label_phone_hint) : null;
+                String phoneHint = (hasFocus) ? getString(R.string.profile_label_phone_hint) : "";
                 mPhoneEditText.setHint(phoneHint);
             }
         });
@@ -268,7 +262,7 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 Intent pickPlaceIntent = new Intent(SignUpActivity.this, PlacePickerActivity.class);
-                pickPlaceIntent.putExtra("province_name", FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
+                pickPlaceIntent.putExtra(PlacePickerActivity.PROP_IN_PROVINCE_NAME, FormUtils.getViewValue(SignUpActivity.this, mProvinceSpinner));
                 startActivityForResult(pickPlaceIntent, 0);
             }
         });
@@ -344,12 +338,12 @@ public class SignUpActivity extends AppCompatActivity {
         Bundle extras = data.getExtras();
         switch (resultCode) {
             case RESULT_OK:
-                mHospitalEditText.setText(extras.getString("hospital_name"));
-                mHospitalLatitude = extras.getDouble("hospital_latitude");
-                mHospitalLongitude = extras.getDouble("hospital_longitude");
+                mHospitalEditText.setText(extras.getString(PlacePickerActivity.PROP_OUT_HOSPITAL_NAME));
+                mHospitalLatitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LATITUDE);
+                mHospitalLongitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LONGITUDE);
                 break;
             case RESULT_CANCELED:
-                mSnackbar.setText(extras.getInt("message_resource_id")).show();
+                mSnackbar.setText(extras.getInt(PlacePickerActivity.PROP_OUT_MESSAGE_RESOURCE_ID)).show();
                 break;
         }
     }
@@ -358,7 +352,7 @@ public class SignUpActivity extends AppCompatActivity {
      * Attempts to finish the activity.
      */
     void attemptToFinishActivity() {
-        if (!mFormValidatorHash.equals(mFormValidator.hash())) {
+        if (mFormValidator.hasChanged()) {
             mConfirmBottomSheetDialog.show();
         } else {
             finishAfterTransition();
@@ -374,7 +368,7 @@ public class SignUpActivity extends AppCompatActivity {
         mFormRemainingCustomValidations = 2;
         mHasPassedCustomValidations = true;
         mDatabaseReference
-                .child(User.CHILD_NODE)
+                .child(User.CHILD_PATH)
                 .orderByChild(User.PROPERTY_EMAIL)
                 .equalTo(FormUtils.getViewValue(this, mEmailEditText))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -396,7 +390,7 @@ public class SignUpActivity extends AppCompatActivity {
                 })
         ;
         mDatabaseReference
-                .child(User.CHILD_NODE)
+                .child(User.CHILD_PATH)
                 .orderByChild(User.PROPERTY_USERNAME)
                 .equalTo(FormUtils.getViewValue(this, mUsernameEditText))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -455,7 +449,7 @@ public class SignUpActivity extends AppCompatActivity {
      */
     void createUser(String userUid) {
         mDatabaseReference
-                .child(User.CHILD_NODE)
+                .child(User.CHILD_PATH)
                 .child(userUid)
                 .setValue(getUser())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -501,29 +495,31 @@ public class SignUpActivity extends AppCompatActivity {
      * Gets the user.
      */
     User getUser() {
-        SparseArray<String> formValidatorSerialize = mFormValidator.serialize();
-        String email = formValidatorSerialize.get(R.id.email_edit_text);
-        String username = formValidatorSerialize.get(R.id.username_edit_text);
-        String photoUrl = "";
-        String firstName = formValidatorSerialize.get(R.id.first_name_edit_text).trim();
-        String lastName = formValidatorSerialize.get(R.id.last_name_edit_text).trim();
-        String fullName = firstName + " " + lastName;
-        long phone = Long.valueOf(formValidatorSerialize.get(R.id.phone_edit_text));
-        String gender = (formValidatorSerialize.get(R.id.gender_radio_group).equals(String.valueOf(R.id.gender_radio_button_female)))
+        HashMap<String, Object> userMap = mFormValidator.serialize();
+        String userPhotoUrl = "";
+        String userGender = (userMap.get(User.PROPERTY_GENDER).toString().equals(getString(R.string.profile_label_gender_female)))
                 ? User.VALUE_GENDER_FEMALE
                 : User.VALUE_GENDER_MALE;
-        long birthday = Utils.epochTime(formValidatorSerialize.get(R.id.birthday_edit_text), "yyyy-MM-dd");
-        String country = User.VALUE_COUNTRY_REPUBLICA_DOMINICANA;
-        String province = formValidatorSerialize.get(R.id.province_spinner);
-        HashMap<String, Object> hospital = new HashMap<>();
-        hospital.put(User.PROPERTY_HOSPITAL_NAME, formValidatorSerialize.get(R.id.hospital_edit_text));
-        hospital.put(User.PROPERTY_HOSPITAL_LATITUDE, mHospitalLatitude);
-        hospital.put(User.PROPERTY_HOSPITAL_LONGITUDE, mHospitalLongitude);
-        String bloodType = formValidatorSerialize.get(R.id.blood_type_spinner);
-        boolean isDonor = !formValidatorSerialize.get(R.id.is_donor_switch).isEmpty();
-        long createdAt = System.currentTimeMillis();
-        long updatedAt = 0;
-        long deletedAt = 0;
-        return new User(email, username, photoUrl, firstName, lastName, fullName, phone, gender, birthday, country, province, hospital, bloodType, isDonor, createdAt, updatedAt, deletedAt);
+        long userBirthday = Utils.unixTime(userMap.get(User.PROPERTY_BIRTHDAY).toString(), "yyyy-MM-dd");
+        String hospitalName = userMap.get(User.PROPERTY_HOSPITAL).toString();
+        double hospitalLatitude = mHospitalLatitude;
+        double hospitalLongitude = mHospitalLongitude;
+        HashMap<String, Object> hospitalMap = new HashMap<>();
+        boolean isDonor = !userMap.get(User.PROPERTY_IS_DONOR).toString().isEmpty();
+        long userCreatedAt = System.currentTimeMillis();
+        long userUpdatedAt = 0;
+        long userDeletedAt = 0;
+        userMap.put(User.PROPERTY_PHOTO_URL, userPhotoUrl);
+        userMap.put(User.PROPERTY_GENDER, userGender);
+        userMap.put(User.PROPERTY_BIRTHDAY, userBirthday);
+        hospitalMap.put(User.Hospital.PROPERTY_NAME, hospitalName);
+        hospitalMap.put(User.Hospital.PROPERTY_LATITUDE, hospitalLatitude);
+        hospitalMap.put(User.Hospital.PROPERTY_LONGITUDE, hospitalLongitude);
+        userMap.put(User.PROPERTY_HOSPITAL, hospitalMap);
+        userMap.put(User.PROPERTY_IS_DONOR, isDonor);
+        userMap.put(User.PROPERTY_CREATED_AT, userCreatedAt);
+        userMap.put(User.PROPERTY_UPDATED_AT, userUpdatedAt);
+        userMap.put(User.PROPERTY_DELETED_AT, userDeletedAt);
+        return User.fromMap(userMap);
     }
 }

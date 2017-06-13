@@ -107,14 +107,15 @@ public class ProfileActivity extends MainActivity {
                 switch (view.getId()) {
                     case R.id.user_photo_image_view:
                         activityIntent = new Intent(ProfileActivity.this, ViewPhotoActivity.class);
-                        activityIntent.putExtra(User.PROPERTY_PHOTO_URL, mUser.photoUrl);
+                        activityIntent.putExtra(ViewPhotoActivity.PROP_IN_USER_PHOTO_URL, mUser.photoUrl);
                         activityPair1 = Pair.create((View) mUserPhotoImageView, mUserPhotoImageView.getTransitionName());
                         activityOptions = ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this, activityPair1);
                         startActivity(activityIntent, activityOptions.toBundle());
                         return;
                     case R.id.edit_profile_frame_layout:
                         activityIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                        activityIntent.putExtra(User.CHILD_NODE, mUser.toMap());
+                        activityIntent.putExtra(EditProfileActivity.PROP_IN_USER_UID, mFirebaseUser.getUid());
+                        activityIntent.putExtra(EditProfileActivity.PROP_IN_USER_MAP, mUser.toMap());
                         activityPair1 = Pair.create((View) mUserPhotoImageView, mUserPhotoImageView.getTransitionName());
                         activityPair2 = Pair.create((View) mEditProfileImageView, mEditProfileImageView.getTransitionName());
                         activityOptions = ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this, activityPair1, activityPair2);
@@ -122,7 +123,7 @@ public class ProfileActivity extends MainActivity {
                         return;
                     case R.id.user_hospital_text_view:
                         externalIntent = new Intent(Intent.ACTION_VIEW);
-                        externalIntent.setData(Uri.parse("geo:" + mUser.hospital.get(User.PROPERTY_HOSPITAL_LATITUDE) + "," + mUser.hospital.get(User.PROPERTY_HOSPITAL_LONGITUDE) + "?q=" + Uri.encode(mUser.hospital.get(User.PROPERTY_HOSPITAL_NAME).toString())));
+                        externalIntent.setData(Uri.parse("geo:" + mUser.hospital.latitude + "," + mUser.hospital.longitude + "?q=" + Uri.encode(mUser.hospital.name)));
                         break;
                     case R.id.an_email_text_view:
                         externalIntent = new Intent(Intent.ACTION_SENDTO);
@@ -168,7 +169,7 @@ public class ProfileActivity extends MainActivity {
         mUserPhotoImageView.setClipToOutline(true);
         startFieldsAnimation();
         mDatabaseReference
-                .child(User.CHILD_NODE)
+                .child(User.CHILD_PATH)
                 .child(mFirebaseUser.getUid())
                 .addValueEventListener(new ValueEventListener() {
 

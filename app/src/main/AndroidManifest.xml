@@ -54,7 +54,7 @@
 
         <activity
             android:name=".ui.registration.signup.PlacePickerActivity"
-            android:label="@string/authentication_title_place_picker"
+            android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppPlacePickerTheme" />
 
@@ -82,7 +82,7 @@
 
         <activity
             android:name=".ui.navigation.profile.ProfileActivity"
-            android:label="@string/message_loading_data"
+            android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppNoAnimationTheme" />
 

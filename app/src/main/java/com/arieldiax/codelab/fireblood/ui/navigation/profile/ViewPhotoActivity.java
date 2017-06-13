@@ -6,11 +6,15 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.arieldiax.codelab.fireblood.R;
-import com.arieldiax.codelab.fireblood.models.firebase.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 public class ViewPhotoActivity extends AppCompatActivity {
+
+    /**
+     * Properties of the activity.
+     */
+    public static final String PROP_IN_USER_PHOTO_URL = "user_photo_url";
 
     /**
      * Views of the activity.
@@ -40,7 +44,7 @@ public class ViewPhotoActivity extends AppCompatActivity {
         requestOptions.circleCrop();
         Glide
                 .with(this)
-                .load(getIntent().getStringExtra(User.PROPERTY_PHOTO_URL))
+                .load(getIntent().getStringExtra(PROP_IN_USER_PHOTO_URL))
                 .apply(requestOptions)
                 .into(mUserPhotoImageView)
         ;

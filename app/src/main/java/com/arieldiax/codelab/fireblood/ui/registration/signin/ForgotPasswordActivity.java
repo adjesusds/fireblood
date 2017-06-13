@@ -101,8 +101,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
      */
     void initValidators() {
         mFormValidator
-                .addValidation(R.id.email_or_username_edit_text, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
-                .addValidation(R.id.email_or_username_edit_text, Validation.REGEX_EMAIL_OR_USERNAME, R.string.validation_please_enter_a_valid_email_or_username)
+                .addValidation(R.id.email_or_username_edit_text, null, Validation.REGEX_NOT_EMPTY, R.string.validation_please_complete_the_field)
+                .addValidation(R.id.email_or_username_edit_text, null, Validation.REGEX_EMAIL_OR_USERNAME, R.string.validation_please_enter_a_valid_email_or_username)
         ;
     }
 
@@ -167,7 +167,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             return;
         }
         mDatabaseReference
-                .child(User.CHILD_NODE)
+                .child(User.CHILD_PATH)
                 .orderByChild(User.PROPERTY_USERNAME)
                 .equalTo(emailOrUsername)
                 .addListenerForSingleValueEvent(new ValueEventListener() {

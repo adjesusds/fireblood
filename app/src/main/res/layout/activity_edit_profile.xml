@@ -129,7 +129,9 @@
 
         <View style="@style/AppMainUnderlinedView" />
 
-        <android.support.design.widget.TextInputLayout style="@style/AppMainEditTextWrapper">
+        <android.support.design.widget.TextInputLayout
+            style="@style/AppMainEditTextWrapper"
+            android:layout_marginTop="@dimen/margin_standard">
 
             <EditText
                 android:id="@+id/birthday_edit_text"

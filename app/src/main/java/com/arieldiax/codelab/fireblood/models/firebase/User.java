@@ -9,9 +9,9 @@ import java.util.HashMap;
 public class User {
 
     /**
-     * Child node of a user.
+     * Child path of a user.
      */
-    public static final String CHILD_NODE = "users";
+    public static final String CHILD_PATH = "users";
 
     /**
      * Properties of a user.
@@ -28,9 +28,6 @@ public class User {
     public static final String PROPERTY_COUNTRY = "country";
     public static final String PROPERTY_PROVINCE = "province";
     public static final String PROPERTY_HOSPITAL = "hospital";
-    public static final String PROPERTY_HOSPITAL_NAME = "name";
-    public static final String PROPERTY_HOSPITAL_LATITUDE = "latitude";
-    public static final String PROPERTY_HOSPITAL_LONGITUDE = "longitude";
     public static final String PROPERTY_BLOOD_TYPE = "bloodType";
     public static final String PROPERTY_IS_DONOR = "isDonor";
     public static final String PROPERTY_CREATED_AT = "createdAt";
@@ -62,7 +59,7 @@ public class User {
     public long birthday;
     public String country;
     public String province;
-    public HashMap<String, Object> hospital;
+    public Hospital hospital;
     public String bloodType;
     public boolean isDonor;
     public long createdAt;
@@ -76,85 +73,92 @@ public class User {
         // Required empty public constructor (to allow instantiation).
     }
 
-    /**
-     * Creates a new User object.
-     *
-     * @param email     Email of the user.
-     * @param username  Username of the user.
-     * @param photoUrl  Photo URL of the user.
-     * @param firstName First name of the user.
-     * @param lastName  Last name of the user.
-     * @param fullName  Full name of the user.
-     * @param phone     Phone of the user.
-     * @param gender    Gender of the user.
-     * @param birthday  Birthday of the user.
-     * @param country   Country of the user.
-     * @param province  Province of the user.
-     * @param hospital  Hospital of the user.
-     * @param bloodType Blood type of the user.
-     * @param isDonor   Whether or not the user is a donor.
-     * @param createdAt Create date of the user.
-     * @param updatedAt Update date of the user.
-     * @param deletedAt Delete date of the user.
-     */
-    public User(
-            String email,
-            String username,
-            String photoUrl,
-            String firstName,
-            String lastName,
-            String fullName,
-            long phone,
-            String gender,
-            long birthday,
-            String country,
-            String province,
-            HashMap<String, Object> hospital,
-            String bloodType,
-            boolean isDonor,
-            long createdAt,
-            long updatedAt,
-            long deletedAt
-    ) {
-        this.email = email;
-        this.username = username;
-        this.photoUrl = photoUrl;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullName = fullName;
-        this.phone = phone;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.country = country;
-        this.province = province;
-        this.hospital = hospital;
-        this.bloodType = bloodType;
-        this.isDonor = isDonor;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
+    @Exclude
+    public static User fromMap(HashMap<String, Object> userMap) {
+        User user = new User();
+        user.email = userMap.get(PROPERTY_EMAIL).toString();
+        user.username = userMap.get(PROPERTY_USERNAME).toString();
+        user.photoUrl = userMap.get(PROPERTY_PHOTO_URL).toString();
+        user.firstName = userMap.get(PROPERTY_FIRST_NAME).toString();
+        user.lastName = userMap.get(PROPERTY_LAST_NAME).toString();
+        user.fullName = user.firstName + " " + user.lastName;
+        user.phone = Long.valueOf(userMap.get(PROPERTY_PHONE).toString());
+        user.gender = userMap.get(PROPERTY_GENDER).toString();
+        user.birthday = Long.valueOf(userMap.get(PROPERTY_BIRTHDAY).toString());
+        user.country = VALUE_COUNTRY_REPUBLICA_DOMINICANA;
+        user.province = userMap.get(PROPERTY_PROVINCE).toString();
+        user.hospital = Hospital.fromMap((HashMap<String, Object>) userMap.get(PROPERTY_HOSPITAL));
+        user.bloodType = userMap.get(PROPERTY_BLOOD_TYPE).toString();
+        user.isDonor = Boolean.valueOf(userMap.get(PROPERTY_IS_DONOR).toString());
+        user.createdAt = Long.valueOf(userMap.get(PROPERTY_CREATED_AT).toString());
+        user.updatedAt = Long.valueOf(userMap.get(PROPERTY_UPDATED_AT).toString());
+        user.deletedAt = Long.valueOf(userMap.get(PROPERTY_DELETED_AT).toString());
+        return user;
     }
 
     @Exclude
     public HashMap<String, Object> toMap() {
-        HashMap<String, Object> user = new HashMap<>();
-        user.put(PROPERTY_EMAIL, email);
-        user.put(PROPERTY_USERNAME, username);
-        user.put(PROPERTY_PHOTO_URL, photoUrl);
-        user.put(PROPERTY_FIRST_NAME, firstName);
-        user.put(PROPERTY_LAST_NAME, lastName);
-        user.put(PROPERTY_FULL_NAME, fullName);
-        user.put(PROPERTY_PHONE, phone);
-        user.put(PROPERTY_GENDER, gender);
-        user.put(PROPERTY_BIRTHDAY, birthday);
-        user.put(PROPERTY_COUNTRY, country);
-        user.put(PROPERTY_PROVINCE, province);
-        user.put(PROPERTY_HOSPITAL, hospital);
-        user.put(PROPERTY_BLOOD_TYPE, bloodType);
-        user.put(PROPERTY_IS_DONOR, isDonor);
-        user.put(PROPERTY_CREATED_AT, createdAt);
-        user.put(PROPERTY_UPDATED_AT, updatedAt);
-        user.put(PROPERTY_DELETED_AT, deletedAt);
-        return user;
+        HashMap<String, Object> userMap = new HashMap<>();
+        userMap.put(PROPERTY_EMAIL, email);
+        userMap.put(PROPERTY_USERNAME, username);
+        userMap.put(PROPERTY_PHOTO_URL, photoUrl);
+        userMap.put(PROPERTY_FIRST_NAME, firstName);
+        userMap.put(PROPERTY_LAST_NAME, lastName);
+        userMap.put(PROPERTY_FULL_NAME, fullName);
+        userMap.put(PROPERTY_PHONE, phone);
+        userMap.put(PROPERTY_GENDER, gender);
+        userMap.put(PROPERTY_BIRTHDAY, birthday);
+        userMap.put(PROPERTY_COUNTRY, country);
+        userMap.put(PROPERTY_PROVINCE, province);
+        userMap.put(PROPERTY_HOSPITAL, hospital.toMap());
+        userMap.put(PROPERTY_BLOOD_TYPE, bloodType);
+        userMap.put(PROPERTY_IS_DONOR, isDonor);
+        userMap.put(PROPERTY_CREATED_AT, createdAt);
+        userMap.put(PROPERTY_UPDATED_AT, updatedAt);
+        userMap.put(PROPERTY_DELETED_AT, deletedAt);
+        return userMap;
+    }
+
+    @IgnoreExtraProperties
+    public static final class Hospital {
+
+        /**
+         * Properties of a hospital.
+         */
+        public static final String PROPERTY_NAME = "name";
+        public static final String PROPERTY_LATITUDE = "latitude";
+        public static final String PROPERTY_LONGITUDE = "longitude";
+
+        /**
+         * Fields of the hospital.
+         */
+        public String name;
+        public double latitude;
+        public double longitude;
+
+        /**
+         * Creates a new Hospital object.
+         */
+        public Hospital() {
+            // Required empty public constructor (to allow instantiation).
+        }
+
+        @Exclude
+        public static Hospital fromMap(HashMap<String, Object> hospitalMap) {
+            Hospital hospital = new Hospital();
+            hospital.name = hospitalMap.get(PROPERTY_NAME).toString();
+            hospital.latitude = Double.valueOf(hospitalMap.get(PROPERTY_LATITUDE).toString());
+            hospital.longitude = Double.valueOf(hospitalMap.get(PROPERTY_LONGITUDE).toString());
+            return hospital;
+        }
+
+        @Exclude
+        public HashMap<String, Object> toMap() {
+            HashMap<String, Object> hospitalMap = new HashMap<>();
+            hospitalMap.put(PROPERTY_NAME, name);
+            hospitalMap.put(PROPERTY_LATITUDE, latitude);
+            hospitalMap.put(PROPERTY_LONGITUDE, longitude);
+            return hospitalMap;
+        }
     }
 }

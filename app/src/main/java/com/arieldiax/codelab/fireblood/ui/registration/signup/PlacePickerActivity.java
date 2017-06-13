@@ -30,6 +30,15 @@ import java.util.List;
 public class PlacePickerActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LoaderManager.LoaderCallbacks<List<Place>> {
 
     /**
+     * Properties of the activity.
+     */
+    public static final String PROP_IN_PROVINCE_NAME = "province_name";
+    public static final String PROP_OUT_HOSPITAL_NAME = "hospital_name";
+    public static final String PROP_OUT_HOSPITAL_LATITUDE = "hospital_latitude";
+    public static final String PROP_OUT_HOSPITAL_LONGITUDE = "hospital_longitude";
+    public static final String PROP_OUT_MESSAGE_RESOURCE_ID = "message_resource_id";
+
+    /**
      * Views of the activity.
      */
     ProgressBar mMapProgressBar;
@@ -102,7 +111,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment);
         mLoaderManager = getLoaderManager();
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
-        mProvinceName = getIntent().getExtras().getString("province_name");
+        mProvinceName = getIntent().getExtras().getString(PROP_IN_PROVINCE_NAME);
         mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
         mMarkersHaveBeenAdded = false;
@@ -112,15 +121,16 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Updates the user interface view bindings.
      */
     void updateUi() {
+        setTitle(mProvinceName);
         mMapFragment.getMapAsync(this);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("hospital_name", mMarker.getTitle());
-                resultIntent.putExtra("hospital_latitude", mMarker.getPosition().latitude);
-                resultIntent.putExtra("hospital_longitude", mMarker.getPosition().longitude);
+                resultIntent.putExtra(PROP_OUT_HOSPITAL_NAME, mMarker.getTitle());
+                resultIntent.putExtra(PROP_OUT_HOSPITAL_LATITUDE, mMarker.getPosition().latitude);
+                resultIntent.putExtra(PROP_OUT_HOSPITAL_LONGITUDE, mMarker.getPosition().longitude);
                 setResult(RESULT_OK, resultIntent);
                 mConfirmBottomSheetDialog.dismiss();
                 finish();
@@ -146,7 +156,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onBackPressed() {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("message_resource_id", R.string.message_action_canceled);
+        resultIntent.putExtra(PROP_OUT_MESSAGE_RESOURCE_ID, R.string.message_action_canceled);
         setResult(RESULT_CANCELED, resultIntent);
         finish();
     }
@@ -192,7 +202,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     ) {
         if (places == null) {
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("message_resource_id", R.string.message_please_check_your_internet_connection);
+            resultIntent.putExtra(PROP_OUT_MESSAGE_RESOURCE_ID, R.string.message_please_check_your_internet_connection);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
             return;

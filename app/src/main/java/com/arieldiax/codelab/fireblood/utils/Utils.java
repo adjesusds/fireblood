@@ -2,7 +2,6 @@ package com.arieldiax.codelab.fireblood.utils;
 
 import android.text.format.DateUtils;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -26,11 +25,15 @@ public final class Utils {
      * @return The MD5 hash of the string.
      */
     public static String md5(String str) {
-        MessageDigest messageDigest = null;
         try {
-            messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(str.getBytes(), 0, str.length());
-            return new BigInteger(1, messageDigest.digest()).toString(16);
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(str.getBytes());
+            byte[] bytes = messageDigest.digest();
+            StringBuilder hashStringBuilder = new StringBuilder();
+            for (byte bit : bytes) {
+                hashStringBuilder.append(String.format(Locale.getDefault(), "%02X", bit));
+            }
+            return hashStringBuilder.toString().toLowerCase();
         } catch (NoSuchAlgorithmException exception) {
             exception.printStackTrace();
         }
@@ -38,13 +41,13 @@ public final class Utils {
     }
 
     /**
-     * Generates the epoch time of the string.
+     * Generates the unix time of the string.
      *
      * @param str         The string.
      * @param datePattern Pattern of the date.
-     * @return The epoch time of the string.
+     * @return The unix time of the string.
      */
-    public static long epochTime(
+    public static long unixTime(
             String str,
             String datePattern
     ) {
@@ -68,5 +71,19 @@ public final class Utils {
      */
     public static int calculateUserAge(long birthdayEpochTime) {
         return (int) ((System.currentTimeMillis() - birthdayEpochTime) / DateUtils.YEAR_IN_MILLIS);
+    }
+
+    /**
+     * Formats the date.
+     *
+     * @param unixTime    Time in Unix measurement.
+     * @param datePattern Pattern of the date.
+     * @return The date formatted.
+     */
+    public static String formatDate(
+            long unixTime,
+            String datePattern
+    ) {
+        return (new SimpleDateFormat(datePattern, Locale.getDefault())).format(new Date(unixTime));
     }
 }

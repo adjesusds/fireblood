@@ -26,6 +26,11 @@ public class Validation {
     private View mView;
 
     /**
+     * Map key of the validation.
+     */
+    private String mMapKey;
+
+    /**
      * List of Rule instances.
      */
     private List<Rule> mRules;
@@ -35,12 +40,15 @@ public class Validation {
      *
      * @param activity        Instance of the Activity class.
      * @param fieldResourceId Resource ID of the field.
+     * @param fieldMapKey     Map key of the field.
      */
     Validation(
             Activity activity,
-            int fieldResourceId
+            int fieldResourceId,
+            String fieldMapKey
     ) {
         mView = activity.findViewById(fieldResourceId);
+        mMapKey = fieldMapKey;
         mRules = new ArrayList<>();
     }
 
@@ -70,6 +78,24 @@ public class Validation {
      */
     String getValue(Activity activity) {
         return FormUtils.getViewValue(activity, mView);
+    }
+
+    /**
+     * Gets the map key of the validation.
+     *
+     * @return The map key of the validation.
+     */
+    String getMapKey() {
+        return mMapKey;
+    }
+
+    /**
+     * Sets the value of the validation.
+     *
+     * @param viewValue Value of the view.
+     */
+    void setValue(Object viewValue) {
+        FormUtils.setViewValue(mView, viewValue);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.arieldiax.codelab.fireblood.ui.verification;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -151,6 +152,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
      */
     void updateUi() {
         mEmailTextView.setText(mFirebaseUser.getEmail());
+        ((TextView) mSnackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override

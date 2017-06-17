@@ -36,22 +36,17 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     public static final String PROP_OUT_HOSPITAL_NAME = "hospital_name";
     public static final String PROP_OUT_HOSPITAL_LATITUDE = "hospital_latitude";
     public static final String PROP_OUT_HOSPITAL_LONGITUDE = "hospital_longitude";
-    public static final String PROP_OUT_MESSAGE_RESOURCE_ID = "message_resource_id";
 
     /**
      * Views of the activity.
      */
+    MapFragment mMapFragment;
     ProgressBar mMapProgressBar;
 
     /**
      * Instance of the GoogleMap class.
      */
     GoogleMap mGoogleMap;
-
-    /**
-     * Instance of the MapFragment class.
-     */
-    MapFragment mMapFragment;
 
     /**
      * Instance of the LoaderManager class.
@@ -101,6 +96,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Initializes the user interface view bindings.
      */
     void initUi() {
+        mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment);
         mMapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
     }
 
@@ -108,7 +104,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
      * Initializes the back end logic bindings.
      */
     void init() {
-        mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment);
         mLoaderManager = getLoaderManager();
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProvinceName = getIntent().getExtras().getString(PROP_IN_PROVINCE_NAME);
@@ -156,7 +151,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onBackPressed() {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(PROP_OUT_MESSAGE_RESOURCE_ID, R.string.message_action_canceled);
         setResult(RESULT_CANCELED, resultIntent);
         finish();
     }
@@ -165,10 +159,10 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.google_maps_style));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, mDisplayWidth, mDisplayHeight, 0));
         mGoogleMap.getUiSettings().setIndoorLevelPickerEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, mDisplayWidth, mDisplayHeight, 0));
         mLoaderManager.initLoader(0, null, this);
     }
 
@@ -202,7 +196,6 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
     ) {
         if (places == null) {
             Intent resultIntent = new Intent();
-            resultIntent.putExtra(PROP_OUT_MESSAGE_RESOURCE_ID, R.string.message_please_check_your_internet_connection);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
             return;

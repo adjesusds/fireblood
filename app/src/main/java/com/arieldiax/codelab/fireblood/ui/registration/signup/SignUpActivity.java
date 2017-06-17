@@ -350,7 +350,7 @@ public class SignUpActivity extends AppCompatActivity {
                         mHospitalLongitude = extras.getDouble(PlacePickerActivity.PROP_OUT_HOSPITAL_LONGITUDE);
                         break;
                     case RESULT_CANCELED:
-                        mSnackbar.setText(extras.getInt(PlacePickerActivity.PROP_OUT_MESSAGE_RESOURCE_ID)).show();
+                        mSnackbar.setText(R.string.message_action_canceled).show();
                         break;
                 }
                 break;

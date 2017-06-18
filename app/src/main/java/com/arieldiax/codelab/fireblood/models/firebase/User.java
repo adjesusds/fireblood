@@ -11,7 +11,7 @@ public class User {
     /**
      * Child path of a user.
      */
-    public static final String CHILD_PATH = "users";
+    public static final String CHILD_PATH = "/users";
 
     /**
      * Path segments for user profile photo.
@@ -22,7 +22,7 @@ public class User {
     /**
      * Storage path of a user profile photo.
      */
-    public static String sStoragePathProfilePhoto = "images/" + CHILD_PATH + "/" + PATH_SEGMENT_USER_UID + "/profilePhotos/" + PATH_SEGMENT_UNIX_TIME + "/original";
+    public static String sStoragePathProfilePhoto = "/images/" + CHILD_PATH + "/" + PATH_SEGMENT_USER_UID + "/profilePhotos/" + PATH_SEGMENT_UNIX_TIME + "/original";
 
     /**
      * Properties of a user.

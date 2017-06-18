@@ -502,6 +502,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     /**
      * Gets the user.
+     *
+     * @return The instance of the User class.
      */
     User getUser() {
         HashMap<String, Object> userMap = mFormValidator.serialize();

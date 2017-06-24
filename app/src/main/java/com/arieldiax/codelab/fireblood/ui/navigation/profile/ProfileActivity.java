@@ -169,7 +169,7 @@ public class ProfileActivity extends MainActivity {
         mUserPhotoImageView.setClipToOutline(true);
         startFieldsAnimation();
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .child(mFirebaseUser.getUid())
                 .addValueEventListener(new ValueEventListener() {
 

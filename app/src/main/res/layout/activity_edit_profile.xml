@@ -47,8 +47,7 @@
                 android:layout_toEndOf="@id/photo_image_view"
                 android:background="@drawable/background_profile_image_view"
                 android:elevation="@dimen/margin_quarter"
-                android:src="@drawable/ic_edit_black_24dp"
-                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_edit_red_24dp"
                 android:transitionName="@string/transition_edit_profile_image_view" />
 
             <ProgressBar

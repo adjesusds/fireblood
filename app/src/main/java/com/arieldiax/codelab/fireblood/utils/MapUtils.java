@@ -12,11 +12,6 @@ public final class MapUtils {
     public static final LatLngBounds sDominicanRepublicGeographicalBoundaries = new LatLngBounds(new LatLng(17.361100, -72.007510), new LatLng(19.978699, -68.252600));
 
     /**
-     * Boundaries padding for Google Maps.
-     */
-    public static final int GOOGLE_MAPS_BOUNDARIES_PADDING = 200;
-
-    /**
      * Creates a new MapUtils object (no, it won't).
      */
     private MapUtils() {

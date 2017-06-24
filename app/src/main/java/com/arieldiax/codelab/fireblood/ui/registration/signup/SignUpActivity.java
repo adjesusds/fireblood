@@ -322,7 +322,7 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case android.R.id.home:
-                attemptToFinishActivity();
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(menuItem);
@@ -377,7 +377,7 @@ public class SignUpActivity extends AppCompatActivity {
         mFormRemainingCustomValidations = 2;
         mHasPassedCustomValidations = true;
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .orderByChild(User.PROPERTY_EMAIL)
                 .equalTo(FormUtils.getViewValue(this, mEmailEditText))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -399,7 +399,7 @@ public class SignUpActivity extends AppCompatActivity {
                 })
         ;
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .orderByChild(User.PROPERTY_USERNAME)
                 .equalTo(FormUtils.getViewValue(this, mUsernameEditText))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -458,7 +458,7 @@ public class SignUpActivity extends AppCompatActivity {
      */
     void createUser(String userUid) {
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .child(userUid)
                 .setValue(getUser())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

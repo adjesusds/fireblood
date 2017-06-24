@@ -1,5 +1,6 @@
 package com.arieldiax.codelab.fireblood.models.firebase;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -9,9 +10,9 @@ import java.util.HashMap;
 public class User {
 
     /**
-     * Child path of a user.
+     * Database path of the users.
      */
-    public static final String CHILD_PATH = "/users";
+    public static final String DATABASE_PATH = "/users";
 
     /**
      * Path segments for user profile photo.
@@ -22,7 +23,7 @@ public class User {
     /**
      * Storage path of a user profile photo.
      */
-    public static String sStoragePathProfilePhoto = "/images/" + CHILD_PATH + "/" + PATH_SEGMENT_USER_UID + "/profilePhotos/" + PATH_SEGMENT_UNIX_TIME + "/original";
+    public static String sStoragePathProfilePhoto = "/images/" + DATABASE_PATH + "/" + PATH_SEGMENT_USER_UID + "/profilePhotos/" + PATH_SEGMENT_UNIX_TIME + "/original";
 
     /**
      * Properties of a user.
@@ -170,6 +171,11 @@ public class User {
             hospitalMap.put(PROPERTY_LATITUDE, latitude);
             hospitalMap.put(PROPERTY_LONGITUDE, longitude);
             return hospitalMap;
+        }
+
+        @Exclude
+        public LatLng getLocation() {
+            return new LatLng(latitude, longitude);
         }
     }
 }

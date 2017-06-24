@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Pair;
@@ -99,5 +102,33 @@ public final class ViewUtils {
     public static void hideKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    /**
+     * Converts the density independent pixels into pixels.
+     *
+     * @param context Instance of the Context class.
+     * @param dp      Space in DP measurement.
+     * @return The density independent pixels converted.
+     */
+    public static int convertDpIntoPx(
+            Context context,
+            float dp
+    ) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    /**
+     * Converts the drawable into a bitmap.
+     *
+     * @param drawable Instance of the Drawable class.
+     * @return The drawable converted.
+     */
+    public static Bitmap convertDrawableIntoBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

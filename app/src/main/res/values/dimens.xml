@@ -17,6 +17,7 @@
     <dimen name="margin_standard_half_minus">-24dp</dimen>
     <dimen name="margin_standard_half_quarter_minus">-28dp</dimen>
     <dimen name="margin_double">32dp</dimen>
+    <dimen name="margin_double_half">40dp</dimen>
     <dimen name="margin_double_half_quarter_minus">-44dp</dimen>
     <dimen name="margin_triple">48dp</dimen>
     <dimen name="margin_triple_half">56dp</dimen>

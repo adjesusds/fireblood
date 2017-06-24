@@ -414,7 +414,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case android.R.id.home:
-                attemptToFinishActivity();
+                onBackPressed();
                 return true;
             case R.id.save_menu_item:
                 ViewUtils.hideKeyboard(EditProfileActivity.this);
@@ -460,8 +460,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     case RESULT_OK:
                         mPhotoProgressBar.setVisibility(View.VISIBLE);
                         mHasProcessedProfilePhoto = false;
+                        String userProfilePhotoStoragePath = User
+                                .sStoragePathProfilePhoto
+                                .replace(User.PATH_SEGMENT_USER_UID, mUserUid)
+                                .replace(User.PATH_SEGMENT_UNIX_TIME, String.valueOf(System.currentTimeMillis()));
                         mStorageReference
-                                .child(User.sStoragePathProfilePhoto.replace(User.PATH_SEGMENT_USER_UID, mUserUid).replace(User.PATH_SEGMENT_UNIX_TIME, String.valueOf(System.currentTimeMillis())))
+                                .child(userProfilePhotoStoragePath)
                                 .putFile(data.getData())
                                 .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
 
@@ -546,7 +550,7 @@ public class EditProfileActivity extends AppCompatActivity {
         userMap.put(User.PROPERTY_PHOTO_URL, userPhotoUrl);
         userMap.put(User.PROPERTY_UPDATED_AT, userUpdatedAt);
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .child(mUserUid)
                 .updateChildren(userMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -595,7 +599,7 @@ public class EditProfileActivity extends AppCompatActivity {
      */
     void updateUser() {
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .child(mUserUid)
                 .setValue(getUser())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

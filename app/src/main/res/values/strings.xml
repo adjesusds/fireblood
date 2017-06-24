@@ -81,6 +81,7 @@
     <string name="message_the_credentials_did_not_match_our_records">The credentials did not match our records.</string>
     <string name="message_recovery_email_sent">Recovery email sent!</string>
     <string name="message_verification_email_sent">Verification email sent!</string>
+    <string name="message_waiting_for_hospitals">Waiting for hospitals&#8230;</string>
     <string name="message_the_data_has_not_loaded_yet">The data has not loaded yet.</string>
     <string name="message_no_application_was_found">No application was found.</string>
     <string name="message_the_photo_has_not_processed_yet">The photo has not processed yet.</string>
@@ -106,6 +107,9 @@
     <string name="validation_the_email_is_not_registered">The email is not registered.</string>
     <string name="validation_no_data_has_changed">No data has changed.</string>
 
+    <!-- Hospitals related strings. -->
+    <string name="hospital_donors_snippet">Donors: <xliff:g id="donors_count">%,d</xliff:g></string>
+
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>
     <string name="menu_item_share">Share</string>
@@ -123,7 +127,6 @@
     <string name="array_province_bahoruco" translatable="false">Bahoruco</string>
     <string name="array_province_barahona" translatable="false">Barahona</string>
     <string name="array_province_dajabon" translatable="false">Dajabón</string>
-    <string name="array_province_distrito_nacional" translatable="false">Distrito Nacional</string>
     <string name="array_province_duarte" translatable="false">Duarte</string>
     <string name="array_province_el_seibo" translatable="false">El Seibo</string>
     <string name="array_province_elias_pina" translatable="false">Elías Piña</string>
@@ -170,7 +173,6 @@
         <item>@string/array_province_bahoruco</item>
         <item>@string/array_province_barahona</item>
         <item>@string/array_province_dajabon</item>
-        <item>@string/array_province_distrito_nacional</item>
         <item>@string/array_province_duarte</item>
         <item>@string/array_province_el_seibo</item>
         <item>@string/array_province_elias_pina</item>

@@ -173,7 +173,7 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
         mDatabaseReference
-                .child(User.CHILD_PATH)
+                .child(User.DATABASE_PATH)
                 .orderByChild(User.PROPERTY_USERNAME)
                 .equalTo(emailOrUsername)
                 .addListenerForSingleValueEvent(new ValueEventListener() {

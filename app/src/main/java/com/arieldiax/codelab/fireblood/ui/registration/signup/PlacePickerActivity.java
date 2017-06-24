@@ -16,10 +16,13 @@ import com.arieldiax.codelab.fireblood.loaders.PlacesAsyncTaskLoader;
 import com.arieldiax.codelab.fireblood.models.pojos.Place;
 import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.utils.MapUtils;
+import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -162,6 +165,9 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mGoogleMap.getUiSettings().setIndoorLevelPickerEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
+        int mapPadding = ViewUtils.convertDpIntoPx(this, 16.0f);
+        int mapPaddingTop = mapPadding + ViewUtils.convertDpIntoPx(this, 24.0f);
+        mGoogleMap.setPadding(mapPadding, mapPaddingTop, mapPadding, mapPadding);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, mDisplayWidth, mDisplayHeight, 0));
         mLoaderManager.initLoader(0, null, this);
     }
@@ -206,7 +212,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         }
         mMapProgressBar.setVisibility(View.GONE);
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(), mDisplayWidth, mDisplayHeight, MapUtils.GOOGLE_MAPS_BOUNDARIES_PADDING), new GoogleMap.CancelableCallback() {
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(), mDisplayWidth, mDisplayHeight, 0), new GoogleMap.CancelableCallback() {
 
             @Override
             public void onFinish() {
@@ -218,7 +224,12 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
                             @Override
                             public void run() {
-                                mGoogleMap.addMarker(new MarkerOptions().position(place.getLocation()).title(place.getName()));
+                                BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_whatshot_red_24dp)));
+                                MarkerOptions markerOptions = new MarkerOptions()
+                                        .icon(markerIcon)
+                                        .position(place.getLocation())
+                                        .title(place.getName());
+                                mGoogleMap.addMarker(markerOptions);
                             }
                         }, delay);
                         delay += DateUtils.SECOND_IN_MILLIS / 10;

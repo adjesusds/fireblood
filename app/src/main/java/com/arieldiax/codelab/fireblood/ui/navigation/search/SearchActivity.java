@@ -45,7 +45,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     ProgressBar mMapProgressBar;
     View mEndContainerView;
     LinearLayout mBottomContainerLinearLayout;
-    Button mSearchForDonorsButton;
+    Button mSearchForHospitalsButton;
 
     /**
      * Instance of the GoogleMap class.
@@ -98,7 +98,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mMapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
         mEndContainerView = findViewById(R.id.end_container_view);
         mBottomContainerLinearLayout = (LinearLayout) findViewById(R.id.bottom_container_linear_layout);
-        mSearchForDonorsButton = (Button) findViewById(R.id.search_for_donors_button);
+        mSearchForHospitalsButton = (Button) findViewById(R.id.search_for_hospitals_button);
     }
 
     @Override
@@ -130,9 +130,9 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                             case LayoutTransition.CHANGE_APPEARING:
                             case LayoutTransition.CHANGE_DISAPPEARING:
                                 int translationY = (transitionType == LayoutTransition.CHANGE_APPEARING)
-                                        ? mMapPaddingBottom - mMapPaddingLeft - mSearchForDonorsButton.getPaddingTop() / 2
+                                        ? mMapPaddingBottom - mMapPaddingLeft - mSearchForHospitalsButton.getPaddingTop() / 2
                                         : 0;
-                                mSearchForDonorsButton
+                                mSearchForHospitalsButton
                                         .animate()
                                         .translationY(translationY)
                                         .setDuration(animationsDuration)
@@ -178,7 +178,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 toggleActivitySearchBloodState();
             }
         });
-        mSearchForDonorsButton.setOnClickListener(new View.OnClickListener() {
+        mSearchForHospitalsButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -257,6 +257,6 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mProvinceSpinner.setEnabled(enabled);
         mBloodTypeSpinner.setEnabled(enabled);
         mMapProgressBar.setVisibility(visibility);
-        mSearchForDonorsButton.setClickable(enabled);
+        mSearchForHospitalsButton.setClickable(enabled);
     }
 }

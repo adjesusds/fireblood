@@ -26,4 +26,14 @@ public final class FirebaseUtils {
         }
         return dataSnapshot;
     }
+
+    /**
+     * Normalizes the path.
+     *
+     * @param pathString String of the path.
+     * @return The path normalized.
+     */
+    public static String normalizePath(String pathString) {
+        return pathString.replaceAll("[\\.\\#\\$\\[\\]]", "");
+    }
 }

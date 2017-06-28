@@ -130,6 +130,11 @@ public class EditProfileActivity extends AppCompatActivity {
     FormValidator mFormValidator;
 
     /**
+     * Instance of the RequestOptions class.
+     */
+    RequestOptions mRequestOptions;
+
+    /**
      * Latitude of the hospital.
      */
     double mHospitalLatitude;
@@ -220,6 +225,10 @@ public class EditProfileActivity extends AppCompatActivity {
         mPhotoBottomSheetDialog = new PhotoBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
         mFormValidator = new FormValidator(this);
+        mRequestOptions = new RequestOptions()
+                .placeholder(R.mipmap.ic_launcher)
+                .circleCrop()
+        ;
         mHospitalLatitude = mUser.hospital.latitude;
         mHospitalLongitude = mUser.hospital.longitude;
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -337,15 +346,10 @@ public class EditProfileActivity extends AppCompatActivity {
         mPhotoImageView.setClipToOutline(true);
         mEditProfileImageView.setClipToOutline(true);
         if (!mUser.photoUrl.isEmpty()) {
-            RequestOptions requestOptions = new RequestOptions();
-            requestOptions
-                    .placeholder(R.mipmap.ic_launcher)
-                    .circleCrop()
-            ;
             Glide
                     .with(this)
                     .load(mUser.photoUrl)
-                    .apply(requestOptions)
+                    .apply(mRequestOptions)
                     .into(mPhotoImageView)
             ;
         }
@@ -394,6 +398,7 @@ public class EditProfileActivity extends AppCompatActivity {
         ;
         mProgressDialog.setTitle(R.string.title_editing_profile);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
+        mProgressDialog.setCancelable(false);
         mFormValidator.populate(getUserMap());
         new Handler().postDelayed(new Runnable() {
 
@@ -566,15 +571,10 @@ public class EditProfileActivity extends AppCompatActivity {
                         mSnackbar.setText(R.string.message_profile_photo_successfully_edited).show();
                         mUser.photoUrl = userPhotoUrl;
                         if (!mUser.photoUrl.isEmpty()) {
-                            RequestOptions requestOptions = new RequestOptions();
-                            requestOptions
-                                    .placeholder(R.mipmap.ic_launcher)
-                                    .circleCrop()
-                            ;
                             Glide
                                     .with(EditProfileActivity.this)
                                     .load(mUser.photoUrl)
-                                    .apply(requestOptions)
+                                    .apply(mRequestOptions)
                                     .into(mPhotoImageView)
                             ;
                         } else {

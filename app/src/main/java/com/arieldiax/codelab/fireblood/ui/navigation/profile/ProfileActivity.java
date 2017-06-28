@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Pair;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
@@ -27,6 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends MainActivity {
 
     /**
+     * Properties of the activity.
+     */
+    public static final String PROP_IN_USER_UID = "user_uid";
+
+    /**
      * Views of the activity.
      */
     ScrollView mProfileScrollView;
@@ -41,14 +48,25 @@ public class ProfileActivity extends MainActivity {
     TextView mUserBloodTypeTextView;
     TextView mUserIsDonorTextView;
     TextView mUserHospitalTextView;
+    CardView mContactMeCardView;
     TextView mAnEmailTextView;
     TextView mACallTextView;
     TextView mAMessageTextView;
 
     /**
+     * Unique ID of the user.
+     */
+    String mUserUid;
+
+    /**
      * Instance of the User class.
      */
     User mUser;
+
+    /**
+     * Instance of the RequestOptions class.
+     */
+    RequestOptions mRequestOptions;
 
     /**
      * On click listener of the user fields.
@@ -80,6 +98,7 @@ public class ProfileActivity extends MainActivity {
         mUserBloodTypeTextView = (TextView) findViewById(R.id.user_blood_type_text_view);
         mUserIsDonorTextView = (TextView) findViewById(R.id.user_is_donor_text_view);
         mUserHospitalTextView = (TextView) findViewById(R.id.user_hospital_text_view);
+        mContactMeCardView = (CardView) findViewById(R.id.contact_me_card_view);
         mAnEmailTextView = (TextView) findViewById(R.id.an_email_text_view);
         mACallTextView = (TextView) findViewById(R.id.a_call_text_view);
         mAMessageTextView = (TextView) findViewById(R.id.a_message_text_view);
@@ -89,7 +108,12 @@ public class ProfileActivity extends MainActivity {
     protected void init() {
         super.init();
         mClassCanonicalName = getClass().getCanonicalName();
+        mUserUid = getIntent().getStringExtra(PROP_IN_USER_UID);
         mUser = null;
+        mRequestOptions = new RequestOptions()
+                .placeholder(R.mipmap.ic_launcher)
+                .circleCrop()
+        ;
         mUserFieldsOnClickListener = new View.OnClickListener() {
 
             @Override
@@ -165,12 +189,18 @@ public class ProfileActivity extends MainActivity {
     @Override
     protected void updateUi() {
         super.updateUi();
-        mMainBottomNavigationView.setSelectedItemId(R.id.profile_navigation_item);
+        if (!mUserUid.isEmpty()) {
+            mMainBottomNavigationView.setVisibility(View.GONE);
+        } else {
+            mMainBottomNavigationView.setSelectedItemId(R.id.profile_navigation_item);
+            mEditProfileFrameLayout.setVisibility(View.VISIBLE);
+            mContactMeCardView.setVisibility(View.VISIBLE);
+        }
         mUserPhotoImageView.setClipToOutline(true);
         startFieldsAnimation();
         mDatabaseReference
                 .child(User.DATABASE_PATH)
-                .child(mFirebaseUser.getUid())
+                .child((!mUserUid.isEmpty()) ? mUserUid : mFirebaseUser.getUid())
                 .addValueEventListener(new ValueEventListener() {
 
                     @Override
@@ -193,6 +223,23 @@ public class ProfileActivity extends MainActivity {
         mProfileScrollView.fullScroll(View.FOCUS_UP);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return (
+                mUserUid.isEmpty() &&
+                        super.onCreateOptionsMenu(menu)
+        );
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mUserUid.isEmpty()) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     /**
      * Starts the animation of the fields.
      */
@@ -213,15 +260,10 @@ public class ProfileActivity extends MainActivity {
     void updateUserFields() {
         setTitle(mUser.username);
         if (!mUser.photoUrl.isEmpty()) {
-            RequestOptions requestOptions = new RequestOptions();
-            requestOptions
-                    .placeholder(R.mipmap.ic_launcher)
-                    .circleCrop()
-            ;
             Glide
                     .with(this)
                     .load(mUser.photoUrl)
-                    .apply(requestOptions)
+                    .apply(mRequestOptions)
                     .into(mUserPhotoImageView)
             ;
             mUserPhotoImageView.setOnClickListener(mUserFieldsOnClickListener);

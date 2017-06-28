@@ -40,8 +40,7 @@ public class ViewPhotoActivity extends AppCompatActivity {
      * Updates the user interface view bindings.
      */
     void updateUi() {
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.circleCrop();
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide
                 .with(this)
                 .load(getIntent().getStringExtra(PROP_IN_USER_PHOTO_URL))

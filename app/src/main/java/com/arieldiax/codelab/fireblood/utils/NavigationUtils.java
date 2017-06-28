@@ -3,6 +3,8 @@ package com.arieldiax.codelab.fireblood.utils;
 import android.content.Context;
 import android.content.Intent;
 
+import com.arieldiax.codelab.fireblood.ui.navigation.profile.ProfileActivity;
+
 import java.util.Stack;
 
 /**
@@ -83,6 +85,9 @@ public final class NavigationUtils {
     ) {
         Intent activityIntent = new Intent(context, activityClass);
         activityIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        if (activityClass.equals(ProfileActivity.class)) {
+            activityIntent.putExtra(ProfileActivity.PROP_IN_USER_UID, "");
+        }
         context.startActivity(activityIntent);
     }
 }

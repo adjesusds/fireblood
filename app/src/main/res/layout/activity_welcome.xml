@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/app_logo_image_view"
-            android:layout_width="@dimen/image_size_medium"
-            android:layout_height="@dimen/image_size_medium"
+            android:layout_width="@dimen/image_size_large"
+            android:layout_height="@dimen/image_size_large"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"

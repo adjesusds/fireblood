@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/photo_image_view"
-                android:layout_width="@dimen/image_size_small"
-                android:layout_height="@dimen/image_size_small"
+                android:layout_width="@dimen/image_size_medium"
+                android:layout_height="@dimen/image_size_medium"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/margin_quarter"
                 android:layout_marginTop="@dimen/margin_quarter"

@@ -11,6 +11,7 @@
     <dimen name="margin_quarter_half_minus">-2dp</dimen>
     <dimen name="margin_quarter">4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
+    <dimen name="margin_half_quarter_half">14dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_standard_single_minus">-17dp</dimen>
     <dimen name="margin_standard_half">24dp</dimen>
@@ -19,13 +20,13 @@
     <dimen name="margin_double">32dp</dimen>
     <dimen name="margin_double_half">40dp</dimen>
     <dimen name="margin_double_half_quarter_minus">-44dp</dimen>
-    <dimen name="margin_triple">48dp</dimen>
     <dimen name="margin_triple_half">56dp</dimen>
     <dimen name="margin_triple_half_minus">-56dp</dimen>
 
     <!-- Custom app image sizes. -->
-    <dimen name="image_size_small">100dp</dimen>
-    <dimen name="image_size_medium">200dp</dimen>
+    <dimen name="image_size_small">50dp</dimen>
+    <dimen name="image_size_medium">100dp</dimen>
+    <dimen name="image_size_large">200dp</dimen>
 
     <!-- Custom app button sizes. -->
     <dimen name="button_size_small">100dp</dimen>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/donor_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_standard">
+
+    <ImageView
+        android:id="@+id/donor_photo_image_view"
+        android:layout_width="@dimen/image_size_small"
+        android:layout_height="@dimen/image_size_small"
+        android:scaleType="centerCrop"
+        tools:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_half"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/donor_first_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:text="First Name" />
+
+            <TextView
+                android:id="@+id/donor_last_name_text_view"
+                android:layout_width="@dimen/margin_none"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_quarter"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                android:textColor="@android:color/black"
+                tools:text="Last Name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/donor_username_text_view"
+                android:layout_width="@dimen/margin_none"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                android:textColor="@android:color/tertiary_text_light"
+                tools:text="Username" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_half"
+                android:text="@string/donor_label_created_at"
+                android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/donor_created_at_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_quarter"
+                android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                android:textColor="@android:color/black"
+                tools:text="Created at" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

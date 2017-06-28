@@ -7,7 +7,7 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.util.ArrayMap;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -108,7 +108,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     /**
      * Map of Marker instances.
      */
-    ArrayMap<String, Marker> mMarkers;
+    SparseArray<Marker> mMarkers;
 
     /**
      * Instance of the LatLngBounds.Builder class.
@@ -158,7 +158,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mHasFinishedSearchForHospitals = true;
         mHospitalsDatabasePath = "";
         mHospitalsChildEventListener = null;
-        mMarkers = new ArrayMap<>();
+        mMarkers = new SparseArray<>();
         mLatLngBoundsBuilder = new LatLngBounds.Builder();
     }
 
@@ -348,7 +348,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         super.onNavigationItemReselectedListener();
         if (
                 !mHasFinishedSearchForHospitals &&
-                        !mMarkers.isEmpty()
+                        mMarkers.size() > 0
                 ) {
             animateMarkers();
         }
@@ -382,6 +382,19 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 mGoogleMap.moveCamera(mMapCameraUpdate);
             }
         }, DateUtils.SECOND_IN_MILLIS / 2);
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                DonorsBottomSheetDialogFragment donorsBottomSheetDialogFragment = new DonorsBottomSheetDialogFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner));
+                arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
+                arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_LOCATION, marker.getPosition().latitude + "_" + marker.getPosition().longitude);
+                donorsBottomSheetDialogFragment.setArguments(arguments);
+                donorsBottomSheetDialogFragment.show(getSupportFragmentManager(), donorsBottomSheetDialogFragment.getTag());
+            }
+        });
     }
 
     /**
@@ -406,18 +419,10 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
      * @param hospital Instance of the Hospital class.
      */
     void placeMarker(Hospital hospital) {
-        if (
-                mUser.isDonor &&
-                        mUser.province.equals(FormUtils.getViewValue(this, mProvinceSpinner)) &&
-                        mUser.bloodType.equals(FormUtils.getViewValue(this, mBloodTypeSpinner)) &&
-                        mUser.hospital.getLocation().equals(hospital.getLocation())
-                ) {
-            hospital.donorsCount--;
-        }
         LatLng hospitalLocation = hospital.getLocation();
         Marker marker = null;
-        String markerKey = hospitalLocation.toString();
-        if (mMarkers.containsKey(markerKey)) {
+        int markerKey = hospitalLocation.hashCode();
+        if (mMarkers.indexOfKey(markerKey) > -1) {
             marker = mMarkers.get(markerKey);
         } else {
             marker = mGoogleMap.addMarker(new MarkerOptions().position(hospitalLocation));
@@ -428,7 +433,14 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 ? BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_whatshot_red_24dp)))
                 : BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_whatshot_black_24dp)));
         String markerTitle = hospital.name;
-        String markerSnippet = getString(R.string.hospital_donors_snippet, hospital.donorsCount);
+        String markerSnippet = (
+                !mUser.isDonor ||
+                        !mUser.province.equals(FormUtils.getViewValue(this, mProvinceSpinner)) ||
+                        !mUser.bloodType.equals(FormUtils.getViewValue(this, mBloodTypeSpinner)) ||
+                        !mUser.hospital.getLocation().equals(hospitalLocation)
+        )
+                ? getString(R.string.hospital_donors_snippet, hospital.donorsCount)
+                : getString(R.string.hospital_donors_including_you_snippet, hospital.donorsCount);
         marker.setIcon(markerIcon);
         marker.setTitle(markerTitle);
         marker.setSnippet(markerSnippet);

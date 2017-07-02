@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Pair;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
@@ -190,6 +191,7 @@ public class ProfileActivity extends MainActivity {
     protected void updateUi() {
         super.updateUi();
         if (!mUserUid.isEmpty()) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mMainBottomNavigationView.setVisibility(View.GONE);
         } else {
             mMainBottomNavigationView.setSelectedItemId(R.id.profile_navigation_item);
@@ -229,6 +231,16 @@ public class ProfileActivity extends MainActivity {
                 mUserUid.isEmpty() &&
                         super.onCreateOptionsMenu(menu)
         );
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     @Override

@@ -1,25 +1,21 @@
 package com.arieldiax.codelab.fireblood.ui.navigation.search;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.models.firebase.Donor;
 import com.arieldiax.codelab.fireblood.models.firebase.User;
-import com.arieldiax.codelab.fireblood.models.widgets.ConfirmBottomSheetDialog;
 import com.arieldiax.codelab.fireblood.ui.navigation.profile.ProfileActivity;
 import com.arieldiax.codelab.fireblood.utils.FirebaseUtils;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -49,21 +45,6 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
     TextView mRequestBloodTextView;
     RecyclerView mDonorsRecyclerView;
     TextView mDonorsEmptyRecyclerView;
-
-    /**
-     * Instance of the Toast class.
-     */
-    Toast mToast;
-
-    /**
-     * Instance of the ConfirmBottomSheetDialog class.
-     */
-    ConfirmBottomSheetDialog mConfirmBottomSheetDialog;
-
-    /**
-     * Instance of the ProgressDialog class.
-     */
-    ProgressDialog mProgressDialog;
 
     /**
      * Instance of the DatabaseReference class.
@@ -106,9 +87,6 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
      * Initializes the back end logic bindings.
      */
     void init() {
-        mToast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
-        mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(getActivity());
-        mProgressDialog = new ProgressDialog(getContext(), R.style.AppProgressDialogTheme);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mDonorsFirebaseRecyclerAdapter = null;
     }
@@ -124,18 +102,27 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+        final String argumentProvince = getArguments().getString(PROP_IN_PROVINCE);
+        final String argumentBloodType = getArguments().getString(PROP_IN_BLOOD_TYPE);
+        final String argumentLocation = getArguments().getString(PROP_IN_LOCATION);
         mRequestBloodTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                mConfirmBottomSheetDialog.show();
+                RequestBloodDialogFragment requestBloodDialogFragment = new RequestBloodDialogFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString(RequestBloodDialogFragment.PROP_IN_PROVINCE, argumentProvince);
+                arguments.putString(RequestBloodDialogFragment.PROP_IN_BLOOD_TYPE, argumentBloodType);
+                arguments.putString(RequestBloodDialogFragment.PROP_IN_LOCATION, argumentLocation);
+                requestBloodDialogFragment.setArguments(arguments);
+                requestBloodDialogFragment.show(getActivity().getSupportFragmentManager(), requestBloodDialogFragment.getTag());
             }
         });
         String donorsDatabasePath = FirebaseUtils.normalizePath(Donor
                 .sDatabasePath
-                .replace(Donor.PATH_SEGMENT_PROVINCE, getArguments().getString(PROP_IN_PROVINCE))
-                .replace(Donor.PATH_SEGMENT_BLOOD_TYPE, getArguments().getString(PROP_IN_BLOOD_TYPE))
-                .replace(Donor.PATH_SEGMENT_LOCATION, getArguments().getString(PROP_IN_LOCATION)));
+                .replace(Donor.PATH_SEGMENT_PROVINCE, argumentProvince)
+                .replace(Donor.PATH_SEGMENT_BLOOD_TYPE, argumentBloodType)
+                .replace(Donor.PATH_SEGMENT_LOCATION, argumentLocation));
         Query donorsQuery = mDatabaseReference
                 .child(donorsDatabasePath)
                 .orderByChild(User.PROPERTY_FULL_NAME);
@@ -188,43 +175,11 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
         mDonorsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mDonorsRecyclerView.setAdapter(mDonorsFirebaseRecyclerAdapter);
         mDonorsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                attemptToRequestBlood();
-            }
-        };
-        mConfirmBottomSheetDialog
-                .setTitle(R.string.title_request_blood)
-                .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
-        ;
-        mProgressDialog.setTitle(R.string.title_requesting_blood);
-        mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));
-        mProgressDialog.setCancelable(false);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mDonorsFirebaseRecyclerAdapter.cleanup();
-    }
-
-    /**
-     * Attempts to request the blood.
-     */
-    void attemptToRequestBlood() {
-        mProgressDialog.show();
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                mProgressDialog.dismiss();
-                mToast.setText(R.string.message_blood_successfully_requested);
-                mToast.show();
-            }
-        }, DateUtils.SECOND_IN_MILLIS * 2);
     }
 }

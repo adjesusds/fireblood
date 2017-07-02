@@ -10,4 +10,9 @@
     <integer name="max_length_phone">10</integer>
     <integer name="max_length_birthday">10</integer>
     <integer name="max_length_hospital">100</integer>
+    <integer name="max_length_message">140</integer>
+
+    <!-- Custom blood request quantities. -->
+    <integer name="blood_request_quantity_avg_index">4</integer>
+    <integer name="blood_request_quantity_max_index">20</integer>
 </resources>

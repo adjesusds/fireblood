@@ -100,6 +100,7 @@ public class SignInActivity extends AppCompatActivity {
     void init() {
         mSnackbar = Snackbar.make(mSignInScrollView, "", Snackbar.LENGTH_LONG);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
+        mProgressDialog.getWindow().getAttributes().windowAnimations = R.style.AppDialogAnimation;
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();

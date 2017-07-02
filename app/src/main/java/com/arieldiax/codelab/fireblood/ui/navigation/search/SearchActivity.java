@@ -183,6 +183,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                             return;
                         }
                         if (mHasFinishedSearchForHospitals) {
+                            mToast.cancel();
                             mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
                             mGoogleMap.clear();
                             mDatabaseReference
@@ -256,7 +257,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 mHospitalsDatabasePath = "";
                 mMarkers.clear();
                 mLatLngBoundsBuilder = new LatLngBounds.Builder();
-                toggleSearchForHospitalsState();
+                toggleActivityInteractionsState();
             }
         });
         mSearchForHospitalsButton.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +268,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                         .sDatabasePath
                         .replace(Hospital.PATH_SEGMENT_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner))
                         .replace(Hospital.PATH_SEGMENT_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
-                toggleSearchForHospitalsState();
+                toggleActivityInteractionsState();
             }
         });
         mDatabaseReference
@@ -398,9 +399,9 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     }
 
     /**
-     * Toggles the search for hospitals state.
+     * Toggles the activity interactions state.
      */
-    void toggleSearchForHospitalsState() {
+    void toggleActivityInteractionsState() {
         mHasFinishedSearchForHospitals = !mHasFinishedSearchForHospitals;
         int visibility = (mHasFinishedSearchForHospitals)
                 ? View.GONE

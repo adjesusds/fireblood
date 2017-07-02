@@ -43,6 +43,20 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+
+        <item name="android:itemTextAppearance">@style/AppItemTextAppearance</item>
+        <item name="android:spinnerDropDownItemStyle">@style/AppSpinnerDropDownItemStyle</item>
+        <item name="android:spinnerItemStyle">@style/AppSpinnerItemStyle</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/tertiary_text_light</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="themeName">@string/theme_name_app_main</item>
+    </style>
+
     <!-- Custom application themes. -->
     <style name="AppSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -113,7 +127,7 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
-    <!-- Custom application appearances. -->
+    <!-- Custom application text appearances. -->
     <style name="AppItemTextAppearance">
 
         <item name="android:textColor">@android:color/black</item>
@@ -129,6 +143,13 @@
     <style name="AppMainErrorTextAppearance" parent="AppErrorTextAppearance">
 
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!-- Custom application animations. -->
+    <style name="AppDialogAnimation">
+
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 
     <!-- Custom application components. -->
@@ -286,6 +307,25 @@
         <item name="android:gravity">bottom</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppSeekBar">
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingEnd">@dimen/margin_quarter</item>
+        <item name="android:paddingStart">@dimen/margin_quarter</item>
+    </style>
+
+    <style name="AppCheckBox">
+
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_quarter_minus</item>
+        <item name="android:layout_marginStart">@dimen/margin_quarter_minus</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Subhead</item>
     </style>
 
     <style name="AppUnderlinedView">

@@ -10,6 +10,7 @@
     <dimen name="margin_quarter_half">2dp</dimen>
     <dimen name="margin_quarter_half_minus">-2dp</dimen>
     <dimen name="margin_quarter">4dp</dimen>
+    <dimen name="margin_quarter_minus">-4dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_half_quarter_half">14dp</dimen>
     <dimen name="margin_standard">16dp</dimen>

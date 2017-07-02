@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/request_blood_dialog_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_standard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/request_label_blood_quantity"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                android:textColor="@android:color/tertiary_text_light" />
+
+            <TextView
+                android:id="@+id/blood_quantity_text_view"
+                android:layout_width="@dimen/margin_none"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_quarter"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                android:textColor="@android:color/black"
+                tools:text="@string/request_information_blood_quantity" />
+
+            <ProgressBar
+                android:id="@+id/request_blood_progress_bar"
+                android:layout_width="@dimen/progress_bar_small"
+                android:layout_height="@dimen/progress_bar_small"
+                android:layout_marginStart="@dimen/margin_half"
+                android:indeterminateTint="@color/colorPrimaryDark"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/blood_quantity_seek_bar"
+            style="@style/AppSeekBar"
+            android:max="@integer/blood_request_quantity_max_index"
+            android:progress="@integer/blood_request_quantity_avg_index" />
+
+        <CheckBox
+            android:id="@+id/requires_plasma_check_box"
+            style="@style/AppCheckBox"
+            android:text="@string/request_label_requires_plasma" />
+
+        <CheckBox
+            android:id="@+id/requires_platelets_check_box"
+            style="@style/AppCheckBox"
+            android:text="@string/request_label_requires_platelets" />
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/AppMainEditTextWrapper"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/max_length_message">
+
+            <EditText
+                android:id="@+id/message_edit_text"
+                style="@style/AppMainEditText"
+                android:gravity="start|top"
+                android:hint="@string/request_label_message"
+                android:inputType="textCapSentences|textMultiLine"
+                android:lines="2"
+                android:maxLength="@integer/max_length_message"
+                android:minLines="1"
+                android:scrollbars="vertical" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel_button"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@android:string/cancel"
+                android:textColor="@drawable/inverse_borderless_button_text_state" />
+
+            <Button
+                android:id="@+id/request_blood_button"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_half"
+                android:text="@string/title_request_blood"
+                android:textColor="@drawable/inverse_borderless_button_text_state" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

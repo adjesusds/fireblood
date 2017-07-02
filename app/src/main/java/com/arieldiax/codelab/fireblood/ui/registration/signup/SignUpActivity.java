@@ -182,6 +182,7 @@ public class SignUpActivity extends AppCompatActivity {
         mSnackbar = Snackbar.make(mSignUpScrollView, "", Snackbar.LENGTH_LONG);
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
+        mProgressDialog.getWindow().getAttributes().windowAnimations = R.style.AppDialogAnimation;
         mFormValidator = new FormValidator(this);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();

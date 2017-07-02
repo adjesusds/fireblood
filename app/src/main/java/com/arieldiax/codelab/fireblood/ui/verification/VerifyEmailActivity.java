@@ -96,6 +96,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
         mSnackbar = Snackbar.make(mVerifyEmailScrollView, "", Snackbar.LENGTH_LONG);
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
+        mProgressDialog.getWindow().getAttributes().windowAnimations = R.style.AppDialogAnimation;
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mVerificationHandler = new Handler();

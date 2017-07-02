@@ -224,6 +224,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mConfirmBottomSheetDialog = new ConfirmBottomSheetDialog(this);
         mPhotoBottomSheetDialog = new PhotoBottomSheetDialog(this);
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
+        mProgressDialog.getWindow().getAttributes().windowAnimations = R.style.AppDialogAnimation;
         mFormValidator = new FormValidator(this);
         mRequestOptions = new RequestOptions()
                 .placeholder(R.mipmap.ic_launcher)

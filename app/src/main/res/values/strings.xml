@@ -119,6 +119,13 @@
     <!-- Donors related strings. -->
     <string name="donor_label_created_at" translatable="false">est.:</string>
 
+    <!-- Requests related strings. -->
+    <string name="request_label_blood_quantity">Blood Quantity:</string>
+    <string name="request_label_requires_plasma">Requires plasma?</string>
+    <string name="request_label_requires_platelets">Requires platelets?</string>
+    <string name="request_label_message">Message</string>
+    <string name="request_information_blood_quantity"><xliff:g id="current_blood_quantity">%.2f</xliff:g> / <xliff:g id="max_blood_quantity">%.2f</xliff:g> litre(s)</string>
+
     <!-- Menu items related strings. -->
     <string name="menu_item_sign_out">Sign out</string>
     <string name="menu_item_share">Share</string>

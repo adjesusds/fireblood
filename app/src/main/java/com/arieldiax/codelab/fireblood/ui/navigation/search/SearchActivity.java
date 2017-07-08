@@ -101,6 +101,11 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     String mHospitalsDatabasePath;
 
     /**
+     * Value event listener of the user.
+     */
+    ValueEventListener mUserValueEventListener;
+
+    /**
      * Child event listener of the hospitals.
      */
     ChildEventListener mHospitalsChildEventListener;
@@ -157,6 +162,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         animationsDuration = DateUtils.SECOND_IN_MILLIS / 3;
         mHasFinishedSearchForHospitals = true;
         mHospitalsDatabasePath = "";
+        mUserValueEventListener = null;
         mHospitalsChildEventListener = null;
         mMarkers = new SparseArray<>();
         mLatLngBoundsBuilder = new LatLngBounds.Builder();
@@ -271,20 +277,21 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 toggleActivityInteractionsState();
             }
         });
+        mUserValueEventListener = new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mUser = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
         mDatabaseReference
                 .child(User.DATABASE_PATH)
                 .child(mFirebaseUser.getUid())
-                .addValueEventListener(new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        mUser = dataSnapshot.getValue(User.class);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                })
+                .addValueEventListener(mUserValueEventListener)
         ;
         mHospitalsChildEventListener = new ChildEventListener() {
 
@@ -342,6 +349,20 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         bloodTypeArrayAdapter.remove(getString(R.string.placeholder_select_an_option));
         bloodTypeArrayAdapter.notifyDataSetChanged();
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDatabaseReference
+                .child(User.DATABASE_PATH)
+                .child(mFirebaseUser.getUid())
+                .removeEventListener(mUserValueEventListener)
+        ;
+        mDatabaseReference
+                .child(mHospitalsDatabasePath)
+                .removeEventListener(mHospitalsChildEventListener)
+        ;
     }
 
     @Override

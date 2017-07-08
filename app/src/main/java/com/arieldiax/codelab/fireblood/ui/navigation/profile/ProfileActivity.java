@@ -74,6 +74,11 @@ public class ProfileActivity extends MainActivity {
      */
     View.OnClickListener mUserFieldsOnClickListener;
 
+    /**
+     * Value event listener of the user.
+     */
+    ValueEventListener mUserValueEventListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +120,13 @@ public class ProfileActivity extends MainActivity {
                 .placeholder(R.mipmap.ic_launcher)
                 .circleCrop()
         ;
+        mUserFieldsOnClickListener = null;
+        mUserValueEventListener = null;
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
         mUserFieldsOnClickListener = new View.OnClickListener() {
 
             @Override
@@ -174,17 +186,25 @@ public class ProfileActivity extends MainActivity {
                 }
             }
         };
-    }
-
-    @Override
-    protected void initListeners() {
-        super.initListeners();
         mUserPhotoImageView.setOnClickListener(mUserFieldsOnClickListener);
         mEditProfileFrameLayout.setOnClickListener(mUserFieldsOnClickListener);
         mUserHospitalTextView.setOnClickListener(mUserFieldsOnClickListener);
         mAnEmailTextView.setOnClickListener(mUserFieldsOnClickListener);
         mACallTextView.setOnClickListener(mUserFieldsOnClickListener);
         mAMessageTextView.setOnClickListener(mUserFieldsOnClickListener);
+        mUserValueEventListener = new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mUser = dataSnapshot.getValue(User.class);
+                updateUserFields();
+                stopFieldsAnimation();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
     }
 
     @Override
@@ -203,19 +223,17 @@ public class ProfileActivity extends MainActivity {
         mDatabaseReference
                 .child(User.DATABASE_PATH)
                 .child((!mUserUid.isEmpty()) ? mUserUid : mFirebaseUser.getUid())
-                .addValueEventListener(new ValueEventListener() {
+                .addValueEventListener(mUserValueEventListener)
+        ;
+    }
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        mUser = dataSnapshot.getValue(User.class);
-                        updateUserFields();
-                        stopFieldsAnimation();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                })
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDatabaseReference
+                .child(User.DATABASE_PATH)
+                .child((!mUserUid.isEmpty()) ? mUserUid : mFirebaseUser.getUid())
+                .removeEventListener(mUserValueEventListener)
         ;
     }
 

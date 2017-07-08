@@ -184,8 +184,12 @@ public class SignUpActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this, R.style.AppProgressDialogTheme);
         mProgressDialog.getWindow().getAttributes().windowAnimations = R.style.AppDialogAnimation;
         mFormValidator = new FormValidator(this);
+        mHospitalLatitude = 0.00;
+        mHospitalLongitude = 0.00;
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mFormRemainingCustomValidations = 0;
+        mHasPassedCustomValidations = false;
     }
 
     /**
@@ -289,6 +293,15 @@ public class SignUpActivity extends AppCompatActivity {
                 attemptToSignUpUser();
             }
         });
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
+                finishAfterTransition();
+            }
+        };
+        mConfirmBottomSheetDialog.setPositiveButtonListener(positiveButtonListener);
     }
 
     /**
@@ -301,18 +314,9 @@ public class SignUpActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> bloodTypeArrayAdapter = ArrayAdapter.createFromResource(this, R.array.array_blood_types, android.R.layout.simple_spinner_item);
         bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                finishAfterTransition();
-            }
-        };
         mConfirmBottomSheetDialog
                 .setTitle(R.string.title_cancel_sign_up)
                 .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
         ;
         mProgressDialog.setTitle(R.string.title_signing_up);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));

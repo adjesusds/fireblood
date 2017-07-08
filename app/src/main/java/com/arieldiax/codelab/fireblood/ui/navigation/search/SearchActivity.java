@@ -88,7 +88,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     /**
      * Duration of the animations.
      */
-    long animationsDuration;
+    long mAnimationsDuration;
 
     /**
      * Whether or not the search for hospitals has finished.
@@ -159,7 +159,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         int displayWidth = getResources().getDisplayMetrics().widthPixels;
         int displayHeight = getResources().getDisplayMetrics().heightPixels;
         mMapCameraUpdate = CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, displayWidth, displayHeight, 0);
-        animationsDuration = DateUtils.SECOND_IN_MILLIS / 3;
+        mAnimationsDuration = DateUtils.SECOND_IN_MILLIS / 3;
         mHasFinishedSearchForHospitals = true;
         mHospitalsDatabasePath = "";
         mUserValueEventListener = null;
@@ -200,7 +200,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                         ValueAnimator translateAnimation = (mHasFinishedSearchForHospitals)
                                 ? ValueAnimator.ofInt(mMapPaddingLeft, mMapPaddingBottom)
                                 : ValueAnimator.ofInt(mMapPaddingBottom, mMapPaddingLeft);
-                        translateAnimation.setDuration(animationsDuration);
+                        translateAnimation.setDuration(mAnimationsDuration);
                         translateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
                             @Override
@@ -242,7 +242,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                         mSearchForHospitalsButton
                                 .animate()
                                 .translationY(translationY)
-                                .setDuration(animationsDuration)
+                                .setDuration(mAnimationsDuration)
                         ;
                     }
 

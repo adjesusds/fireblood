@@ -146,14 +146,6 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 mConfirmBottomSheetDialog.show();
             }
         });
-    }
-
-    /**
-     * Updates the user interface view bindings.
-     */
-    void updateUi() {
-        mEmailTextView.setText(mFirebaseUser.getEmail());
-        ((TextView) mSnackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
         View.OnClickListener positiveButtonListener = new View.OnClickListener() {
 
             @Override
@@ -162,10 +154,18 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 sendVerificationEmail();
             }
         };
+        mConfirmBottomSheetDialog.setPositiveButtonListener(positiveButtonListener);
+    }
+
+    /**
+     * Updates the user interface view bindings.
+     */
+    void updateUi() {
+        mEmailTextView.setText(mFirebaseUser.getEmail());
+        ((TextView) mSnackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
         mConfirmBottomSheetDialog
                 .setTitle(R.string.title_send_verification_email)
                 .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
         ;
         mProgressDialog.setTitle(R.string.title_sending_verification_email);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));

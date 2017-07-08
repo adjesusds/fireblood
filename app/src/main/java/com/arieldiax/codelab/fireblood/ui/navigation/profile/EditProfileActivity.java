@@ -338,6 +338,38 @@ public class EditProfileActivity extends AppCompatActivity {
                 startActivityForResult(pickPlaceIntent, REQUEST_CODE_PICK_PLACE);
             }
         });
+        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mConfirmBottomSheetDialog.dismiss();
+                finishAfterTransition();
+            }
+        };
+        mConfirmBottomSheetDialog.setPositiveButtonListener(positiveButtonListener);
+        View.OnClickListener galleryButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPhotoBottomSheetDialog.dismiss();
+                Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(pickImageIntent, REQUEST_CODE_PICK_IMAGE);
+            }
+        };
+        View.OnClickListener removePhotoButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPhotoBottomSheetDialog.dismiss();
+                mPhotoProgressBar.setVisibility(View.VISIBLE);
+                mHasProcessedProfilePhoto = false;
+                updateUserProfilePhoto("");
+            }
+        };
+        mPhotoBottomSheetDialog
+                .setGalleryButtonListener(galleryButtonListener)
+                .setRemovePhotoButtonListener(removePhotoButtonListener)
+        ;
     }
 
     /**
@@ -361,41 +393,9 @@ public class EditProfileActivity extends AppCompatActivity {
         bloodTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
         ((TextView) mSnackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
-        View.OnClickListener positiveButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mConfirmBottomSheetDialog.dismiss();
-                finishAfterTransition();
-            }
-        };
         mConfirmBottomSheetDialog
                 .setTitle(R.string.title_cancel_edit_profile)
                 .setMessage(R.string.message_are_you_sure)
-                .setPositiveButtonListener(positiveButtonListener)
-        ;
-        View.OnClickListener galleryButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mPhotoBottomSheetDialog.dismiss();
-                Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(pickImageIntent, REQUEST_CODE_PICK_IMAGE);
-            }
-        };
-        View.OnClickListener removePhotoButtonListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                mPhotoBottomSheetDialog.dismiss();
-                mPhotoProgressBar.setVisibility(View.VISIBLE);
-                mHasProcessedProfilePhoto = false;
-                updateUserProfilePhoto("");
-            }
-        };
-        mPhotoBottomSheetDialog
-                .setGalleryButtonListener(galleryButtonListener)
-                .setRemovePhotoButtonListener(removePhotoButtonListener)
         ;
         mProgressDialog.setTitle(R.string.title_editing_profile);
         mProgressDialog.setMessage(getString(R.string.message_please_wait_a_few_seconds));

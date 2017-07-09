@@ -3,7 +3,6 @@ package com.arieldiax.codelab.fireblood.ui.navigation.search;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.LayoutTransition;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateUtils;
@@ -16,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.arieldiax.codelab.fireblood.R;
@@ -59,8 +59,9 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     View mStartContainerView;
     ProgressBar mMapProgressBar;
     View mEndContainerView;
-    LinearLayout mBottomContainerLinearLayout;
-    Button mSearchForHospitalsButton;
+    RelativeLayout mBottomContainerRelativeLayout;
+    Button mSearchForDonorsButton;
+    Button mRequestBloodButton;
 
     /**
      * Instance of the User class.
@@ -71,14 +72,6 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
      * Instance of the GoogleMap class.
      */
     GoogleMap mGoogleMap;
-
-    /**
-     * Padding of the map.
-     */
-    int mMapPaddingLeft;
-    int mMapPaddingTop;
-    int mMapPaddingRight;
-    int mMapPaddingBottom;
 
     /**
      * Camera update of the map.
@@ -142,8 +135,9 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mStartContainerView = findViewById(R.id.start_container_view);
         mMapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
         mEndContainerView = findViewById(R.id.end_container_view);
-        mBottomContainerLinearLayout = (LinearLayout) findViewById(R.id.bottom_container_linear_layout);
-        mSearchForHospitalsButton = (Button) findViewById(R.id.search_for_hospitals_button);
+        mBottomContainerRelativeLayout = (RelativeLayout) findViewById(R.id.bottom_container_relative_layout);
+        mSearchForDonorsButton = (Button) findViewById(R.id.search_for_donors_button);
+        mRequestBloodButton = (Button) findViewById(R.id.request_blood_button);
     }
 
     @Override
@@ -152,10 +146,6 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mClassCanonicalName = getClass().getCanonicalName();
         mUser = null;
         mGoogleMap = null;
-        mMapPaddingLeft = 0;
-        mMapPaddingTop = 0;
-        mMapPaddingRight = 0;
-        mMapPaddingBottom = 0;
         int displayWidth = getResources().getDisplayMetrics().widthPixels;
         int displayHeight = getResources().getDisplayMetrics().heightPixels;
         mMapCameraUpdate = CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, displayWidth, displayHeight, 0);
@@ -188,62 +178,65 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                 ) {
                             return;
                         }
-                        if (mHasFinishedSearchForHospitals) {
-                            mToast.cancel();
-                            mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
-                            mGoogleMap.clear();
-                            mDatabaseReference
-                                    .child(mHospitalsDatabasePath)
-                                    .removeEventListener(mHospitalsChildEventListener)
-                            ;
-                        }
-                        ValueAnimator translateAnimation = (mHasFinishedSearchForHospitals)
-                                ? ValueAnimator.ofInt(mMapPaddingLeft, mMapPaddingBottom)
-                                : ValueAnimator.ofInt(mMapPaddingBottom, mMapPaddingLeft);
-                        translateAnimation.setDuration(mAnimationsDuration);
-                        translateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        int translationY = ViewUtils.convertDpIntoPx(SearchActivity.this, 58.0f);
+                        if (!mHasFinishedSearchForHospitals) {
+                            mToast.setText(R.string.message_waiting_for_donors);
+                            mToast.show();
+                            mSearchForDonorsButton
+                                    .animate()
+                                    .setListener(null)
+                                    .translationY(translationY)
+                                    .setDuration(mAnimationsDuration)
+                                    .setListener(new AnimatorListenerAdapter() {
 
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator animation) {
-                                mGoogleMap.setPadding(mMapPaddingLeft, mMapPaddingTop, mMapPaddingRight, Integer.parseInt(animation.getAnimatedValue().toString()));
-                            }
-                        });
-                        translateAnimation.addListener(new AnimatorListenerAdapter() {
-
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                if (!mHasFinishedSearchForHospitals) {
-                                    mToast.setText(R.string.message_waiting_for_hospitals);
-                                    mToast.show();
-                                }
-                                mGoogleMap.animateCamera(mMapCameraUpdate, new GoogleMap.CancelableCallback() {
-
-                                    @Override
-                                    public void onFinish() {
-                                        if (!mHasFinishedSearchForHospitals) {
+                                        @Override
+                                        public void onAnimationEnd(Animator animation) {
+                                            super.onAnimationEnd(animation);
                                             mDatabaseReference
                                                     .child(mHospitalsDatabasePath)
                                                     .addChildEventListener(mHospitalsChildEventListener)
                                             ;
                                         }
-                                    }
+                                    })
+                            ;
+                        } else {
+                            mToast.cancel();
+                            mRequestBloodButton
+                                    .animate()
+                                    .setListener(null)
+                                    .translationY(translationY)
+                                    .setDuration(mAnimationsDuration)
+                                    .setListener(new AnimatorListenerAdapter() {
 
-                                    @Override
-                                    public void onCancel() {
-                                    }
-                                });
-                            }
-                        });
-                        translateAnimation.start();
-                        int translationY = (!mHasFinishedSearchForHospitals)
-                                ? mMapPaddingBottom - mMapPaddingLeft - mSearchForHospitalsButton.getPaddingTop() / 2
-                                : 0;
-                        mSearchForHospitalsButton
-                                .animate()
-                                .translationY(translationY)
-                                .setDuration(mAnimationsDuration)
-                        ;
+                                        @Override
+                                        public void onAnimationEnd(Animator animation) {
+                                            super.onAnimationEnd(animation);
+                                            mDatabaseReference
+                                                    .child(mHospitalsDatabasePath)
+                                                    .removeEventListener(mHospitalsChildEventListener)
+                                            ;
+                                            mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
+                                            mGoogleMap.clear();
+                                            mGoogleMap.animateCamera(mMapCameraUpdate, new GoogleMap.CancelableCallback() {
+
+                                                @Override
+                                                public void onFinish() {
+                                                    mSearchForDonorsButton
+                                                            .animate()
+                                                            .setListener(null)
+                                                            .translationY(0)
+                                                            .setDuration(mAnimationsDuration)
+                                                    ;
+                                                }
+
+                                                @Override
+                                                public void onCancel() {
+                                                }
+                                            });
+                                        }
+                                    })
+                            ;
+                        }
                     }
 
                     @Override
@@ -266,7 +259,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 toggleActivityInteractionsState();
             }
         });
-        mSearchForHospitalsButton.setOnClickListener(new View.OnClickListener() {
+        mSearchForDonorsButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -275,6 +268,26 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                         .replace(Hospital.PATH_SEGMENT_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner))
                         .replace(Hospital.PATH_SEGMENT_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
                 toggleActivityInteractionsState();
+            }
+        });
+        mRequestBloodButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mRequestBloodButton.setClickable(false);
+                RequestBloodDialogFragment requestBloodDialogFragment = new RequestBloodDialogFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString(RequestBloodDialogFragment.PROP_IN_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner));
+                arguments.putString(RequestBloodDialogFragment.PROP_IN_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
+                requestBloodDialogFragment.setArguments(arguments);
+                requestBloodDialogFragment.show(getSupportFragmentManager(), requestBloodDialogFragment.getTag());
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        mRequestBloodButton.setClickable(true);
+                    }
+                }, mAnimationsDuration);
             }
         });
         mUserValueEventListener = new ValueEventListener() {
@@ -396,11 +409,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
 
             @Override
             public void run() {
-                mMapPaddingLeft = mStartContainerView.getWidth();
-                mMapPaddingTop = mTopContainerLinearLayout.getHeight();
-                mMapPaddingRight = mEndContainerView.getWidth();
-                mMapPaddingBottom = mBottomContainerLinearLayout.getHeight();
-                mGoogleMap.setPadding(mMapPaddingLeft, mMapPaddingTop, mMapPaddingRight, mMapPaddingBottom);
+                mGoogleMap.setPadding(mStartContainerView.getWidth(), mTopContainerLinearLayout.getHeight(), mEndContainerView.getWidth(), mBottomContainerRelativeLayout.getHeight());
                 mGoogleMap.moveCamera(mMapCameraUpdate);
             }
         }, DateUtils.SECOND_IN_MILLIS / 2);
@@ -432,7 +441,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mProvinceSpinner.setEnabled(enabled);
         mBloodTypeSpinner.setEnabled(enabled);
         mMapProgressBar.setVisibility(visibility);
-        mSearchForHospitalsButton.setClickable(enabled);
+        mSearchForDonorsButton.setClickable(enabled);
+        mRequestBloodButton.setClickable(!enabled);
     }
 
     /**
@@ -482,6 +492,14 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
             @Override
             public void onFinish() {
                 mGoogleMap.getUiSettings().setAllGesturesEnabled(true);
+                if (mRequestBloodButton.getTranslationY() > 0) {
+                    mRequestBloodButton
+                            .animate()
+                            .setListener(null)
+                            .translationY(0)
+                            .setDuration(mAnimationsDuration)
+                    ;
+                }
             }
 
             @Override

@@ -2,7 +2,6 @@ package com.arieldiax.codelab.fireblood.ui.navigation.search;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +41,6 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
      */
     Toolbar mDonorsToolbar;
     ProgressBar mDonorsProgressBar;
-    TextView mRequestBloodTextView;
     RecyclerView mDonorsRecyclerView;
     TextView mDonorsEmptyRecyclerView;
 
@@ -78,7 +76,6 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
     void initUi() {
         mDonorsToolbar = (Toolbar) mContentView.findViewById(R.id.donors_toolbar);
         mDonorsProgressBar = (ProgressBar) mContentView.findViewById(R.id.donors_progress_bar);
-        mRequestBloodTextView = (TextView) mContentView.findViewById(R.id.request_blood_text_view);
         mDonorsRecyclerView = (RecyclerView) mContentView.findViewById(R.id.donors_recycler_view);
         mDonorsEmptyRecyclerView = (TextView) mContentView.findViewById(R.id.donors_empty_recycler_view);
     }
@@ -102,27 +99,11 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-        final String argumentProvince = getArguments().getString(PROP_IN_PROVINCE);
-        final String argumentBloodType = getArguments().getString(PROP_IN_BLOOD_TYPE);
-        final String argumentLocation = getArguments().getString(PROP_IN_LOCATION);
-        mRequestBloodTextView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                RequestBloodDialogFragment requestBloodDialogFragment = new RequestBloodDialogFragment();
-                Bundle arguments = new Bundle();
-                arguments.putString(RequestBloodDialogFragment.PROP_IN_PROVINCE, argumentProvince);
-                arguments.putString(RequestBloodDialogFragment.PROP_IN_BLOOD_TYPE, argumentBloodType);
-                arguments.putString(RequestBloodDialogFragment.PROP_IN_LOCATION, argumentLocation);
-                requestBloodDialogFragment.setArguments(arguments);
-                requestBloodDialogFragment.show(getActivity().getSupportFragmentManager(), requestBloodDialogFragment.getTag());
-            }
-        });
         String donorsDatabasePath = FirebaseUtils.normalizePath(Donor
                 .sDatabasePath
-                .replace(Donor.PATH_SEGMENT_PROVINCE, argumentProvince)
-                .replace(Donor.PATH_SEGMENT_BLOOD_TYPE, argumentBloodType)
-                .replace(Donor.PATH_SEGMENT_LOCATION, argumentLocation));
+                .replace(Donor.PATH_SEGMENT_PROVINCE, getArguments().getString(PROP_IN_PROVINCE))
+                .replace(Donor.PATH_SEGMENT_BLOOD_TYPE, getArguments().getString(PROP_IN_BLOOD_TYPE))
+                .replace(Donor.PATH_SEGMENT_LOCATION, getArguments().getString(PROP_IN_LOCATION)));
         Query donorsQuery = mDatabaseReference
                 .child(donorsDatabasePath)
                 .orderByChild(User.PROPERTY_FULL_NAME);
@@ -158,11 +139,7 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 int visibility = (mDonorsFirebaseRecyclerAdapter.getItemCount() > 0)
                         ? View.GONE
                         : View.VISIBLE;
-                int inverseVisibility = (mDonorsFirebaseRecyclerAdapter.getItemCount() == 0)
-                        ? View.GONE
-                        : View.VISIBLE;
                 mDonorsProgressBar.setVisibility(visibility);
-                mRequestBloodTextView.setVisibility(inverseVisibility);
                 mDonorsEmptyRecyclerView.setVisibility(visibility);
             }
         };

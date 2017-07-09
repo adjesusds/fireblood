@@ -28,7 +28,6 @@ public class RequestBloodDialogFragment extends DialogFragment {
      */
     public static final String PROP_IN_PROVINCE = "province";
     public static final String PROP_IN_BLOOD_TYPE = "blood_type";
-    public static final String PROP_IN_LOCATION = "location";
 
     /**
      * Values of the litres.

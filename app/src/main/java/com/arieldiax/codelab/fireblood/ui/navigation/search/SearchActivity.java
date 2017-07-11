@@ -84,14 +84,14 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     long mAnimationsDuration;
 
     /**
-     * Whether or not the search for hospitals has finished.
+     * Whether or not the search for hospitals, per province, per blood type has finished.
      */
-    boolean mHasFinishedSearchForHospitals;
+    boolean mHasFinishedSearchForHospitalsPerProvincePerBloodType;
 
     /**
-     * Database path of the hospitals.
+     * Database path of the hospitals, per province, per blood type.
      */
-    String mHospitalsDatabasePath;
+    String mHospitalsPerProvincePerBloodTypeDatabasePath;
 
     /**
      * Value event listener of the user.
@@ -99,9 +99,9 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     ValueEventListener mUserValueEventListener;
 
     /**
-     * Child event listener of the hospitals.
+     * Child event listener of the hospitals, per province, per blood type.
      */
-    ChildEventListener mHospitalsChildEventListener;
+    ChildEventListener mHospitalsPerProvincePerBloodTypeChildEventListener;
 
     /**
      * Map of Marker instances.
@@ -150,10 +150,10 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         int displayHeight = getResources().getDisplayMetrics().heightPixels;
         mMapCameraUpdate = CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, displayWidth, displayHeight, 0);
         mAnimationsDuration = DateUtils.SECOND_IN_MILLIS / 3;
-        mHasFinishedSearchForHospitals = true;
-        mHospitalsDatabasePath = "";
+        mHasFinishedSearchForHospitalsPerProvincePerBloodType = true;
+        mHospitalsPerProvincePerBloodTypeDatabasePath = "";
         mUserValueEventListener = null;
-        mHospitalsChildEventListener = null;
+        mHospitalsPerProvincePerBloodTypeChildEventListener = null;
         mMarkers = new SparseArray<>();
         mLatLngBoundsBuilder = new LatLngBounds.Builder();
     }
@@ -179,7 +179,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                             return;
                         }
                         int translationY = ViewUtils.convertDpIntoPx(SearchActivity.this, 58.0f);
-                        if (!mHasFinishedSearchForHospitals) {
+                        if (!mHasFinishedSearchForHospitalsPerProvincePerBloodType) {
                             mToast.setText(R.string.message_waiting_for_donors);
                             mToast.show();
                             mSearchForDonorsButton
@@ -193,8 +193,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                         public void onAnimationEnd(Animator animation) {
                                             super.onAnimationEnd(animation);
                                             mDatabaseReference
-                                                    .child(mHospitalsDatabasePath)
-                                                    .addChildEventListener(mHospitalsChildEventListener)
+                                                    .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
+                                                    .addChildEventListener(mHospitalsPerProvincePerBloodTypeChildEventListener)
                                             ;
                                         }
                                     })
@@ -212,8 +212,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                         public void onAnimationEnd(Animator animation) {
                                             super.onAnimationEnd(animation);
                                             mDatabaseReference
-                                                    .child(mHospitalsDatabasePath)
-                                                    .removeEventListener(mHospitalsChildEventListener)
+                                                    .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
+                                                    .removeEventListener(mHospitalsPerProvincePerBloodTypeChildEventListener)
                                             ;
                                             mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
                                             mGoogleMap.clear();
@@ -253,7 +253,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
 
             @Override
             public void onClick(View view) {
-                mHospitalsDatabasePath = "";
+                mHospitalsPerProvincePerBloodTypeDatabasePath = "";
                 mMarkers.clear();
                 mLatLngBoundsBuilder = new LatLngBounds.Builder();
                 toggleActivityInteractionsState();
@@ -263,8 +263,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
 
             @Override
             public void onClick(View view) {
-                mHospitalsDatabasePath = Hospital
-                        .sDatabasePath
+                mHospitalsPerProvincePerBloodTypeDatabasePath = Hospital
+                        .sDatabasePathPerProvincePerBloodType
                         .replace(Hospital.PATH_SEGMENT_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner))
                         .replace(Hospital.PATH_SEGMENT_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
                 toggleActivityInteractionsState();
@@ -306,7 +306,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 .child(mFirebaseUser.getUid())
                 .addValueEventListener(mUserValueEventListener)
         ;
-        mHospitalsChildEventListener = new ChildEventListener() {
+        mHospitalsPerProvincePerBloodTypeChildEventListener = new ChildEventListener() {
 
             @Override
             public void onChildAdded(
@@ -373,8 +373,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 .removeEventListener(mUserValueEventListener)
         ;
         mDatabaseReference
-                .child(mHospitalsDatabasePath)
-                .removeEventListener(mHospitalsChildEventListener)
+                .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
+                .removeEventListener(mHospitalsPerProvincePerBloodTypeChildEventListener)
         ;
     }
 
@@ -382,7 +382,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     protected void onNavigationItemReselectedListener() {
         super.onNavigationItemReselectedListener();
         if (
-                !mHasFinishedSearchForHospitals &&
+                !mHasFinishedSearchForHospitalsPerProvincePerBloodType &&
                         mMarkers.size() > 0
                 ) {
             animateMarkers();
@@ -391,7 +391,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
 
     @Override
     public void onBackPressed() {
-        if (!mHasFinishedSearchForHospitals) {
+        if (!mHasFinishedSearchForHospitalsPerProvincePerBloodType) {
             mBackImageView.performClick();
             return;
         }
@@ -432,11 +432,11 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
      * Toggles the activity interactions state.
      */
     void toggleActivityInteractionsState() {
-        mHasFinishedSearchForHospitals = !mHasFinishedSearchForHospitals;
-        int visibility = (mHasFinishedSearchForHospitals)
+        mHasFinishedSearchForHospitalsPerProvincePerBloodType = !mHasFinishedSearchForHospitalsPerProvincePerBloodType;
+        int visibility = (mHasFinishedSearchForHospitalsPerProvincePerBloodType)
                 ? View.GONE
                 : View.VISIBLE;
-        boolean enabled = mHasFinishedSearchForHospitals;
+        boolean enabled = mHasFinishedSearchForHospitalsPerProvincePerBloodType;
         mBackImageView.setVisibility(visibility);
         mProvinceSpinner.setEnabled(enabled);
         mBloodTypeSpinner.setEnabled(enabled);

@@ -14,9 +14,9 @@ public class Hospital {
     public static final String PATH_SEGMENT_BLOOD_TYPE = ":bloodType";
 
     /**
-     * Database path of the hospitals.
+     * Database path of the hospitals, per province, per blood type.
      */
-    public static String sDatabasePath = "/hospitals/" + PATH_SEGMENT_PROVINCE + "/" + PATH_SEGMENT_BLOOD_TYPE;
+    public static String sDatabasePathPerProvincePerBloodType = "/hospitalsPerProvincePerBloodType/" + PATH_SEGMENT_PROVINCE + "/" + PATH_SEGMENT_BLOOD_TYPE;
 
     /**
      * Fields of the hospital.

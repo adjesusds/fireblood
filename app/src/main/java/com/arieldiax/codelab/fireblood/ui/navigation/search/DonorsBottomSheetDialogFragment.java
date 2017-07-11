@@ -50,9 +50,9 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
     DatabaseReference mDatabaseReference;
 
     /**
-     * Firebase recycler adapter of the donors.
+     * Firebase recycler adapter of the donors, per province, per blood type, per hospital.
      */
-    FirebaseRecyclerAdapter mDonorsFirebaseRecyclerAdapter;
+    FirebaseRecyclerAdapter mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter;
 
     @Override
     public void setupDialog(
@@ -85,7 +85,7 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
      */
     void init() {
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mDonorsFirebaseRecyclerAdapter = null;
+        mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter = null;
     }
 
     /**
@@ -99,17 +99,17 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-        String donorsDatabasePath = FirebaseUtils.normalizePath(Donor
-                .sDatabasePath
+        String donorsPerProvincePerBloodTypePerHospitalDatabasePath = FirebaseUtils.normalizePath(Donor
+                .sDatabasePathPerProvincePerBloodTypePerHospital
                 .replace(Donor.PATH_SEGMENT_PROVINCE, getArguments().getString(PROP_IN_PROVINCE))
                 .replace(Donor.PATH_SEGMENT_BLOOD_TYPE, getArguments().getString(PROP_IN_BLOOD_TYPE))
                 .replace(Donor.PATH_SEGMENT_LOCATION, getArguments().getString(PROP_IN_LOCATION)));
         Query donorsQuery = mDatabaseReference
-                .child(donorsDatabasePath)
+                .child(donorsPerProvincePerBloodTypePerHospitalDatabasePath)
                 .orderByChild(User.PROPERTY_FULL_NAME);
         // TODO: Implement infinite scroll, once the feature gets released as part of `master`.
         // @see https://github.com/firebase/FirebaseUI-Android/pull/26
-        mDonorsFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Donor, DonorViewHolder>(Donor.class, R.layout.list_item_donor, DonorViewHolder.class, donorsQuery) {
+        mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Donor, DonorViewHolder>(Donor.class, R.layout.list_item_donor, DonorViewHolder.class, donorsQuery) {
 
             @Override
             protected void populateViewHolder(
@@ -136,7 +136,7 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
             @Override
             public void onDataChanged() {
                 super.onDataChanged();
-                int visibility = (mDonorsFirebaseRecyclerAdapter.getItemCount() > 0)
+                int visibility = (mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter.getItemCount() > 0)
                         ? View.GONE
                         : View.VISIBLE;
                 mDonorsProgressBar.setVisibility(visibility);
@@ -150,13 +150,13 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
      */
     void updateUi() {
         mDonorsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDonorsRecyclerView.setAdapter(mDonorsFirebaseRecyclerAdapter);
+        mDonorsRecyclerView.setAdapter(mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter);
         mDonorsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDonorsFirebaseRecyclerAdapter.cleanup();
+        mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter.cleanup();
     }
 }

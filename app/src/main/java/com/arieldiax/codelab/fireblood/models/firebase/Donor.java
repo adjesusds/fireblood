@@ -13,9 +13,9 @@ public class Donor {
     public static final String PATH_SEGMENT_LOCATION = ":location";
 
     /**
-     * Database path of the donors.
+     * Database path of the donors, per province, per blood type, per hospital.
      */
-    public static String sDatabasePath = "/donors/" + PATH_SEGMENT_PROVINCE + "/" + PATH_SEGMENT_BLOOD_TYPE + "/" + PATH_SEGMENT_LOCATION;
+    public static String sDatabasePathPerProvincePerBloodTypePerHospital = "/donorsPerProvincePerBloodTypePerHospital/" + PATH_SEGMENT_PROVINCE + "/" + PATH_SEGMENT_BLOOD_TYPE + "/" + PATH_SEGMENT_LOCATION;
 
     /**
      * Fields of the donor.

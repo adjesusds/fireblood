@@ -111,11 +111,9 @@
     <string name="validation_the_email_is_not_registered">The email is not registered.</string>
     <string name="validation_no_data_has_changed">No data has changed.</string>
 
-    <!-- Hospitals related strings. -->
-    <string name="hospital_donors_snippet">Donors: <xliff:g id="donors_count">%,d</xliff:g></string>
-    <string name="hospital_donors_including_you_snippet">Donors: <xliff:g id="donors_count">%,d</xliff:g> (including you)</string>
-
     <!-- Donors related strings. -->
+    <string name="donor_information_donors">Donors: <xliff:g id="donors_count">%,d</xliff:g></string>
+    <string name="donor_information_donors_including_you">Donors: <xliff:g id="donors_count">%,d</xliff:g> (including you)</string>
     <string name="donor_label_created_at" translatable="false">est.:</string>
 
     <!-- Requests related strings. -->

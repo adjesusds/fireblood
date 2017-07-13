@@ -17,8 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.models.firebase.Donor;
 import com.arieldiax.codelab.fireblood.models.firebase.Hospital;
 import com.arieldiax.codelab.fireblood.models.firebase.User;
 import com.arieldiax.codelab.fireblood.ui.navigation.main.MainActivity;
@@ -56,6 +58,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     ImageView mBackImageView;
     Spinner mProvinceSpinner;
     Spinner mBloodTypeSpinner;
+    TextView mDonorsCountTextView;
     View mStartContainerView;
     ProgressBar mMapProgressBar;
     View mEndContainerView;
@@ -89,6 +92,11 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     boolean mHasFinishedSearchForHospitalsPerProvincePerBloodType;
 
     /**
+     * Database path of the donors count, per province, per blood type.
+     */
+    String mDonorsCountPerProvincePerBloodTypeDatabasePath;
+
+    /**
      * Database path of the hospitals, per province, per blood type.
      */
     String mHospitalsPerProvincePerBloodTypeDatabasePath;
@@ -97,6 +105,11 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
      * Value event listener of the user.
      */
     ValueEventListener mUserValueEventListener;
+
+    /**
+     * Value event listener of the donors count, per province, per blood type.
+     */
+    ValueEventListener mDonorsCountPerProvincePerBloodTypeValueEventListener;
 
     /**
      * Child event listener of the hospitals, per province, per blood type.
@@ -132,6 +145,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mBackImageView = (ImageView) findViewById(R.id.back_image_view);
         mProvinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         mBloodTypeSpinner = (Spinner) findViewById(R.id.blood_type_spinner);
+        mDonorsCountTextView = (TextView) findViewById(R.id.donors_count_text_view);
         mStartContainerView = findViewById(R.id.start_container_view);
         mMapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
         mEndContainerView = findViewById(R.id.end_container_view);
@@ -151,8 +165,10 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mMapCameraUpdate = CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, displayWidth, displayHeight, 0);
         mAnimationsDuration = DateUtils.SECOND_IN_MILLIS / 3;
         mHasFinishedSearchForHospitalsPerProvincePerBloodType = true;
+        mDonorsCountPerProvincePerBloodTypeDatabasePath = "";
         mHospitalsPerProvincePerBloodTypeDatabasePath = "";
         mUserValueEventListener = null;
+        mDonorsCountPerProvincePerBloodTypeValueEventListener = null;
         mHospitalsPerProvincePerBloodTypeChildEventListener = null;
         mMarkers = new SparseArray<>();
         mLatLngBoundsBuilder = new LatLngBounds.Builder();
@@ -180,8 +196,6 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                         }
                         int translationY = ViewUtils.convertDpIntoPx(SearchActivity.this, 58.0f);
                         if (!mHasFinishedSearchForHospitalsPerProvincePerBloodType) {
-                            mToast.setText(R.string.message_waiting_for_donors);
-                            mToast.show();
                             mSearchForDonorsButton
                                     .animate()
                                     .setListener(null)
@@ -192,10 +206,27 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                         @Override
                                         public void onAnimationEnd(Animator animation) {
                                             super.onAnimationEnd(animation);
-                                            mDatabaseReference
-                                                    .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
-                                                    .addChildEventListener(mHospitalsPerProvincePerBloodTypeChildEventListener)
-                                            ;
+                                            mToast.setText(R.string.message_waiting_for_donors);
+                                            mToast.show();
+                                            mGoogleMap.setPadding(mStartContainerView.getWidth(), mTopContainerLinearLayout.getHeight(), mEndContainerView.getWidth(), mBottomContainerRelativeLayout.getHeight());
+                                            mGoogleMap.animateCamera(mMapCameraUpdate, new GoogleMap.CancelableCallback() {
+
+                                                @Override
+                                                public void onFinish() {
+                                                    mDatabaseReference
+                                                            .child(mDonorsCountPerProvincePerBloodTypeDatabasePath)
+                                                            .addValueEventListener(mDonorsCountPerProvincePerBloodTypeValueEventListener)
+                                                    ;
+                                                    mDatabaseReference
+                                                            .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
+                                                            .addChildEventListener(mHospitalsPerProvincePerBloodTypeChildEventListener)
+                                                    ;
+                                                }
+
+                                                @Override
+                                                public void onCancel() {
+                                                }
+                                            });
                                         }
                                     })
                             ;
@@ -212,9 +243,14 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                         public void onAnimationEnd(Animator animation) {
                                             super.onAnimationEnd(animation);
                                             mDatabaseReference
+                                                    .child(mDonorsCountPerProvincePerBloodTypeDatabasePath)
+                                                    .removeEventListener(mDonorsCountPerProvincePerBloodTypeValueEventListener)
+                                            ;
+                                            mDatabaseReference
                                                     .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
                                                     .removeEventListener(mHospitalsPerProvincePerBloodTypeChildEventListener)
                                             ;
+                                            mDonorsCountTextView.setText(getString(R.string.donor_information_donors, 0));
                                             mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
                                             mGoogleMap.clear();
                                             mGoogleMap.animateCamera(mMapCameraUpdate, new GoogleMap.CancelableCallback() {
@@ -226,6 +262,15 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                                             .setListener(null)
                                                             .translationY(0)
                                                             .setDuration(mAnimationsDuration)
+                                                            .setListener(new AnimatorListenerAdapter() {
+
+                                                                @Override
+                                                                public void onAnimationEnd(Animator animation) {
+                                                                    super.onAnimationEnd(animation);
+                                                                    mGoogleMap.setPadding(mStartContainerView.getWidth(), mTopContainerLinearLayout.getHeight(), mEndContainerView.getWidth(), mBottomContainerRelativeLayout.getHeight());
+                                                                    mGoogleMap.animateCamera(mMapCameraUpdate);
+                                                                }
+                                                            })
                                                     ;
                                                 }
 
@@ -263,10 +308,16 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
 
             @Override
             public void onClick(View view) {
+                String province = FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner);
+                String bloodType = FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner);
+                mDonorsCountPerProvincePerBloodTypeDatabasePath = Donor
+                        .sDatabasePathCountPerProvincePerBloodType
+                        .replace(Donor.PATH_SEGMENT_PROVINCE, province)
+                        .replace(Donor.PATH_SEGMENT_BLOOD_TYPE, bloodType);
                 mHospitalsPerProvincePerBloodTypeDatabasePath = Hospital
                         .sDatabasePathPerProvincePerBloodType
-                        .replace(Hospital.PATH_SEGMENT_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner))
-                        .replace(Hospital.PATH_SEGMENT_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
+                        .replace(Hospital.PATH_SEGMENT_PROVINCE, province)
+                        .replace(Hospital.PATH_SEGMENT_BLOOD_TYPE, bloodType);
                 toggleActivityInteractionsState();
             }
         });
@@ -306,6 +357,29 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 .child(mFirebaseUser.getUid())
                 .addValueEventListener(mUserValueEventListener)
         ;
+        mDonorsCountPerProvincePerBloodTypeValueEventListener = new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Object donorsCountObject = dataSnapshot.getValue();
+                if (donorsCountObject == null) {
+                    return;
+                }
+                int donorsCountValue = Integer.parseInt(donorsCountObject.toString());
+                String donorsCountText = (
+                        !mUser.isDonor ||
+                                !mUser.province.equals(FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner)) ||
+                                !mUser.bloodType.equals(FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner))
+                )
+                        ? getString(R.string.donor_information_donors, donorsCountValue)
+                        : getString(R.string.donor_information_donors_including_you, donorsCountValue);
+                mDonorsCountTextView.setText(donorsCountText);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
         mHospitalsPerProvincePerBloodTypeChildEventListener = new ChildEventListener() {
 
             @Override
@@ -362,6 +436,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         bloodTypeArrayAdapter.remove(getString(R.string.placeholder_select_an_option));
         bloodTypeArrayAdapter.notifyDataSetChanged();
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
+        mDonorsCountTextView.setText(getString(R.string.donor_information_donors, 0));
     }
 
     @Override
@@ -371,6 +446,10 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                 .child(User.DATABASE_PATH)
                 .child(mFirebaseUser.getUid())
                 .removeEventListener(mUserValueEventListener)
+        ;
+        mDatabaseReference
+                .child(mDonorsCountPerProvincePerBloodTypeDatabasePath)
+                .removeEventListener(mDonorsCountPerProvincePerBloodTypeValueEventListener)
         ;
         mDatabaseReference
                 .child(mHospitalsPerProvincePerBloodTypeDatabasePath)
@@ -440,6 +519,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mBackImageView.setVisibility(visibility);
         mProvinceSpinner.setEnabled(enabled);
         mBloodTypeSpinner.setEnabled(enabled);
+        mDonorsCountTextView.setVisibility(visibility);
         mMapProgressBar.setVisibility(visibility);
         mSearchForDonorsButton.setClickable(enabled);
         mRequestBloodButton.setClickable(!enabled);
@@ -471,8 +551,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                         !mUser.bloodType.equals(FormUtils.getViewValue(this, mBloodTypeSpinner)) ||
                         !mUser.hospital.getLocation().equals(hospitalLocation)
         )
-                ? getString(R.string.hospital_donors_snippet, hospital.donorsCount)
-                : getString(R.string.hospital_donors_including_you_snippet, hospital.donorsCount);
+                ? getString(R.string.donor_information_donors, hospital.donorsCount)
+                : getString(R.string.donor_information_donors_including_you, hospital.donorsCount);
         marker.setIcon(markerIcon);
         marker.setTitle(markerTitle);
         marker.setSnippet(markerSnippet);

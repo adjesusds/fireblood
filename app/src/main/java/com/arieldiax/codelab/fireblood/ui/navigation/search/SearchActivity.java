@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.LayoutTransition;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.SparseArray;
@@ -92,6 +93,16 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     boolean mHasFinishedSearchForHospitalsPerProvincePerBloodType;
 
     /**
+     * Count down timer of the toast.
+     */
+    CountDownTimer mToastCountDownTimer;
+
+    /**
+     * Whether or not the count down timer of the toast should be restored.
+     */
+    boolean mShouldRestoreToastCountDownTimer;
+
+    /**
      * Database path of the donors count, per province, per blood type.
      */
     String mDonorsCountPerProvincePerBloodTypeDatabasePath;
@@ -165,6 +176,20 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         mMapCameraUpdate = CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, displayWidth, displayHeight, 0);
         mAnimationsDuration = DateUtils.SECOND_IN_MILLIS / 3;
         mHasFinishedSearchForHospitalsPerProvincePerBloodType = true;
+        long toastOnScreenDuration = DateUtils.SECOND_IN_MILLIS * 3 + DateUtils.SECOND_IN_MILLIS / 2;
+        mToastCountDownTimer = new CountDownTimer(toastOnScreenDuration + DateUtils.SECOND_IN_MILLIS, toastOnScreenDuration) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mToast.show();
+            }
+
+            @Override
+            public void onFinish() {
+                mToastCountDownTimer.start();
+            }
+        };
+        mShouldRestoreToastCountDownTimer = false;
         mDonorsCountPerProvincePerBloodTypeDatabasePath = "";
         mHospitalsPerProvincePerBloodTypeDatabasePath = "";
         mUserValueEventListener = null;
@@ -207,7 +232,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                         public void onAnimationEnd(Animator animation) {
                                             super.onAnimationEnd(animation);
                                             mToast.setText(R.string.message_waiting_for_donors);
-                                            mToast.show();
+                                            mToastCountDownTimer.start();
+                                            mShouldRestoreToastCountDownTimer = true;
                                             mGoogleMap.setPadding(mStartContainerView.getWidth(), mTopContainerLinearLayout.getHeight(), mEndContainerView.getWidth(), mBottomContainerRelativeLayout.getHeight());
                                             mGoogleMap.animateCamera(mMapCameraUpdate, new GoogleMap.CancelableCallback() {
 
@@ -232,6 +258,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                             ;
                         } else {
                             mToast.cancel();
+                            mToastCountDownTimer.cancel();
+                            mShouldRestoreToastCountDownTimer = false;
                             mRequestBloodButton
                                     .animate()
                                     .setListener(null)
@@ -389,6 +417,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
             ) {
                 Hospital hospital = dataSnapshot.getValue(Hospital.class);
                 mToast.cancel();
+                mToastCountDownTimer.cancel();
+                mShouldRestoreToastCountDownTimer = false;
                 mMapProgressBar.setVisibility(View.GONE);
                 placeMarker(hospital);
             }
@@ -437,6 +467,22 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
         bloodTypeArrayAdapter.notifyDataSetChanged();
         mBloodTypeSpinner.setAdapter(bloodTypeArrayAdapter);
         mDonorsCountTextView.setText(getString(R.string.donor_information_donors, 0));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mShouldRestoreToastCountDownTimer) {
+            mToastCountDownTimer.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mShouldRestoreToastCountDownTimer) {
+            mToastCountDownTimer.cancel();
+        }
     }
 
     @Override

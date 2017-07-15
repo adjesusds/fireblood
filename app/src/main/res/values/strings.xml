@@ -68,7 +68,6 @@
     <string name="title_sending_verification_email">Sending Verification Email</string>
     <string name="title_search_for_donors">Search for Donors</string>
     <string name="title_request_blood">Request Blood</string>
-    <string name="title_donors">Donors</string>
     <string name="title_cancel_edit_profile">Cancel Edit Profile</string>
     <string name="title_editing_profile">Editing Profile</string>
     <string name="title_edit_profile_photo">Edit Profile Photo</string>
@@ -84,7 +83,6 @@
     <string name="message_recovery_email_sent">Recovery email sent!</string>
     <string name="message_verification_email_sent">Verification email sent!</string>
     <string name="message_waiting_for_donors">Waiting for donors&#8230;</string>
-    <string name="message_no_donors_have_registered">No donors have registered.</string>
     <string name="message_blood_successfully_requested">Blood successfully requested.</string>
     <string name="message_the_data_has_not_loaded_yet">The data has not loaded yet.</string>
     <string name="message_no_application_was_found">No application was found.</string>

@@ -228,6 +228,12 @@ public class ProfileActivity extends MainActivity {
     }
 
     @Override
+    protected void onNavigationItemReselectedListener() {
+        super.onNavigationItemReselectedListener();
+        mProfileScrollView.fullScroll(View.FOCUS_UP);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mDatabaseReference
@@ -235,12 +241,6 @@ public class ProfileActivity extends MainActivity {
                 .child((!mUserUid.isEmpty()) ? mUserUid : mFirebaseUser.getUid())
                 .removeEventListener(mUserValueEventListener)
         ;
-    }
-
-    @Override
-    protected void onNavigationItemReselectedListener() {
-        super.onNavigationItemReselectedListener();
-        mProfileScrollView.fullScroll(View.FOCUS_UP);
     }
 
     @Override

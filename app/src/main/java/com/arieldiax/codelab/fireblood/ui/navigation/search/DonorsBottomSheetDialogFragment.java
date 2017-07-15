@@ -27,6 +27,7 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
     /**
      * Properties of the fragment.
      */
+    public static final String PROP_IN_HOSPITAL_NAME = "hospital_name";
     public static final String PROP_IN_PROVINCE = "province";
     public static final String PROP_IN_BLOOD_TYPE = "blood_type";
     public static final String PROP_IN_LOCATION = "location";
@@ -149,6 +150,7 @@ public class DonorsBottomSheetDialogFragment extends BottomSheetDialogFragment {
      * Updates the user interface view bindings.
      */
     void updateUi() {
+        mDonorsToolbar.setTitle(getArguments().getString(PROP_IN_HOSPITAL_NAME));
         mDonorsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mDonorsRecyclerView.setAdapter(mDonorsPerProvincePerBloodTypePerHospitalFirebaseRecyclerAdapter);
         mDonorsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

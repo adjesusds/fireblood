@@ -470,6 +470,17 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     }
 
     @Override
+    protected void onNavigationItemReselectedListener() {
+        super.onNavigationItemReselectedListener();
+        if (
+                !mHasFinishedSearchForHospitalsPerProvincePerBloodType &&
+                        mMarkers.size() > 0
+                ) {
+            animateMarkers();
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (mShouldRestoreToastCountDownTimer) {
@@ -504,17 +515,6 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
     }
 
     @Override
-    protected void onNavigationItemReselectedListener() {
-        super.onNavigationItemReselectedListener();
-        if (
-                !mHasFinishedSearchForHospitalsPerProvincePerBloodType &&
-                        mMarkers.size() > 0
-                ) {
-            animateMarkers();
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         if (!mHasFinishedSearchForHospitalsPerProvincePerBloodType) {
             mBackImageView.performClick();
@@ -544,6 +544,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
             public void onInfoWindowClick(Marker marker) {
                 DonorsBottomSheetDialogFragment donorsBottomSheetDialogFragment = new DonorsBottomSheetDialogFragment();
                 Bundle arguments = new Bundle();
+                arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_HOSPITAL_NAME, marker.getTitle());
                 arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_PROVINCE, FormUtils.getViewValue(SearchActivity.this, mProvinceSpinner));
                 arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_BLOOD_TYPE, FormUtils.getViewValue(SearchActivity.this, mBloodTypeSpinner));
                 arguments.putString(DonorsBottomSheetDialogFragment.PROP_IN_LOCATION, marker.getPosition().latitude + "_" + marker.getPosition().longitude);

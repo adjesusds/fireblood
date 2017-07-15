@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:navigationIcon="@drawable/ic_arrow_back_red_24dp"
-            app:title="@string/title_donors"
             app:titleTextColor="@color/colorPrimary">
 
             <ProgressBar
@@ -48,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/message_no_donors_have_registered"
+            android:text="@string/message_waiting_for_donors"
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             android:textColor="@android:color/black" />
     </RelativeLayout>

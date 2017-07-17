@@ -62,8 +62,8 @@ public class EditProfileActivity extends AppCompatActivity {
     /**
      * Request codes of the activity.
      */
-    private static final int REQUEST_CODE_PICK_IMAGE = 0;
-    private static final int REQUEST_CODE_PICK_PLACE = 1;
+    private static final int REQUEST_CODE_PICK_IMAGE = 1;
+    private static final int REQUEST_CODE_PICK_PLACE = 2;
 
     /**
      * Consent age of the Dominican Republic.

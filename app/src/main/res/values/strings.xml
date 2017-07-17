@@ -127,7 +127,7 @@
     <string name="menu_item_save">Save</string>
 
     <!-- Navigation items related strings. -->
-    <string name="navigation_item_notifications">Notifications</string>
+    <string name="navigation_item_requests">Requests</string>
     <string name="navigation_item_search">Search</string>
     <string name="navigation_item_profile">Profile</string>
     <string name="navigation_item_view_photo">View Photo</string>

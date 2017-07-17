@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Request codes of the activity.
      */
-    private static final int REQUEST_CODE_PICK_PLACE = 0;
+    private static final int REQUEST_CODE_PICK_PLACE = 1;
 
     /**
      * Consent age of the Dominican Republic.

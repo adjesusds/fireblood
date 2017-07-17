@@ -115,7 +115,7 @@ public final class ViewUtils {
             Context context,
             float dp
     ) {
-        return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
+        return (int) (dp * context.getResources().getDisplayMetrics().density + 0.50f);
     }
 
     /**

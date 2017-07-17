@@ -165,8 +165,8 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
         mGoogleMap.getUiSettings().setIndoorLevelPickerEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
         mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
-        int mapPadding = ViewUtils.convertDpIntoPx(this, 16.0f);
-        int mapPaddingTop = mapPadding + ViewUtils.convertDpIntoPx(this, 24.0f);
+        int mapPadding = ViewUtils.convertDpIntoPx(this, 16.00f);
+        int mapPaddingTop = mapPadding + ViewUtils.convertDpIntoPx(this, 24.00f);
         mGoogleMap.setPadding(mapPadding, mapPaddingTop, mapPadding, mapPadding);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(MapUtils.sDominicanRepublicGeographicalBoundaries, mDisplayWidth, mDisplayHeight, 0));
         mLoaderManager.initLoader(0, null, this);
@@ -224,7 +224,7 @@ public class PlacePickerActivity extends AppCompatActivity implements OnMapReady
 
                             @Override
                             public void run() {
-                                BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_whatshot_red_24dp)));
+                                BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_place_red_24dp)));
                                 MarkerOptions markerOptions = new MarkerOptions()
                                         .icon(markerIcon)
                                         .position(place.getLocation())

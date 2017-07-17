@@ -17,12 +17,12 @@
         android:theme="@style/AppBaseTheme">
 
         <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/configuration_google_maps_api_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".ui.launch.SplashActivity"
@@ -73,7 +73,7 @@
             android:theme="@style/AppMainTheme" />
 
         <activity
-            android:name=".ui.navigation.notifications.NotificationsActivity"
+            android:name=".ui.navigation.requests.RequestsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoAnimationTheme" />
 

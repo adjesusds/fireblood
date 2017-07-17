@@ -219,7 +219,7 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
                                 ) {
                             return;
                         }
-                        int translationY = ViewUtils.convertDpIntoPx(SearchActivity.this, 58.0f);
+                        int translationY = ViewUtils.convertDpIntoPx(SearchActivity.this, 60.00f);
                         if (!mHasFinishedSearchForHospitalsPerProvincePerBloodType) {
                             mSearchForDonorsButton
                                     .animate()
@@ -589,8 +589,8 @@ public class SearchActivity extends MainActivity implements OnMapReadyCallback {
             mLatLngBoundsBuilder.include(hospitalLocation);
         }
         BitmapDescriptor markerIcon = (hospital.donorsCount > 0)
-                ? BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_whatshot_red_24dp)))
-                : BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_whatshot_black_24dp)));
+                ? BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_place_red_24dp)))
+                : BitmapDescriptorFactory.fromBitmap(ViewUtils.convertDrawableIntoBitmap(getDrawable(R.drawable.ic_place_black_24dp)));
         String markerTitle = hospital.name;
         String markerSnippet = (
                 !mUser.isDonor ||

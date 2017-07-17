@@ -22,7 +22,7 @@
     <dimen name="margin_double_half_quarter_minus">-44dp</dimen>
     <dimen name="margin_triple_half">56dp</dimen>
     <dimen name="margin_triple_half_minus">-56dp</dimen>
-    <dimen name="margin_triple_half_quarter_half">58dp</dimen>
+    <dimen name="margin_triple_half_quarter">60dp</dimen>
 
     <!-- Custom app image sizes. -->
     <dimen name="image_size_small">50dp</dimen>

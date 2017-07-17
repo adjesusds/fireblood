@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.arieldiax.codelab.fireblood.R;
 import com.arieldiax.codelab.fireblood.ui.launch.WelcomeActivity;
-import com.arieldiax.codelab.fireblood.ui.navigation.notifications.NotificationsActivity;
 import com.arieldiax.codelab.fireblood.ui.navigation.profile.ProfileActivity;
+import com.arieldiax.codelab.fireblood.ui.navigation.requests.RequestsActivity;
 import com.arieldiax.codelab.fireblood.ui.navigation.search.SearchActivity;
 import com.arieldiax.codelab.fireblood.utils.AnimationUtils;
 import com.arieldiax.codelab.fireblood.utils.NavigationUtils;
@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem navigationItem) {
                 Class activityClass = null;
                 switch (navigationItem.getItemId()) {
-                    case R.id.notifications_navigation_item:
-                        activityClass = NotificationsActivity.class;
+                    case R.id.requests_navigation_item:
+                        activityClass = RequestsActivity.class;
                         break;
                     case R.id.search_navigation_item:
                         activityClass = SearchActivity.class;

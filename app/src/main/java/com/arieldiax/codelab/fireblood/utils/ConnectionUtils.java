@@ -23,7 +23,11 @@ public final class ConnectionUtils {
     public static boolean hasInternetConnection(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return (!isInAirplaneMode(context) && networkInfo != null && networkInfo.isConnected());
+        return (
+                !isInAirplaneMode(context) &&
+                        networkInfo != null &&
+                        networkInfo.isConnected()
+        );
     }
 
     /**

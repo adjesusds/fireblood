@@ -1,4 +1,4 @@
-package com.arieldiax.codelab.fireblood.ui;
+package com.arieldiax.codelab.fireblood.ui.launch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.arieldiax.codelab.fireblood.R;
+import com.arieldiax.codelab.fireblood.ui.registration.signin.SignInActivity;
+import com.arieldiax.codelab.fireblood.ui.registration.signup.SignUpActivity;
 import com.arieldiax.codelab.fireblood.utils.ViewUtils;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -40,9 +42,9 @@ public class WelcomeActivity extends AppCompatActivity {
      * Initializes the event listener view bindings.
      */
     void initListeners() {
-        Pair<View, String> activityPair = Pair.create((View) mAppLogoImageView, getString(R.string.transition_app_logo_image_view));
-        mSignUpButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignUpActivity.class, activityPair, false));
-        mSignInButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignInActivity.class, activityPair, false));
+        Pair<View, String> activityPair1 = Pair.create((View) mAppLogoImageView, mAppLogoImageView.getTransitionName());
+        mSignUpButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignUpActivity.class, activityPair1, null, false));
+        mSignInButton.setOnClickListener(ViewUtils.getStartCustomActivityOnClickListener(this, SignInActivity.class, activityPair1, null, false));
     }
 
     @Override

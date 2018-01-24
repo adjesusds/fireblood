@@ -26,6 +26,11 @@ public class Validation {
     private View mView;
 
     /**
+     * Map key of the validation.
+     */
+    private String mMapKey;
+
+    /**
      * List of Rule instances.
      */
     private List<Rule> mRules;
@@ -35,9 +40,15 @@ public class Validation {
      *
      * @param activity        Instance of the Activity class.
      * @param fieldResourceId Resource ID of the field.
+     * @param fieldMapKey     Map key of the field.
      */
-    public Validation(Activity activity, int fieldResourceId) {
+    Validation(
+            Activity activity,
+            int fieldResourceId,
+            String fieldMapKey
+    ) {
         mView = activity.findViewById(fieldResourceId);
+        mMapKey = fieldMapKey;
         mRules = new ArrayList<>();
     }
 
@@ -48,7 +59,10 @@ public class Validation {
      * @param errorResourceId Resource ID of the error.
      * @return The instance of the Validation class.
      */
-    public Validation addRule(String regexString, int errorResourceId) {
+    Validation addRule(
+            String regexString,
+            int errorResourceId
+    ) {
         mRules.add(new Rule()
                 .setRegex(regexString)
                 .setError(errorResourceId)
@@ -62,16 +76,35 @@ public class Validation {
      * @param activity Instance of the Activity class.
      * @return The value of the validation.
      */
-    public String getValue(Activity activity) {
+    String getValue(Activity activity) {
         return FormUtils.getViewValue(activity, mView);
+    }
+
+    /**
+     * Gets the map key of the validation.
+     *
+     * @return The map key of the validation.
+     */
+    String getMapKey() {
+        return mMapKey;
+    }
+
+    /**
+     * Sets the value of the validation.
+     *
+     * @param viewValue Value of the view.
+     */
+    void setValue(Object viewValue) {
+        FormUtils.setViewValue(mView, viewValue);
     }
 
     /**
      * Determines whether or not the validation has passed the rules.
      *
+     * @param activity Instance of the Activity class.
      * @return Whether or not the validation has passed the rules.
      */
-    public boolean validate(Activity activity) {
+    boolean validate(Activity activity) {
         boolean hasPassedRules = true;
         for (Rule rule : mRules) {
             if (!rule.validate(activity, mView)) {
